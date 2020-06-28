@@ -42,7 +42,6 @@ import java.util.Vector;
 
 import VASSAL.build.GameModule;
 import VASSAL.tools.DataArchive;
-import VASSAL.tools.io.IOUtils;
 
 public class SSRFilter extends RGBImageFilter {
   /*
@@ -143,9 +142,8 @@ public class SSRFilter extends RGBImageFilter {
     }
     return rval;
   }
-  
-  private Vector loadRules()
-  {
+
+  private Vector loadRules() {
     // Build the list of rules in use
     Vector rules = new Vector();
     StringTokenizer st = new StringTokenizer(saveRules);
@@ -155,7 +153,7 @@ public class SSRFilter extends RGBImageFilter {
         rules.addElement(s);
       }
     }
-    
+
     return rules;
   }
 
@@ -178,7 +176,12 @@ public class SSRFilter extends RGBImageFilter {
     catch (IOException ignore) {
     }
     finally {
-      IOUtils.closeQuietly(in);
+      try {
+        in.close();
+      }
+      catch (IOException e) {
+        ;
+      }
     }
 
     in = null;
@@ -189,7 +192,12 @@ public class SSRFilter extends RGBImageFilter {
     catch (IOException ignore) {
     }
     finally {
-      IOUtils.closeQuietly(in);
+      try {
+        in.close();
+      }
+      catch (IOException e) {
+        ;
+      }
     }
 
     // Read board-specific rules first to be applied before defaults
@@ -201,7 +209,12 @@ public class SSRFilter extends RGBImageFilter {
     catch (IOException ignore) {
     }
     finally {
-      IOUtils.closeQuietly(in);
+      try {
+        in.close();
+      }
+      catch (IOException e) {
+        ;
+      }
     }
 
     in = null;
@@ -212,12 +225,17 @@ public class SSRFilter extends RGBImageFilter {
     catch (IOException ignore) {
     }
     finally {
-      IOUtils.closeQuietly(in);
+      try {
+        in.close();
+      }
+      catch (IOException e) {
+        ;
+      }
     }
 
     overlays.clear();
     rules = loadRules();
-    
+
     // SSR Overlays are applied in reverse order to the order they're listed
     // in the overlaySSR file. Therefore, reading board-specific
     // overlay rules first will override defaults
@@ -229,7 +247,12 @@ public class SSRFilter extends RGBImageFilter {
     catch (IOException ignore) {
     }
     finally {
-      IOUtils.closeQuietly(in);
+      try {
+        in.close();
+      }
+      catch (IOException e) {
+        ;
+      }
     }
 
     in = null;
@@ -240,7 +263,12 @@ public class SSRFilter extends RGBImageFilter {
     catch (IOException ignore) {
     }
     finally {
-      IOUtils.closeQuietly(in);
+      try {
+        in.close();
+      }
+      catch (IOException e) {
+        ;
+      }
     }
   }
 
@@ -335,17 +363,17 @@ public class SSRFilter extends RGBImageFilter {
             if (ifrom >= 0 && ito >= 0) {
 
               if (!mappings.containsKey(ifrom))
-            	  mappings.put(ifrom, ito);
+                mappings.put(ifrom, ito);
 
               /*
                * Also apply this mapping to previous mappings
                */
               if (mappings.containsValue(ifrom)) {
-	              for(Iterator<Entry<Integer,Integer>> it = mappings.entrySet().iterator(); it.hasNext(); ) {
-	            	  Entry<Integer,Integer> e = it.next();
-	            	  if (e.getValue() == ifrom)
-	            		  e.setValue(ito);
-	              }
+                for (Iterator<Entry<Integer, Integer>> it = mappings.entrySet().iterator(); it.hasNext();) {
+                  Entry<Integer, Integer> e = it.next();
+                  if (e.getValue() == ifrom)
+                    e.setValue(ito);
+                }
               }
             }
             else {
@@ -382,7 +410,7 @@ public class SSRFilter extends RGBImageFilter {
         //if (saveRules.indexOf(s.trim()) >= 0) {
         if (rules.contains(s.trim())) {
           rules.remove(s.trim());
-            
+
           while ((s = file.readLine()) != null) {
             if (s.length() == 0) {
               break;
@@ -404,7 +432,7 @@ public class SSRFilter extends RGBImageFilter {
               }
             }
             else {
-              overlays.add(new SSROverlay(s.trim(),archiveFile));
+              overlays.add(new SSROverlay(s.trim(), archiveFile));
             }
           }
         }

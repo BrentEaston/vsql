@@ -36,7 +36,6 @@ import VASSAL.build.module.map.boardPicker.board.MapGrid;
 import VASSAL.build.module.map.boardPicker.board.MapGrid.BadCoords;
 import VASSAL.tools.DataArchive;
 import VASSAL.tools.SequenceEncoder;
-import VASSAL.tools.io.IOUtils;
 
 /**
  * Overlays of all types and sizes
@@ -133,7 +132,12 @@ public class Overlay implements Cloneable {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            IOUtils.closeQuietly(in);
+            try {
+              in.close();
+            }
+            catch (IOException e) {
+              ;
+            }
         }
 
         return im;
@@ -174,7 +178,7 @@ public class Overlay implements Cloneable {
                 }
             }
         } finally {
-            IOUtils.closeQuietly(in);
+            in.close();
         }
     }
 

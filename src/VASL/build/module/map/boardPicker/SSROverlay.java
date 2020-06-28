@@ -29,7 +29,6 @@ import javax.imageio.ImageIO;
 import javax.imageio.stream.MemoryCacheImageInputStream;
 
 import VASSAL.tools.DataArchive;
-import VASSAL.tools.io.IOUtils;
 
 public class SSROverlay extends Overlay {
   private Point basePos;
@@ -43,16 +42,13 @@ public class SSROverlay extends Overlay {
       name = st.nextToken();
       String position = st.nextToken();
 
-      basePos = new Point(Integer.parseInt(position.substring
-                                           (0, position.indexOf(','))),
-                          Integer.parseInt(position.substring
-                                           (position.indexOf(',') + 1)));
+      basePos = new Point(Integer.parseInt(position.substring(0, position.indexOf(','))), Integer.parseInt(position.substring(position.indexOf(',') + 1)));
       overlayFile = archiveFile;
       try {
-        archive = new DataArchive(overlayFile.getPath(),"");
+        archive = new DataArchive(overlayFile.getPath(), "");
       }
       catch (IOException e) {
-        throw new IllegalArgumentException("Unable to open "+overlayFile);
+        throw new IllegalArgumentException("Unable to open " + overlayFile);
       }
       boundaries.setSize(archive.getImageSize(name));
 
@@ -79,7 +75,12 @@ public class SSROverlay extends Overlay {
       e.printStackTrace();
     }
     finally {
-      IOUtils.closeQuietly(in);
+      try {
+        in.close();
+      }
+      catch (IOException e) {
+        ;
+      }
     }
 
     return im;

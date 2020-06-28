@@ -32,7 +32,6 @@ import javax.imageio.stream.MemoryCacheImageInputStream;
 
 import VASSAL.build.GameModule;
 import VASSAL.tools.DataArchive;
-import VASSAL.tools.io.IOUtils;
 
 /**
  * A special kind of SSROverlay constructed on the fly by underlaying a patterned GIF under a board GIF with certain
@@ -67,7 +66,12 @@ public class Underlay extends SSROverlay {
     catch (IOException ex) {
     }
     finally {
-      IOUtils.closeQuietly(in);
+      try {
+        in.close();
+      }
+      catch (IOException e) {
+        ;
+      }
     }
 
     if (underlayImage == null) {
@@ -84,11 +88,10 @@ public class Underlay extends SSROverlay {
     boundaries.setSize(board.bounds().getSize());
     Image boardBase = board.getBaseImage();
     boundaries.setLocation(pos.x, pos.y);
-    BufferedImage base = new BufferedImage(boardBase.getWidth(null),boardBase.getHeight(null),BufferedImage.TYPE_INT_ARGB);
+    BufferedImage base = new BufferedImage(boardBase.getWidth(null), boardBase.getHeight(null), BufferedImage.TYPE_INT_ARGB);
     base.getGraphics().drawImage(boardBase, 0, 0, null);
     new HolePunch(transparentList, 0).transform(base);
-    BufferedImage replacement = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(
-        boundaries.width, boundaries.height, Transparency.BITMASK);
+    BufferedImage replacement = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration().createCompatibleImage(boundaries.width, boundaries.height, Transparency.BITMASK);
     Graphics2D g2 = replacement.createGraphics();
     int w = underlayImage.getWidth(null);
     int h = underlayImage.getHeight(null);
@@ -96,7 +99,7 @@ public class Underlay extends SSROverlay {
       for (int y = 0; y < boundaries.height; y += h)
         g2.drawImage(underlayImage, x, y, null);
     g2.drawImage(base, -pos.x, -pos.y, null);
-    new HolePunch(new int[]{0}).transform(replacement);
+    new HolePunch(new int[] { 0 }).transform(replacement);
     return replacement;
   }
 

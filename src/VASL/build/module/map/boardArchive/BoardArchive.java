@@ -1,8 +1,5 @@
 package VASL.build.module.map.boardArchive;
 
-import static VASSAL.tools.io.IOUtils.closeQuietly;
-import static org.apache.commons.io.IOUtils.closeQuietly;
-
 import java.awt.Color;
 import java.awt.geom.Point2D;
 import java.awt.image.BufferedImage;
@@ -30,7 +27,6 @@ import org.jdom2.JDOMException;
 
 import VASL.LOS.Map.Map;
 import VASL.LOS.Map.Terrain;
-import VASSAL.tools.io.IOUtils;
 
 /**
  * This class is used to read and write files in the board archive
@@ -86,8 +82,8 @@ public class BoardArchive {
             throw new IOException("Unable to read the board metadata", e);
         }
         finally {
-            closeQuietly(file);
-            closeQuietly(archive);
+            file.close();
+            archive.close();
         }
     }
 
@@ -167,8 +163,18 @@ public class BoardArchive {
             }
             finally {
 
-				org.apache.commons.io.IOUtils.closeQuietly(infile);
-                IOUtils.closeQuietly(archive);
+              try {
+                infile.close();
+              }
+              catch (IOException e) {
+                ;
+              }
+              try {
+                archive.close();
+              }
+              catch (IOException e) {
+                ;
+              }
             }
         }
         return map;
@@ -231,7 +237,12 @@ public class BoardArchive {
             System.exit(-1);
         }
         finally {
-			org.apache.commons.io.IOUtils.closeQuietly(outfile);
+          try {
+            outfile.close();
+          }
+          catch (IOException e) {
+            ;
+          }
         }
 
     }
@@ -274,8 +285,18 @@ public class BoardArchive {
                 return null;
             }
             finally {
-                closeQuietly(file);
-                closeQuietly(archive);
+                try {
+                  file.close();
+                }
+                catch (IOException e) {
+                  ;
+                }
+                try {
+                  archive.close();
+                }
+                catch (IOException e) {
+                  ;
+                }
             }
         }
         return boardImage;
