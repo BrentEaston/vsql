@@ -306,7 +306,12 @@ public class PieceMover extends AbstractBuildable implements
       if (markUnmovedButton == null) {
         markUnmovedButton = new JButton();
         if (iconName != null) {
-          markUnmovedButton.setIcon(new ImageIcon(GameModule.getGameModule().getDataArchive().getCachedImage(iconName)));
+          try {
+            markUnmovedButton.setIcon(new ImageIcon(GameModule.getGameModule().getDataArchive().getCachedImage(iconName)));
+          }
+          catch (IOException e) {
+            e.printStackTrace();
+          }
         }
         if (markUnmovedButton.getIcon() == null) {
           URL icon = getClass().getResource("/images/unmoved.gif");
@@ -934,47 +939,49 @@ public class PieceMover extends AbstractBuildable implements
     /** Fires after user begins moving the mouse several pixels over a map. */
     public void dragGestureRecognized(DragGestureEvent dge) {
       if (DragBuffer.getBuffer().getIterator().hasMoreElements()) {
+        if (Info.is2dEnabled()) {
 
-        Map map = dge.getComponent() instanceof Map.View ? ((Map.View) dge.getComponent()).getMap() : null;
-        GamePiece piece = DragBuffer.getBuffer().getIterator().nextPiece();
-        Point mousePosition = map == null ? dge.getDragOrigin() : map.mapToComponent(dge.getDragOrigin());
-        Point piecePosition = map == null ? piece.getPosition() : map.mapToComponent(piece.getPosition());
+          Map map = dge.getComponent() instanceof Map.View ? ((Map.View) dge.getComponent()).getMap() : null;
+          GamePiece piece = DragBuffer.getBuffer().getIterator().nextPiece();
+          Point mousePosition = map == null ? dge.getDragOrigin() : map.componentCoordinates(dge.getDragOrigin());
+          Point piecePosition = map == null ? piece.getPosition() : map.componentCoordinates(piece.getPosition());
 
-        // If DragBuffer holds a piece with invalid coordinates (for example, a card drawn from a deck),
-        // drag from center of piece
-        if (piecePosition.x <= 0 || piecePosition.y <= 0) {
-          piecePosition = mousePosition;
+          // If DragBuffer holds a piece with invalid coordinates (for example, a card drawn from a deck),
+          // drag from center of piece
+          if (piecePosition.x <= 0 || piecePosition.y <= 0) {
+            piecePosition = mousePosition;
+          }
+
+          // Pieces in an expanded stack need to be offset
+          if (piece.getParent() != null && piece.getParent().isExpanded() && map != null) {
+            Point offset = piece.getMap().getStackMetrics().relativePosition(piece.getParent(), piece);
+            piecePosition.translate(offset.x, offset.y);
+          }
+
+          dragPieceOffCenterX = piecePosition.x - mousePosition.x; // dragging from UL results in positive offsets
+          dragPieceOffCenterY = piecePosition.y - mousePosition.y;
+          dragPieceOffCenterZoom = map == null ? 1.0 : map.getZoom();
+
+          dragWin = dge.getComponent();
+          drawWin = null;
+          dropWin = null;
+
+          makeDragCursor(dragPieceOffCenterZoom);
+
+          setDrawWinToOwnerOf(dragWin);
+
+          SwingUtilities.convertPointToScreen(mousePosition, drawWin);
+          moveDragCursor(mousePosition.x, mousePosition.y);
         }
 
-        // Pieces in an expanded stack need to be offset
-        if (piece.getParent() != null && piece.getParent().isExpanded() && map != null) {
-          Point offset = piece.getMap().getStackMetrics().relativePosition(piece.getParent(), piece);
-          piecePosition.translate(offset.x, offset.y);
+        // begin dragging
+        try {
+          dge.startDrag(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR), new StringSelection(""), this); //DEBUG
+          dge.getDragSource().addDragSourceMotionListener(this);
         }
-
-        dragPieceOffCenterX = piecePosition.x - mousePosition.x; // dragging from UL results in positive offsets
-        dragPieceOffCenterY = piecePosition.y - mousePosition.y;
-        dragPieceOffCenterZoom = map == null ? 1.0 : map.getZoom();
-
-        dragWin = dge.getComponent();
-        drawWin = null;
-        dropWin = null;
-
-        makeDragCursor(dragPieceOffCenterZoom);
-
-        setDrawWinToOwnerOf(dragWin);
-
-        SwingUtilities.convertPointToScreen(mousePosition, drawWin);
-        moveDragCursor(mousePosition.x, mousePosition.y);
-      }
-
-      // begin dragging
-      try {
-        dge.startDrag(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR), new StringSelection(""), this); //DEBUG
-        dge.getDragSource().addDragSourceMotionListener(this);
-      }
-      catch (InvalidDnDOperationException e) {
-        e.printStackTrace();
+        catch (InvalidDnDOperationException e) {
+          e.printStackTrace();
+        }
       }
     }
 

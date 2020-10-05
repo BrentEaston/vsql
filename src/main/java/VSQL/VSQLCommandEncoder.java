@@ -19,7 +19,10 @@
 package VSQL;
 
 import java.awt.Component;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.DefaultComboBoxModel;
@@ -61,7 +64,10 @@ public class VSQLCommandEncoder extends ASLCommandEncoder implements GameCompone
     //GameModule.getGameModule().getPrefs().addOption(VSQLProperties.VSQL, zoomFactor);
 
     final VSQLStringEnumConfigurer ruleLevel = new VSQLStringEnumConfigurer(VSQLProperties.RULE_LEVEL, "Rule Level", VSQLProperties.RULE_LEVELS);
-    ruleLevel.addPropertyChangeListener(e -> updateRuleLevel((String) e.getNewValue(), (String) e.getOldValue()));
+    ruleLevel.addPropertyChangeListener(new PropertyChangeListener(){
+      public void propertyChange(PropertyChangeEvent e) {
+        updateRuleLevel((String) e.getNewValue(), (String) e.getOldValue());       
+      }});
     GameModule.getGameModule().getPrefs().addOption(VSQLProperties.VSQL, ruleLevel);
 
   }
@@ -146,7 +152,7 @@ public class VSQLCommandEncoder extends ASLCommandEncoder implements GameCompone
   
   public class VSQLStringEnumConfigurer extends Configurer {
     private String[] validValues;
-    private JComboBox<String> box;
+    private JComboBox box;
     private JPanel panel;
 
     public VSQLStringEnumConfigurer(String key, String name, String[] validValues) {
@@ -158,17 +164,19 @@ public class VSQLCommandEncoder extends ASLCommandEncoder implements GameCompone
       if (panel == null) {
         panel = new JPanel();
         panel.add(new JLabel(name));
-        box = new JComboBox<>(validValues);
+        box = new JComboBox(validValues);
         if (isValidValue(getValue())) {
           box.setSelectedItem(getValue());
         }
         else if (validValues.length > 0) {
           box.setSelectedIndex(0);
         }
-        box.addActionListener(e -> {
-          noUpdate = true;
-          setValue(box.getSelectedItem());
-          noUpdate = false;
+        box.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent e) {
+            noUpdate = true;
+            setValue(box.getSelectedItem());
+            noUpdate = false;
+          }
         });
         panel.add(box);
       }
@@ -176,8 +184,8 @@ public class VSQLCommandEncoder extends ASLCommandEncoder implements GameCompone
     }
 
     public boolean isValidValue(Object o) {
-      for (String validValue : validValues) {
-        if (validValue.equals(o)) {
+      for (int i = 0; i < validValues.length; ++i) {
+        if (validValues[i].equals(o)) {
           return true;
         }
       }
@@ -190,7 +198,7 @@ public class VSQLCommandEncoder extends ASLCommandEncoder implements GameCompone
 
     public void setValidValues(String[] s) {
       validValues = s;
-      box.setModel(new DefaultComboBoxModel<>(validValues));
+      box.setModel(new DefaultComboBoxModel(validValues));
     }
 
     public void setValue(Object o) {

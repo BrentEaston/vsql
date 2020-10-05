@@ -192,7 +192,7 @@ public class VSQLInventory extends AbstractConfigurable implements GameComponent
     launch.setAlignmentY(0.0F);
     GameModule.getGameModule().getToolBar().add(getComponent());
     GameModule.getGameModule().getGameState().addGameComponent(this);
-    frame = new JDialog(GameModule.getGameModule().getPlayerWindow());
+    frame = new JDialog(GameModule.getGameModule().getFrame());
     frame.setTitle(getConfigureName());
     String key = "Inventory." + getConfigureName();
     GameModule.getGameModule().getPrefs().addOption(new PositionOption(key, frame));
@@ -631,7 +631,7 @@ public class VSQLInventory extends AbstractConfigurable implements GameComponent
 
       JScrollPane scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-      JOptionPane.showMessageDialog(GameModule.getGameModule().getPlayerWindow(), scrollPane, getConfigureName(), JOptionPane.PLAIN_MESSAGE);
+      JOptionPane.showMessageDialog(GameModule.getGameModule().getFrame(), scrollPane, getConfigureName(), JOptionPane.PLAIN_MESSAGE);
     }
     else if (destination.equals(DEST_TREE)) {
       initTree();

@@ -1,5 +1,5 @@
 /*
- * $Id: VSQLProperties.java 9198 2015-05-27 01:59:44Z swampwallaby $
+ * $Id: VSQLProperties.java 977 2006-09-12 13:12:53Z swampwallaby $
  * 
  * Copyright (c) 2005 by Brent Easton
  * 
@@ -28,13 +28,12 @@ public class VSQLProperties {
   public static final String ZOOM_LEVELS = "zoomLevels";
   public static final String ZOOM_START = "zoomStart";
   public static final String ZOOM_FACTOR = "zoomFactor";
-  public static final String RULE_LEVEL = "ruleLevel";  
+  public static final String RULE_LEVEL = "ruleLevel";
   public static final String SL = "SL";
   public static final String COI = "COI";
   public static final String COD = "COD";
   public static final String GI = "GI";
   public static final String[] RULE_LEVELS = new String[] { SL, COI, COD, GI };
-  public static final String SHOWQC = "showQc";
   
   // Political
   public static final String SIDE = "Side";

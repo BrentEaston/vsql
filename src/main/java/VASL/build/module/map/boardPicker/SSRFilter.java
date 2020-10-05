@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * $Id: SSRFilter.java 8529 2012-12-26 04:36:44Z uckelman $
  *
  * Copyright (c) 2000-2003 by Rodney Kinney
  *
@@ -26,22 +26,24 @@ import java.awt.image.FilteredImageSource;
 import java.awt.image.RGBImageFilter;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
 import java.io.StreamTokenizer;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.Vector;
+import java.util.Map.Entry;
 
 import VASSAL.build.GameModule;
 import VASSAL.tools.DataArchive;
+import VASSAL.tools.io.IOUtils;
 
 public class SSRFilter extends RGBImageFilter {
   /*
@@ -143,7 +145,7 @@ public class SSRFilter extends RGBImageFilter {
     return rval;
   }
 
-  private Vector loadRules() {
+  public void readAllRules() {
     // Build the list of rules in use
     Vector rules = new Vector();
     StringTokenizer st = new StringTokenizer(saveRules);
@@ -153,13 +155,6 @@ public class SSRFilter extends RGBImageFilter {
         rules.addElement(s);
       }
     }
-
-    return rules;
-  }
-
-  public void readAllRules() {
-    // Build the list of rules in use
-    Vector rules = loadRules();
 
     mappings = new HashMap<Integer, Integer>();
     colorValues = new HashMap<String, Integer>();
@@ -176,12 +171,7 @@ public class SSRFilter extends RGBImageFilter {
     catch (IOException ignore) {
     }
     finally {
-      try {
-        in.close();
-      }
-      catch (IOException e) {
-        ;
-      }
+      IOUtils.closeQuietly(in);
     }
 
     in = null;
@@ -192,12 +182,7 @@ public class SSRFilter extends RGBImageFilter {
     catch (IOException ignore) {
     }
     finally {
-      try {
-        in.close();
-      }
-      catch (IOException e) {
-        ;
-      }
+      IOUtils.closeQuietly(in);
     }
 
     // Read board-specific rules first to be applied before defaults
@@ -209,12 +194,7 @@ public class SSRFilter extends RGBImageFilter {
     catch (IOException ignore) {
     }
     finally {
-      try {
-        in.close();
-      }
-      catch (IOException e) {
-        ;
-      }
+      IOUtils.closeQuietly(in);
     }
 
     in = null;
@@ -225,50 +205,33 @@ public class SSRFilter extends RGBImageFilter {
     catch (IOException ignore) {
     }
     finally {
-      try {
-        in.close();
-      }
-      catch (IOException e) {
-        ;
-      }
+      IOUtils.closeQuietly(in);
     }
 
     overlays.clear();
-    rules = loadRules();
-
     // SSR Overlays are applied in reverse order to the order they're listed
     // in the overlaySSR file. Therefore, reading board-specific
     // overlay rules first will override defaults
     in = null;
     try {
       in = archive.getInputStream("overlaySSR");
-      readOverlayRules(in, rules);
+      readOverlayRules(in);
     }
     catch (IOException ignore) {
     }
     finally {
-      try {
-        in.close();
-      }
-      catch (IOException e) {
-        ;
-      }
+      IOUtils.closeQuietly(in);
     }
 
     in = null;
     try {
       in = da.getInputStream("boardData/overlaySSR");
-      readOverlayRules(in, rules);
+      readOverlayRules(in);
     }
     catch (IOException ignore) {
     }
     finally {
-      try {
-        in.close();
-      }
-      catch (IOException e) {
-        ;
-      }
+      IOUtils.closeQuietly(in);
     }
   }
 
@@ -363,17 +326,17 @@ public class SSRFilter extends RGBImageFilter {
             if (ifrom >= 0 && ito >= 0) {
 
               if (!mappings.containsKey(ifrom))
-                mappings.put(ifrom, ito);
+            	  mappings.put(ifrom, ito);
 
               /*
                * Also apply this mapping to previous mappings
                */
               if (mappings.containsValue(ifrom)) {
-                for (Iterator<Entry<Integer, Integer>> it = mappings.entrySet().iterator(); it.hasNext();) {
-                  Entry<Integer, Integer> e = it.next();
-                  if (e.getValue() == ifrom)
-                    e.setValue(ito);
-                }
+	              for(Iterator<Entry<Integer,Integer>> it = mappings.entrySet().iterator(); it.hasNext(); ) {
+	            	  Entry<Integer,Integer> e = it.next();
+	            	  if (e.getValue() == ifrom)
+	            		  e.setValue(ito);
+	              }
               }
             }
             else {
@@ -391,7 +354,7 @@ public class SSRFilter extends RGBImageFilter {
     }
   }
 
-  public void readOverlayRules(InputStream in, Vector rules) {
+  public void readOverlayRules(InputStream in) {
     if (in == null) {
       return;
     }
@@ -404,13 +367,7 @@ public class SSRFilter extends RGBImageFilter {
         if (s.trim().length() == 0) {
           continue;
         }
-        // FredKors 02.jan.2015
-        // when a OverlaySSR rule is found, remove it from the list to discard any subsequent
-        // rule with the same name
-        //if (saveRules.indexOf(s.trim()) >= 0) {
-        if (rules.contains(s.trim())) {
-          rules.remove(s.trim());
-
+        if (saveRules.indexOf(s.trim()) >= 0) {
           while ((s = file.readLine()) != null) {
             if (s.length() == 0) {
               break;
@@ -432,7 +389,7 @@ public class SSRFilter extends RGBImageFilter {
               }
             }
             else {
-              overlays.add(new SSROverlay(s.trim(), archiveFile));
+              overlays.add(new SSROverlay(s.trim(),archiveFile));
             }
           }
         }

@@ -18,10 +18,10 @@
  */
 package VASL.build.module.map.boardPicker.board;
 
-import java.awt.Point;
-
 import VASSAL.build.module.map.boardPicker.board.HexGrid;
 import VASSAL.build.module.map.boardPicker.board.MapGrid;
+
+import java.awt.*;
 
 public class ASLHexGrid extends HexGrid {
   protected static final String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";

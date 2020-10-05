@@ -53,7 +53,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.Scrollable;
 
-//import Acme.JPM.Encoders.GifEncoder;
+import Acme.JPM.Encoders.GifEncoder;
 import CASL.Map.Bridge;
 import CASL.Map.GameMap;
 import CASL.Map.Hex;
@@ -1991,8 +1991,8 @@ public class 	MapEditor
 			frame.paintImmediately();
 			FileOutputStream os = new FileOutputStream(fileName.substring(0, fileName.indexOf('.')) + ".gif");
 
-			//GifEncoder encoder = new GifEncoder((Image) mapImage, os);
-			//encoder.encode();
+			GifEncoder encoder = new GifEncoder((Image) mapImage, os);
+			encoder.encode();
 
 			os.close();
 

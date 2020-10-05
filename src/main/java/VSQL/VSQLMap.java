@@ -1,5 +1,5 @@
 /*
- * $Id: VSQLMap.java 9199 2015-05-28 11:27:08Z swampwallaby $
+ * $Id: VSQLMap.java 5546 2009-04-27 13:21:39Z swampwallaby $
  *
  * Copyright (c) 2005 by Rodney Kinney, Brent Easton
  *
@@ -40,7 +40,7 @@ public class VSQLMap extends Map {
   public boolean isLOSactivated() {
     findLOSThread();
     if (los != null) {
-      return los.isEnabled();
+      return los.isActive();
     }
     return false;
   }

@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * $Id: ASLBoardSlot.java 3702 2008-06-01 07:25:07Z rodneykinney $
  *
  * Copyright (c) 2000-2003 by Rodney Kinney
  *
@@ -18,20 +18,18 @@
  */
 package VASL.build.module.map.boardPicker;
 
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.File;
-import java.io.IOException;
-
-import javax.swing.SwingUtilities;
-
 import VASL.build.module.map.ASLBoardPicker;
 import VASSAL.build.GameModule;
 import VASSAL.build.module.map.boardPicker.Board;
 import VASSAL.build.module.map.boardPicker.BoardSlot;
 import VASSAL.build.module.map.boardPicker.board.MapGrid;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.IOException;
 
 public class ASLBoardSlot extends BoardSlot {
   private String terrain = "";
@@ -116,21 +114,10 @@ public class ASLBoardSlot extends BoardSlot {
     if (board.isReversed()) {
       obox.translate(-obox.width, -obox.height);
     }
-    
-    // fredkors 14.nov.2013
-    // bbox rect is in 'screen' coordinates (only width and height count)
-    // while obox rect is in 'map' coordinates
-    
-    //boolean overlapLeft = obox.x < bbox.x;
-    //boolean overlapRight = obox.x + obox.width > bbox.x + bbox.width;
-    //boolean overlapTop = obox.y < bbox.y;
-    //boolean overlapBottom = obox.y + obox.height > bbox.y + bbox.height;
-    
-    boolean overlapLeft = obox.x < 0;
-    boolean overlapRight = obox.x + obox.width > bbox.width;
-    boolean overlapTop = obox.y < 0;
-    boolean overlapBottom = obox.y + obox.height > bbox.height;
-    
+    boolean overlapLeft = obox.x < bbox.x;
+    boolean overlapRight = obox.x + obox.width > bbox.x + bbox.width;
+    boolean overlapTop = obox.y < bbox.y;
+    boolean overlapBottom = obox.y + obox.height > bbox.y + bbox.height;
     if (overlapLeft) {
       if (overlapTop) {
         overlap(o, -1, -1);
@@ -188,11 +175,7 @@ public class ASLBoardSlot extends BoardSlot {
       p.translate(offX, offY);
       p = otherBoard.localCoordinates(p);
       String hex2 = otherBoard.getGrid().locationName(p);
-      // FredKors 01.01.2015 When an overlay is shared between two maps, the copy added to the other map
-      // should report a reference to the 'other' map and not to the getASLBoard()
-      //o = new Overlay(o.getName() + "\t" + hex1 + "\t" + hex2, getASLBoard(),new File(((ASLBoardPicker) picker)
-      //    .getBoardDir(), "overlays"));
-      o = new Overlay(o.getName() + "\t" + hex1 + "\t" + hex2, otherBoard, new File(((ASLBoardPicker) picker)
+      o = new Overlay(o.getName() + "\t" + hex1 + "\t" + hex2, getASLBoard(),new File(((ASLBoardPicker) picker)
           .getBoardDir(), "overlays"));
       otherBoard.addOverlay(o);
     }

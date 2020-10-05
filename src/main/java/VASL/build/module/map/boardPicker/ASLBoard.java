@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * $Id: ASLBoard.java 8530 2012-12-26 04:37:04Z uckelman $
  *
  * Copyright (c) 2000-2004 by Rodney Kinney
  *
@@ -18,6 +18,7 @@
  */
 package VASL.build.module.map.boardPicker;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -26,6 +27,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -35,7 +37,6 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import VASL.build.module.map.boardArchive.BoardArchive;
 import VASL.build.module.map.boardPicker.board.ASLHexGrid;
 import VASSAL.build.BadDataReport;
 import VASSAL.build.GameModule;
@@ -55,19 +56,18 @@ import VASSAL.tools.imageop.SourceOpBitmapImpl;
 import VASSAL.tools.imageop.SourceOpTiledBitmapImpl;
 import VASSAL.tools.imageop.SourceTileOpBitmapImpl;
 import VASSAL.tools.io.FileArchive;
+import VASSAL.tools.io.IOUtils;
 import VASSAL.tools.io.ZipArchive;
 
-/**
- * A Board is a geomorphic or HASL board.
- */
+/** A Board is a geomorphic or HASL board. */
 public class ASLBoard extends Board {
-  public static final double DEFAULT_HEX_WIDTH = BoardArchive.GEO_HEX_WIDTH;
-  public static final double DEFAULT_HEX_HEIGHT = BoardArchive.GEO_HEX_HEIGHT;
+  public static final double DEFAULT_HEX_WIDTH = 56.24;
+  public static final double DEFAULT_HEX_HEIGHT = 64.51;
   public String version = "0.0";
   private Rectangle cropBounds = new Rectangle(0, 0, -1, -1);
   private Dimension uncroppedSize;
   private List<Overlay> overlays = new ArrayList();
-  protected String terrainChanges = "";
+  private String terrainChanges = "";
   private SSRFilter terrain;
   private File boardFile;
   private ImageOp baseImageOp;
@@ -187,12 +187,7 @@ public class ASLBoard extends Board {
         ErrorDialog.dataError(new BadDataReport("Unable to read data from board", boardArchive.getName(), e));
       }
       finally {
-        try {
-          in.close();
-        }
-        catch (IOException e) {
-          ;
-        }
+        IOUtils.closeQuietly(in);
       }
     }
   }
@@ -211,7 +206,8 @@ public class ASLBoard extends Board {
   }
 
   protected void resetImage() {
-    final ImageTileSource ts = GameModule.getGameModule().getImageTileSource();
+    final ImageTileSource ts =
+      GameModule.getGameModule().getImageTileSource();
 
     boolean tiled = false;
     try {
@@ -347,16 +343,7 @@ public class ASLBoard extends Board {
   }
 
   public String getState() {
-
-    // gracefully handle boards that are not archives
-    String val;
-    try {
-      val = relativePosition().x + "\t" + relativePosition().y + "\t" + (reversed ? "r" : "") + imageFile.substring(2, imageFile.indexOf(".gif")) + "\t";
-    }
-    catch (Exception e) {
-      val = relativePosition().x + "\t" + relativePosition().y + "\t" + (reversed ? "r" : "") + name + "\t";
-    }
-
+    String val = relativePosition().x + "\t" + relativePosition().y + "\t" + (reversed ? "r" : "") + imageFile.substring(2, imageFile.indexOf(".gif")) + "\t";
     if (cropBounds.width > 0 || cropBounds.height > 0)
       val += cropBounds.x + "\t" + cropBounds.y + "\t" + cropBounds.width + "\t" + cropBounds.height + "\t";
     val += "VER\t" + getVersion() + '\t';
@@ -396,27 +383,52 @@ public class ASLBoard extends Board {
         fixSize();
       }
 
-      final ImageOp base = boardArchive == null ? baseImageOp : new SourceOpBitmapImpl(imageFile, boardArchive);
+      final ImageOp base = boardArchive == null
+        ? baseImageOp : new SourceOpBitmapImpl(imageFile, boardArchive);
 
-      if (terrain == null && overlays.isEmpty() && cropBounds.width < 0 && cropBounds.height < 0) {
-        return base.getImage();
-      }
+    	if (terrain == null && overlays.isEmpty() &&
+          cropBounds.width < 0 && cropBounds.height < 0)
+      {
+    	  return base.getImage();
+    	}
 
-      final BufferedImage im = ImageUtils.createCompatibleTranslucentImage(size.width, size.height);
+    	final BufferedImage im =
+    	  ImageUtils.createCompatibleTranslucentImage(size.width, size.height);
 
       final Graphics2D g = (Graphics2D) im.getGraphics();
       Rectangle visible = new Rectangle(cropBounds.getLocation(), ASLBoard.this.bounds().getSize());
       visible.width = (int) Math.round(visible.width / magnification);
       visible.height = (int) Math.round(visible.height / magnification);
-      g.drawImage(base.getImage(null), 0, 0, visible.width, visible.height, cropBounds.x, cropBounds.y, cropBounds.x + visible.width, cropBounds.y + visible.height, null);
+      g.drawImage(
+        base.getImage(null),
+        0,
+        0,
+        visible.width,
+        visible.height,
+        cropBounds.x,
+        cropBounds.y,
+        cropBounds.x + visible.width,
+        cropBounds.y + visible.height,
+        null
+      );
 
-      for (Enumeration e = ASLBoard.this.getOverlays(); e.hasMoreElements();) {
+      for (Enumeration e = ASLBoard.this.getOverlays(); e.hasMoreElements(); ) {
         Overlay o = (Overlay) e.nextElement();
         Rectangle r = visible.intersection(o.bounds());
         if (!r.isEmpty()) {
           int x = Math.max(visible.x - o.bounds().x, 0);
           int y = Math.max(visible.y - o.bounds().y, 0);
-          g.drawImage(o.getImage(), r.x - visible.x, r.y - visible.y, r.x - visible.x + r.width, r.y - visible.y + r.height, x, y, x + r.width, y + r.height, null);
+          g.drawImage(
+            o.getImage(),
+            r.x - visible.x,
+            r.y - visible.y,
+            r.x - visible.x + r.width,
+            r.y - visible.y + r.height,
+            x,
+            y,
+            x + r.width, y + r.height,
+            null
+          );
         }
 
         if (o.getTerrain() != getTerrain() && o.getTerrain() != null) {
@@ -429,15 +441,40 @@ public class ASLBoard extends Board {
                 if (!r.isEmpty()) {
                   int x = Math.max(visible.x - o.bounds().x, 0);
                   int y = Math.max(visible.y - o.bounds().y, 0);
-                  g.drawImage(ssrOverlay.getImage(), r.x - visible.x, r.y - visible.y, r.x - visible.x + r.width, r.y - visible.y + r.height, x, y, x + r.width, y + r.height, null);
+                  g.drawImage(
+                    ssrOverlay.getImage(),
+                    r.x - visible.x,
+                    r.y - visible.y,
+                    r.x - visible.x + r.width,
+                    r.y - visible.y + r.height,
+                    x,
+                    y,
+                    x + r.width,
+                    y + r.height,
+                    null
+                  );
                 }
               }
               else {
                 try {
                   Point p1 = o.offset(o.getOrientation(), ASLBoard.this);
                   Point p2 = o.offset('a', ASLBoard.this);
-                  Point p = new Point(p1.x + p2.x - oBounds.x + o.bounds().x - visible.x, p1.y + p2.y - oBounds.y + o.bounds().y - visible.y);
-                  g.drawImage(ssrOverlay.getImage(), p.x, p.y, p.x - oBounds.width, p.y - oBounds.height, 0, 0, oBounds.width, oBounds.height, null);
+                  Point p = new Point(
+                    p1.x + p2.x - oBounds.x + o.bounds().x - visible.x,
+                    p1.y + p2.y - oBounds.y + o.bounds().y - visible.y
+                  );
+                  g.drawImage(
+                    ssrOverlay.getImage(),
+                    p.x,
+                    p.y,
+                    p.x - oBounds.width,
+                    p.y - oBounds.height,
+                    0,
+                    0,
+                    oBounds.width,
+                    oBounds.height,
+                    null
+                  );
                 }
                 catch (BoardException e1) {
                   e1.printStackTrace();

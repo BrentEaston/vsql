@@ -18,8 +18,6 @@
  */
 package VASL.counters;
 
-import VASSAL.tools.image.ImageUtils;
-import VASSAL.tools.imageop.Op;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -137,13 +135,19 @@ public class MarkMoved extends Decorator implements EditablePiece {
     piece.draw(g, x, y, obs, zoom);
     if (hasMoved) {
       Rectangle r = piece.getShape().getBounds();
-      Image im =  Op.load(markImage + ".gif").getImage();
-      if (zoom != 1.0) {
-        im = Op.rotateScale(Op.load(ImageUtils.toBufferedImage(im)), 0.0D, zoom).getImage();
+      try {
+        Image im =
+            GameModule.getGameModule().getDataArchive().getCachedImage(markImage + ".gif");
+        if (zoom != 1.0) {
+          im = GameModule.getGameModule().getDataArchive().getScaledImage(im,zoom);
+        }
+        g.drawImage(im,
+                    x + (int) (zoom * (r.x + r.width)),
+                    y + (int) (zoom * r.y),obs);
       }
-      g.drawImage(im,
-                  x + (int) (zoom * (r.x + r.width)),
-                  y + (int) (zoom * r.y),obs);
+      catch (java.io.IOException ex) {
+        ex.printStackTrace();
+      }
     }
   }
 

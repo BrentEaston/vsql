@@ -5,10 +5,12 @@ import static VASSAL.tools.image.tilecache.ZipFileImageTilerState.TILE_WRITTEN;
 import static VASSAL.tools.image.tilecache.ZipFileImageTilerState.TILING_FINISHED;
 
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.DataInputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -20,6 +22,8 @@ import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
 
 import VASSAL.Info;
+import VASSAL.launch.TilingHandler;
+import VASSAL.build.GameModule;
 import VASSAL.tools.DataArchive;
 import VASSAL.tools.image.ImageUtils;
 import VASSAL.tools.image.tilecache.TileUtils;
@@ -31,6 +35,9 @@ import VASSAL.tools.io.InputStreamPump;
 import VASSAL.tools.io.ProcessLauncher;
 import VASSAL.tools.io.ProcessWrapper;
 import VASSAL.tools.lang.Pair;
+import VASSAL.tools.swing.EDT;
+import VASSAL.tools.swing.ProgressDialog;
+import VASSAL.tools.swing.Progressor;
 
 public class ASLTilingHandler extends VASSAL.launch.TilingHandler {
   public ASLTilingHandler(
@@ -74,12 +81,7 @@ System.out.println(apath + ", " + imtime + ", " + tcache.getMTime(tpath));
       return id;
     }
     finally {
-      try {
-        in.close();
-      }
-      catch (IOException e) {
-        ;
-      }
+      IOUtils.closeQuietly(in);
     }
   }
 
@@ -176,7 +178,7 @@ System.out.println(apath + ", " + imtime + ", " + tcache.getMTime(tpath));
       }
     }
     finally {
-      stdin.close();
+      IOUtils.closeQuietly(stdin);
     }
 
     Socket csock = null;
@@ -217,24 +219,9 @@ System.out.println(apath + ", " + imtime + ", " + tcache.getMTime(tpath));
 
     }
     finally {
-      try {
-        in.close();
-      }
-      catch (IOException e) {
-        ;
-      }
-      try {
-        csock.close();
-      }
-      catch (IOException e) {
-        ;
-      }
-      try {
-        ssock.close();
-      }
-      catch (IOException e) {
-        ;
-      }
+      IOUtils.closeQuietly(in);
+      IOUtils.closeQuietly(csock);
+      IOUtils.closeQuietly(ssock);
     }
 
     // wait for the tiling process to end

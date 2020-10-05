@@ -1,5 +1,5 @@
 /*
- * $Id: BoardSwapper.java 9199 2015-05-28 11:27:08Z swampwallaby $
+ * $Id: BoardSwapper.java 8554 2013-02-19 06:51:41Z swampwallaby $
  *
  * Copyright (c) 2000-2003 by Rodney Kinney
  *
@@ -31,9 +31,7 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JMenuItem;
 
-import VASL.build.module.ASLMap;
 import VASL.build.module.map.boardPicker.ASLBoard;
 import VASSAL.build.AbstractBuildable;
 import VASSAL.build.Buildable;
@@ -51,8 +49,6 @@ import VASSAL.tools.imageop.Op;
 public class BoardSwapper extends AbstractBuildable {
   private Map map;
   private JButton launch;
-    // menuitem in the ASLMap popup menu
-  JMenuItem m_MenuItem = null;
 
   private Vector pieces = new Vector();
   private Vector positions = new Vector();
@@ -66,7 +62,7 @@ public class BoardSwapper extends AbstractBuildable {
       public void actionPerformed(ActionEvent evt) {
         recordPiecePositions();
         final ASLBoardPicker picker = new Picker(map);
-        final JDialog d = new JDialog(GameModule.getGameModule().getPlayerWindow(),true);
+        final JDialog d = new JDialog(GameModule.getGameModule().getFrame(),true);
         d.getContentPane().setLayout(new BoxLayout(d.getContentPane(),BoxLayout.Y_AXIS));
         d.getContentPane().add(picker.getControls());
         JButton okButton = new JButton("Ok");
@@ -87,7 +83,7 @@ public class BoardSwapper extends AbstractBuildable {
         buttonBox.add(cancelButton);
         d.getContentPane().add(buttonBox);
         d.pack();
-        d.setLocationRelativeTo(GameModule.getGameModule().getPlayerWindow());
+        d.setLocationRelativeTo(GameModule.getGameModule().getFrame());
         d.setVisible(true);
         restorePiecePositions();
         map.repaint();
@@ -101,19 +97,7 @@ public class BoardSwapper extends AbstractBuildable {
     catch (Exception e) {
       e.printStackTrace();
     }
-    
-    // creates the menuitem 
-    m_MenuItem = new JMenuItem(launch.getToolTipText());
-
-    // copy the properties from the jbutton
-    m_MenuItem.addActionListener(((JButton)launch).getListeners(ActionListener.class)[0]);
-    m_MenuItem.setIcon(((JButton)launch).getIcon());
-    
-    // doesn't add the button to the toolbar
-    //map.getToolBar().add(launch);
-    // adds the menuitem to the ASLMap popup menu
-    ((ASLMap)map).getPopupMenu().add(m_MenuItem);
-    
+    map.getToolBar().add(launch);
   }
 
   protected void recordPiecePositions() {
@@ -187,7 +171,7 @@ public class BoardSwapper extends AbstractBuildable {
           ((GlobalMap) o).setup(true);
         }
       }
-      for (VASLThread t : this.map.getComponentsOf(VASLThread.class)) {
+      for (CASLThread t : this.map.getComponentsOf(CASLThread.class)) {
         t.setup(false);
         t.setup(true);
       }

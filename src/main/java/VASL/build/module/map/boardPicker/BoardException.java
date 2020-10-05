@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * $Id: BoardException.java 8503 2012-12-15 22:14:09Z uckelman $
  *
  * Copyright (c) 2000-2003 by Rodney Kinney
  *

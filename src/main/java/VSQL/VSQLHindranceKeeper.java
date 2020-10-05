@@ -1,5 +1,6 @@
 package VSQL;
 
+import java.awt.AlphaComposite;
 import java.awt.Composite;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -29,9 +30,9 @@ public class VSQLHindranceKeeper extends HindranceKeeper  {
       // at map specified transparency
       Graphics2D g2d = (Graphics2D) g;
       Composite oldComposite = g2d.getComposite();
-     // g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, map.getPieceOpacity()));
+      g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, map.getPieceOpacity()));
       super.draw(g, m);
-      //g2d.setComposite(oldComposite);
+      g2d.setComposite(oldComposite);
     }
     
     if (isLOSvisible(m)) {
@@ -55,7 +56,7 @@ public class VSQLHindranceKeeper extends HindranceKeeper  {
   protected boolean isLOSactivated(Map map) {
     findLOSThread();
     if (los != null) {
-      return los.isEnabled();
+      return los.isActive();
     }
     return false;
   }

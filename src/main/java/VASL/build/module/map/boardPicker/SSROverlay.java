@@ -1,5 +1,5 @@
 /*
- * $Id$
+ * $Id: SSROverlay.java 8530 2012-12-26 04:37:04Z uckelman $
  *
  * Copyright (c) 2000-2003 by Rodney Kinney
  *
@@ -18,17 +18,17 @@
  */
 package VASL.build.module.map.boardPicker;
 
-import java.awt.Image;
-import java.awt.Point;
+import VASSAL.tools.DataArchive;
+import VASSAL.tools.io.IOUtils;
+
+import java.awt.*;
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
+import java.io.IOException;
 import java.util.StringTokenizer;
 
 import javax.imageio.ImageIO;
 import javax.imageio.stream.MemoryCacheImageInputStream;
-
-import VASSAL.tools.DataArchive;
 
 public class SSROverlay extends Overlay {
   private Point basePos;
@@ -42,13 +42,16 @@ public class SSROverlay extends Overlay {
       name = st.nextToken();
       String position = st.nextToken();
 
-      basePos = new Point(Integer.parseInt(position.substring(0, position.indexOf(','))), Integer.parseInt(position.substring(position.indexOf(',') + 1)));
+      basePos = new Point(Integer.parseInt(position.substring
+                                           (0, position.indexOf(','))),
+                          Integer.parseInt(position.substring
+                                           (position.indexOf(',') + 1)));
       overlayFile = archiveFile;
       try {
-        archive = new DataArchive(overlayFile.getPath(), "");
+        archive = new DataArchive(overlayFile.getPath(),"");
       }
       catch (IOException e) {
-        throw new IllegalArgumentException("Unable to open " + overlayFile);
+        throw new IllegalArgumentException("Unable to open "+overlayFile);
       }
       boundaries.setSize(archive.getImageSize(name));
 
@@ -75,12 +78,7 @@ public class SSROverlay extends Overlay {
       e.printStackTrace();
     }
     finally {
-      try {
-        in.close();
-      }
-      catch (IOException e) {
-        ;
-      }
+      IOUtils.closeQuietly(in);
     }
 
     return im;
