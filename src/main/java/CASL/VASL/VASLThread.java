@@ -349,7 +349,7 @@ public class VASLThread
       return;
     }
     // get the map point, ensure the point is on the CASL map
-    Point p = mapMouseToCASLCoordinates(map.mapCoordinates(e.getPoint()));
+    Point p = mapMouseToCASLCoordinates(map.componentToMap(e.getPoint()));
     if (p == null || !CASLMap.onMap(p.x, p.y)) return;
     Location newLocation = CASLMap.gridToHex(p.x, p.y).nearestLocation(p.x, p.y);
     boolean useAuxNewLOSPoint = useAuxLOSPoint(newLocation, p.x, p.y);
@@ -750,9 +750,9 @@ public class VASLThread
 
   private void loadPiece(GamePiece piece) {
     // determine what hex the piece is in
-    Point p = map.mapCoordinates(new Point(piece.getPosition()));
-	p.x *= map.getZoom();
-	p.y *= map.getZoom();
+    Point p = map.componentToMap(piece.getPosition());
+  	p.x *= map.getZoom();
+  	p.y *= map.getZoom();
     p.translate(-map.getEdgeBuffer().width, -map.getEdgeBuffer().height);
 
     if (!CASLMap.onMap(p.x, p.y)) return;
@@ -849,7 +849,7 @@ public class VASLThread
   }
 
   private Point mapCASLPointToScreen(Point p) {
-    Point temp = map.componentCoordinates(new Point(p));
+    Point temp = map.mapToComponent(p);
     temp.translate((int) (map.getEdgeBuffer().width * map.getZoom()), (int) (map.getEdgeBuffer().height * map.getZoom()));
     // adjust for board cropping
     if (upperLeftBoard != null) {
