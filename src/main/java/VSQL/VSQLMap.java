@@ -29,6 +29,7 @@ import VASSAL.build.module.map.boardPicker.Board;
 /** 
  * @deprecated
  */
+@Deprecated
 public class VSQLMap extends Map {
 
   protected VSQLThread los = null;

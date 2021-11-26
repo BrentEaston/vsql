@@ -569,7 +569,7 @@ public class 	GameEditor
 		}
 	}
 
-	public boolean isFocusTraversable() {return true;}
+	public boolean isFocusable() {return true;}
 
 	/******************************
 	Keyboard methods
@@ -585,7 +585,7 @@ public class 	GameEditor
 	public void keyPressed(KeyEvent e) {
 
 		int code = e.getKeyCode();
-		String modifiers = KeyEvent.getKeyModifiersText(e.getModifiers());
+		String modifiers = KeyEvent.getModifiersExText(e.getModifiersEx());
 
 		// is the scenario open?
 		if (!scenarioOpen) return;

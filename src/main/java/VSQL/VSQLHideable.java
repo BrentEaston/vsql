@@ -45,7 +45,7 @@ import VASSAL.counters.Properties;
    public Object getProperty(Object key) {
      if ("Location".equals(key)) {
        if (invisibleToMe() || invisibleToOthers()) {
-         return new Boolean(true);
+         return true;
        }
        else {
          return piece.getProperty(key);

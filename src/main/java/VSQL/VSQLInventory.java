@@ -192,7 +192,7 @@ public class VSQLInventory extends AbstractConfigurable implements GameComponent
     launch.setAlignmentY(0.0F);
     GameModule.getGameModule().getToolBar().add(getComponent());
     GameModule.getGameModule().getGameState().addGameComponent(this);
-    frame = new JDialog(GameModule.getGameModule().getFrame());
+    frame = new JDialog(GameModule.getGameModule().getPlayerWindow());
     frame.setTitle(getConfigureName());
     String key = "Inventory." + getConfigureName();
     GameModule.getGameModule().getPrefs().addOption(new PositionOption(key, frame));
@@ -346,7 +346,7 @@ public class VSQLInventory extends AbstractConfigurable implements GameComponent
       path.add(groupBy[i]);
     results = new CounterInventory(new Counter(this.getConfigureName()), path);
 
-    PieceIterator pi = new PieceIterator(GameModule.getGameModule().getGameState().getPieces(), new Selector(piecePropertiesFilter));
+    PieceIterator pi = new PieceIterator(GameModule.getGameModule().getGameState().getAllPieces().iterator(), new Selector(piecePropertiesFilter));
 
     while (pi.hasMoreElements()) {
       ArrayList groups = new ArrayList();
@@ -531,7 +531,7 @@ public class VSQLInventory extends AbstractConfigurable implements GameComponent
    */
   protected boolean getBooleanValue(Object o) {
     if (o instanceof String) {
-      o = new Boolean((String) o);
+      o = Boolean.valueOf((String) o);
     }
     return ((Boolean) o).booleanValue();
   }
@@ -631,7 +631,7 @@ public class VSQLInventory extends AbstractConfigurable implements GameComponent
 
       JScrollPane scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-      JOptionPane.showMessageDialog(GameModule.getGameModule().getFrame(), scrollPane, getConfigureName(), JOptionPane.PLAIN_MESSAGE);
+      JOptionPane.showMessageDialog(GameModule.getGameModule().getPlayerWindow(), scrollPane, getConfigureName(), JOptionPane.PLAIN_MESSAGE);
     }
     else if (destination.equals(DEST_TREE)) {
       initTree();
@@ -796,10 +796,10 @@ public class VSQLInventory extends AbstractConfigurable implements GameComponent
 
     public String toString() {
       if (node != null && node.isLeafParent()) {
-        return childlessFormat.getText(this);
+        return childlessFormat.getText(this, this, "VSQL.VSQLInventory.Counter");
       }
       else {
-        return format.getText(this);
+        return format.getText(this, this, "VSQL.VSQLInventory.Counter");
       }
     }
 

@@ -56,7 +56,6 @@ import VASSAL.tools.imageop.SourceOpBitmapImpl;
 import VASSAL.tools.imageop.SourceOpTiledBitmapImpl;
 import VASSAL.tools.imageop.SourceTileOpBitmapImpl;
 import VASSAL.tools.io.FileArchive;
-import VASSAL.tools.io.IOUtils;
 import VASSAL.tools.io.ZipArchive;
 
 /** A Board is a geomorphic or HASL board. */
@@ -139,7 +138,7 @@ public class ASLBoard extends Board {
       boardArchive = boardFile.getName().equals(imageFile) ? null : new DataArchive(boardFile.getPath(), "");
     }
     catch (IOException e) {
-      ErrorDialog.dataError(new BadDataReport("Unable to open board file", boardFile.getName(), e));
+      ErrorDialog.dataWarning(new BadDataReport("Unable to open board file", boardFile.getName(), e));
     }
     resetImage();
   }
@@ -174,20 +173,16 @@ public class ASLBoard extends Board {
 
   public void readData() {
     if (boardArchive != null) {
-      InputStream in = null;
-      try {
-        in = boardArchive.getInputStream("data");
-        BufferedReader file = new BufferedReader(new InputStreamReader(in));
-        String s;
-        while ((s = file.readLine()) != null) {
-          parseDataLine(s);
+      try (InputStream in = boardArchive.getInputStream("data")) {
+        try (BufferedReader file = new BufferedReader(new InputStreamReader(in))) {
+          String s;
+          while ((s = file.readLine()) != null) {
+            parseDataLine(s);
+          }
         }
       }
       catch (IOException e) {
-        ErrorDialog.dataError(new BadDataReport("Unable to read data from board", boardArchive.getName(), e));
-      }
-      finally {
-        IOUtils.closeQuietly(in);
+        ErrorDialog.dataWarning(new BadDataReport("Unable to read data from board", boardArchive.getName(), e));
       }
     }
   }

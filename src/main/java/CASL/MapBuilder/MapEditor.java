@@ -2150,7 +2150,7 @@ public class 	MapEditor
 	public PrefabBuilding[] getPrefabBuildingList()		{ return prefabBuildingList;}
 	public int getCurrentPrefabBuilding()	{ return currentPrefabBuilding;}
 
-	public boolean isFocusTraversable() {return true;}
+	public boolean isFocusable() {return true;}
 
 	public int 	getRotation() { return rotation;}
 	public void	setRotation(int rotation) {
@@ -2169,7 +2169,7 @@ public class 	MapEditor
 	public void keyTyped(KeyEvent e) {
 
 		int code = e.getKeyCode();
-		String modifiers = KeyEvent.getKeyModifiersText(e.getModifiers());
+		String modifiers = KeyEvent.getModifiersExText(e.getModifiersEx());
 
 	}
 
@@ -2180,7 +2180,7 @@ public class 	MapEditor
 	public void keyPressed(KeyEvent e) {
 
 		int code = e.getKeyCode();
-		String modifiers = KeyEvent.getKeyModifiersText(e.getModifiers());
+		String modifiers = KeyEvent.getModifiersExText(e.getModifiersEx());
 
 		// is the map open?
 		if (!mapOpen) return;

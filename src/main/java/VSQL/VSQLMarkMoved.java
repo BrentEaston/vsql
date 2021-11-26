@@ -44,7 +44,7 @@ import VASSAL.tools.imageop.Op;
 public class VSQLMarkMoved extends Decorator implements EditablePiece {
   public static final String ID = "moved;";
 
-  public static final KeyStroke markStroke = KeyStroke.getKeyStroke('M', java.awt.event.InputEvent.CTRL_MASK);
+  public static final KeyStroke markStroke = KeyStroke.getKeyStroke('M', java.awt.event.InputEvent.CTRL_DOWN_MASK);
   private String markImage;
   private boolean hasMoved = false;
 
@@ -67,7 +67,7 @@ public class VSQLMarkMoved extends Decorator implements EditablePiece {
 
   public Object getProperty(Object key) {
     if (Properties.MOVED.equals(key)) {
-      return new Boolean(isMoved());
+      return isMoved();
     }
     else {
       return super.getProperty(key);
@@ -109,7 +109,7 @@ public class VSQLMarkMoved extends Decorator implements EditablePiece {
   public Command myKeyEvent(javax.swing.KeyStroke stroke) {
     if (stroke.equals(markStroke)) {
       ChangeTracker c = new ChangeTracker(this);
-      Decorator.getOutermost(this).setProperty(Properties.MOVED, new Boolean(!hasMoved));
+      Decorator.getOutermost(this).setProperty(Properties.MOVED, !hasMoved);
       //hasMoved = !hasMoved;
       return c.getChangeCommand();
     }

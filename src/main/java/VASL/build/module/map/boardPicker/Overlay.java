@@ -33,7 +33,6 @@ import VASSAL.build.module.map.boardPicker.board.MapGrid.BadCoords;
 import VASSAL.tools.DataArchive;
 import VASSAL.tools.SequenceEncoder;
 import VASSAL.tools.imageop.Op;
-import VASSAL.tools.io.IOUtils;
 
 /**
  * Overlays of all types and sizes
@@ -145,31 +144,27 @@ public class Overlay implements Cloneable {
   private void readData() throws IOException {
     origins = getDefaultOriginList(name);
  
-    InputStream in = null;
-    try {
-      in = archive.getInputStream("data");
-      BufferedReader file = new BufferedReader(new InputStreamReader(in));
-      String s;
-      while ((s = file.readLine()) != null) {
-        StringTokenizer st = new StringTokenizer(s);
-        if (st.countTokens() < 2) {
-          continue;
-        }
-        String s1 = st.nextToken();
-        if (s1.equalsIgnoreCase(name)) {
-          origins = s.substring(name.length()).trim();
-        }
-        else if (s1.equalsIgnoreCase("version")) {
-          version = st.nextToken();
-        }
-        else if (s1.equalsIgnoreCase("placeAt")) {
-          hex1 = st.nextToken();
-          hex2 = st.nextToken();
+    try (InputStream in = archive.getInputStream("data")) {
+      try (BufferedReader file = new BufferedReader(new InputStreamReader(in))) {
+        String s;
+        while ((s = file.readLine()) != null) {
+          StringTokenizer st = new StringTokenizer(s);
+          if (st.countTokens() < 2) {
+            continue;
+          }
+          String s1 = st.nextToken();
+          if (s1.equalsIgnoreCase(name)) {
+            origins = s.substring(name.length()).trim();
+          }
+          else if (s1.equalsIgnoreCase("version")) {
+            version = st.nextToken();
+          }
+          else if (s1.equalsIgnoreCase("placeAt")) {
+            hex1 = st.nextToken();
+            hex2 = st.nextToken();
+          }
         }
       }
-    }
-    finally {
-      IOUtils.closeQuietly(in);
     }
   }
 

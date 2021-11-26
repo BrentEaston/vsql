@@ -43,7 +43,6 @@ import java.util.Map.Entry;
 
 import VASSAL.build.GameModule;
 import VASSAL.tools.DataArchive;
-import VASSAL.tools.io.IOUtils;
 
 public class SSRFilter extends RGBImageFilter {
   /*
@@ -163,75 +162,45 @@ public class SSRFilter extends RGBImageFilter {
     final DataArchive da = GameModule.getGameModule().getDataArchive();
 
     // Read board-specific colors last to override defaults
-    InputStream in = null;
-    try {
-      in = da.getInputStream("boardData/colors");
+    try (InputStream in = da.getInputStream("boardData/colors")) {
       readColorValues(in);
     }
     catch (IOException ignore) {
-    }
-    finally {
-      IOUtils.closeQuietly(in);
     }
 
-    in = null;
-    try {
-      in = archive.getInputStream("colors");
+    try (InputStream in = archive.getInputStream("colors")) {
       readColorValues(in);
     }
     catch (IOException ignore) {
-    }
-    finally {
-      IOUtils.closeQuietly(in);
     }
 
     // Read board-specific rules first to be applied before defaults
-    in = null;
-    try {
-      in = archive.getInputStream("colorSSR");
+    try (InputStream in = archive.getInputStream("colorSSR")) {
       readColorRules(in, rules);
     }
     catch (IOException ignore) {
-    }
-    finally {
-      IOUtils.closeQuietly(in);
     }
 
-    in = null;
-    try {
-      in = da.getInputStream("boardData/colorSSR");
+    try (InputStream in = da.getInputStream("boardData/colorSSR")) {
       readColorRules(in, rules);
     }
     catch (IOException ignore) {
-    }
-    finally {
-      IOUtils.closeQuietly(in);
     }
 
     overlays.clear();
     // SSR Overlays are applied in reverse order to the order they're listed
     // in the overlaySSR file. Therefore, reading board-specific
     // overlay rules first will override defaults
-    in = null;
-    try {
-      in = archive.getInputStream("overlaySSR");
+    try (InputStream in = archive.getInputStream("overlaySSR")) {
       readOverlayRules(in);
     }
     catch (IOException ignore) {
-    }
-    finally {
-      IOUtils.closeQuietly(in);
     }
 
-    in = null;
-    try {
-      in = da.getInputStream("boardData/overlaySSR");
+    try (InputStream in = da.getInputStream("boardData/overlaySSR")) {
       readOverlayRules(in);
     }
     catch (IOException ignore) {
-    }
-    finally {
-      IOUtils.closeQuietly(in);
     }
   }
 
@@ -266,7 +235,7 @@ public class SSRFilter extends RGBImageFilter {
         String s1 = st2.nextToken();
         int rgb = parseRGB(st2.nextToken());
         if (rgb >= 0) {
-          colorValues.put(s1, new Integer(rgb));
+          colorValues.put(s1, rgb);
         }
         else {
           System.err.println("Invalid color alias: " + s);

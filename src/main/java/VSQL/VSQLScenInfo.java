@@ -598,7 +598,7 @@ public class VSQLScenInfo extends AbstractBuildable implements GameComponent, Co
           return notes[row];
         }
         else if (col == 3) {
-          return new Integer(remaining[row]);
+          return remaining[row];
         }
         return null;
       }
@@ -689,7 +689,7 @@ public class VSQLScenInfo extends AbstractBuildable implements GameComponent, Co
     public double getMagnification() {
       double d = DEFAULT_MAGNIFICATION;
       try {
-        d = new Double(magnification.getValueString()).doubleValue();
+        d = Double.parseDouble(magnification.getValueString());
       }
       catch (Exception e) {
         
@@ -712,10 +712,10 @@ public class VSQLScenInfo extends AbstractBuildable implements GameComponent, Co
         zoomLevels.setValue(null);
       }
       else {
-        zoomLevels.setValue(new Integer(s));
+        zoomLevels.setValue(Integer.valueOf(s));
       }
-      zoomStart.setValue(new Integer(sd.nextInt(DEFAULT_START)));
-      magnification.setValue(new Double(sd.nextDouble(DEFAULT_MAGNIFICATION)));
+      zoomStart.setValue(sd.nextInt(DEFAULT_START));
+      magnification.setValue(sd.nextDouble(DEFAULT_MAGNIFICATION));
     }
     
   }

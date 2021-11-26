@@ -206,7 +206,7 @@ import VASSAL.tools.imageop.Op;
 
   public void draw(Graphics g, Map map) {
     if (drawGhost) {
-      Point p = map.componentCoordinates(getPosition());
+      Point p = map.mapToComponent(getPosition());
       Graphics2D g2d = (Graphics2D) g;
       AffineTransform t = g2d.getTransform();
       g2d.transform(AffineTransform.getRotateInstance(-Math.PI * tempAngle / 180., p.x, p.y));
@@ -257,18 +257,18 @@ import VASSAL.tools.imageop.Op;
       setAngleCommand = new KeyCommand
           (setAngleText,
            KeyStroke.getKeyStroke(setAngleKey,
-                                  java.awt.event.InputEvent.CTRL_MASK),
+                                  java.awt.event.InputEvent.CTRL_DOWN_MASK),
            Decorator.getOutermost(this));
       rotateCWCommand = new KeyCommand
           (rotateCWText,
            KeyStroke.getKeyStroke(rotateCWKey,
-                                  java.awt.event.InputEvent.CTRL_MASK),
+                                  java.awt.event.InputEvent.CTRL_DOWN_MASK),
            Decorator.getOutermost(this));
 
       rotateCCWCommand = new KeyCommand
           (rotateCCWText,
            KeyStroke.getKeyStroke(rotateCCWKey,
-                                  java.awt.event.InputEvent.CTRL_MASK),
+                                  java.awt.event.InputEvent.CTRL_DOWN_MASK),
            Decorator.getOutermost(this));
 
       if (validAngles.length == 1) {
@@ -354,7 +354,7 @@ import VASSAL.tools.imageop.Op;
 
   public void mouseDragged(MouseEvent e) {
     if (drawGhost) {
-      Point mousePos = getMap().mapCoordinates(e.getPoint());
+      Point mousePos = getMap().componentToMap(e.getPoint());
       Point origin = getPosition();
       double myAngle = getRelativeAngle(mousePos, origin);
       tempAngle = getAngle() + -180. * (myAngle-startAngle) / Math.PI;
@@ -419,11 +419,11 @@ import VASSAL.tools.imageop.Op;
       ccwKeyConfig = new KeySpecifier(p.rotateCCWKey);
       anyConfig = new BooleanConfigurer
           (null, "Allow arbitrary rotations",
-           new Boolean(p.validAngles.length == 1));
+           p.validAngles.length == 1);
       anyKeyConfig = new KeySpecifier(p.setAngleKey);
       facingsConfig = new IntConfigurer
           (null, "Number of allowed facings :",
-           new Integer(p.validAngles.length == 1 ? 6 : p.validAngles.length));
+           p.validAngles.length == 1 ? 6 : p.validAngles.length);
 
       panel = new JPanel();
       panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));

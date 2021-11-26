@@ -21,7 +21,6 @@ package VSQL;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -125,13 +124,10 @@ public class VSQLGamePieceRefresher extends AbstractConfigurable {
 
     // First, Find all maps with pieces
     HashMap mapList = new HashMap();
-    Enumeration e = GameModule.getGameModule().getGameState().getPieces();
-    while (e.hasMoreElements()) {
-      GamePiece pieceOrStack = (GamePiece) e.nextElement();
+    for (final GamePiece pieceOrStack : GameModule.getGameModule().getGameState().getAllPieces()) {
       if (pieceOrStack instanceof Stack) {
-        Enumeration se = ((Stack) pieceOrStack).getPieces();
-        while (se.hasMoreElements()) {
-          map = ((GamePiece) se.nextElement()).getMap();
+        for (final GamePiece gp : ((Stack) pieceOrStack).asList()) {
+          map = gp.getMap();
           mapList.put(map, map);
         }
       }
@@ -152,9 +148,8 @@ public class VSQLGamePieceRefresher extends AbstractConfigurable {
           pieceOrStack.setMap(map);
         }
         if (pieceOrStack instanceof Stack) {
-          Enumeration se = ((Stack) pieceOrStack).getPieces();
-          while (se.hasMoreElements()) {
-            processPiece((GamePiece) se.nextElement());
+          for (final GamePiece gp : ((Stack) pieceOrStack).asList()) {
+            processPiece(gp);
           }
         }
         else {
@@ -212,15 +207,17 @@ public class VSQLGamePieceRefresher extends AbstractConfigurable {
   protected boolean checkBuildable(GamePiece oldPiece, AbstractConfigurable b) {
     boolean done = false;
     b.getConfigureComponents(); // Force widgets to rebuild
-    Enumeration pwComponents = b.getBuildComponents();
-    while (pwComponents.hasMoreElements() && ! done) {
-      AbstractConfigurable bb = (AbstractConfigurable) pwComponents.nextElement();
+    for (final Buildable bb : b.getBuildables()) {
       if (bb instanceof PieceSlot) {
         GamePiece p = PieceCloner.getInstance().clonePiece(((PieceSlot) bb).getPiece());
         done = checkNewPiece(oldPiece, p);
       }
       else {
-        done = checkBuildable(oldPiece, bb);
+        done = checkBuildable(oldPiece, (AbstractConfigurable) bb);
+      }
+
+      if (done) {
+        break;
       }
     }
     return done;

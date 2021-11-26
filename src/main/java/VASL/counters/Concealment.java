@@ -104,7 +104,7 @@ public class Concealment extends Decorator implements EditablePiece {
     if (commands == null) {
       commands = new KeyCommand[1];
       commands[0] = new KeyCommand("Conceal",
-                                   KeyStroke.getKeyStroke('C', java.awt.event.InputEvent.CTRL_MASK),
+                                   KeyStroke.getKeyStroke('C', java.awt.event.InputEvent.CTRL_DOWN_MASK),
                                    Decorator.getOutermost(this));
     }
     commands[0].setEnabled(owner == null

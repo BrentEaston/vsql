@@ -114,7 +114,7 @@ public class VSQLListWidget extends Widget
   private String getKey(Object o) {
     String s = (String) keys.get(o);
     if (s == null) {
-      s = "" + new Integer(count++);
+      s = "" + count++;
       keys.put(o, s);
     }
     return s;

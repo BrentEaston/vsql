@@ -83,7 +83,7 @@ public class VSQLHindranceKeeper extends HindranceKeeper  {
   
   protected void apply(GamePiece p, Graphics g, Map m) {
     if ("Overlay".equals(p.getProperty("Level"))) {
-      Point pt = m.componentCoordinates(p.getPosition());
+      Point pt = m.mapToComponent(p.getPosition());
       p.draw(g, pt.x, pt.y, m.getView(), m.getZoom());
     }
     

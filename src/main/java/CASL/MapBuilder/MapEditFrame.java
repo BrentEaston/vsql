@@ -799,7 +799,7 @@ public class MapEditFrame extends JFrame  {
 		Point loc = getLocation();
 		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.setModal(true);
-		dlg.show();
+		dlg.setVisible(true);
 	}
 
 	public void editFlip(ActionEvent e) {
@@ -850,8 +850,7 @@ public class MapEditFrame extends JFrame  {
 			frameSize.width = screenSize.width;
 		dialog.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
 
-		dialog.show();
-
+		dialog.setVisible(true);
 	}
 
 	void newMap() {
@@ -869,8 +868,7 @@ public class MapEditFrame extends JFrame  {
 		if (frameSize.height > screenSize.height)	frameSize.height = screenSize.height;
 		if (frameSize.width > screenSize.width)  	frameSize.width = screenSize.width;
 		dialog.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
-		dialog.show();
-
+		dialog.setVisible(true);
 	}
 
 	void customBuildingAction() {
@@ -900,7 +898,7 @@ public class MapEditFrame extends JFrame  {
 			if (frameSize.height > screenSize.height)	frameSize.height = screenSize.height;
 			if (frameSize.width > screenSize.width)  	frameSize.width = screenSize.width;
 			dialog.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
-			dialog.show();
+			dialog.setVisible(true);
 		}
 		else if (functionComboBox.getSelectedItem().equals("Add terrain")){
 
@@ -921,7 +919,7 @@ public class MapEditFrame extends JFrame  {
 				if (frameSize.height > screenSize.height)	frameSize.height = screenSize.height;
 				if (frameSize.width > screenSize.width)  	frameSize.width = screenSize.width;
 				dialog.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
-				dialog.show();
+				dialog.setVisible(true);
 			}
 			else if (terrainComboBox.getSelectedItem().equals("Prefab Building")){
 
@@ -939,7 +937,7 @@ public class MapEditFrame extends JFrame  {
 				if (frameSize.height > screenSize.height)	frameSize.height = screenSize.height;
 				if (frameSize.width > screenSize.width)  	frameSize.width = screenSize.width;
 				dialog.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
-				dialog.show();
+				dialog.setVisible(true);
 			}
 		}
 	}
@@ -1157,7 +1155,7 @@ public class MapEditFrame extends JFrame  {
 				if (frameSize.height > screenSize.height)	frameSize.height = screenSize.height;
 				if (frameSize.width > screenSize.width)  	frameSize.width = screenSize.width;
 				dialog.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
-				dialog.show();
+				dialog.setVisible(true);
 
 			} catch (Exception e){
 
@@ -2102,8 +2100,7 @@ public class MapEditFrame extends JFrame  {
 			frameSize.width = screenSize.width;
 		dialog.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
 
-		dialog.show();
-
+		dialog.setVisible(true);
 	}
 	
 	public void convertVASLImage(int board){

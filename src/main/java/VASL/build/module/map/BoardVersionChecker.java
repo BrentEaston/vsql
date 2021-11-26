@@ -43,7 +43,6 @@ import VASSAL.build.module.map.boardPicker.Board;
 import VASSAL.command.Command;
 import VASSAL.configure.StringConfigurer;
 import VASSAL.tools.PropertiesEncoder;
-import VASSAL.tools.io.IOUtils;
 
 /**
  * Copyright (c) 2003 by Rodney Kinney.  All rights reserved.
@@ -228,13 +227,8 @@ public class BoardVersionChecker extends AbstractBuildable implements GameCompon
         conn.setUseCaches(false);
 
         Properties p = new Properties();
-        InputStream input = null;
-        try {
-          input = conn.getInputStream();
+        try (InputStream input = conn.getInputStream()) {
           p.load(input);
-        }
-        finally {
-          IOUtils.closeQuietly(input);
         }
 
         boardVersions = p;
@@ -250,13 +244,8 @@ public class BoardVersionChecker extends AbstractBuildable implements GameCompon
         conn.setUseCaches(false);
 
         Properties p = new Properties();
-        InputStream input = null;
-        try {
-          input = conn.getInputStream();
+        try (InputStream input = conn.getInputStream()) {
           p.load(input);
-        }
-        finally {
-          IOUtils.closeQuietly(input);
         }
 
         overlayVersions = p;

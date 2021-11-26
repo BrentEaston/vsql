@@ -111,9 +111,7 @@ public class MassRemover implements Buildable {
 
     for (int i = 0; i < piece.length; ++i) {
       if (piece[i] instanceof Stack) {
-        for (Enumeration e = ((Stack) piece[i]).getPieces();
-             e.hasMoreElements();) {
-          GamePiece child = (GamePiece) e.nextElement();
+        for (final GamePiece child : ((Stack) piece[i]).asList()) {
           if (isMatch(child, name)) {
             comm = comm.append(new RemovePiece(child));
           }

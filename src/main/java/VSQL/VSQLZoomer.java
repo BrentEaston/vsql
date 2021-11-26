@@ -21,6 +21,7 @@ import VASSAL.tools.LaunchButton;
 /** 
  * @deprecated
  */
+@Deprecated
 public class VSQLZoomer extends Zoomer {
 
   protected LaunchButton zoomMinButton;
@@ -77,7 +78,7 @@ public class VSQLZoomer extends Zoomer {
     if (zoomMinButton.isEnabled()) {
       Rectangle r = map.getView().getVisibleRect();
       Point center = new Point(r.x + r.width / 2, r.y + r.height / 2);
-      center = map.mapCoordinates(center);
+      center = map.componentToMap(center);
 
       setZoomLevel(0);
       setZoomButtons();
@@ -93,7 +94,7 @@ public class VSQLZoomer extends Zoomer {
     if (zoomMaxButton.isEnabled()) {
       Rectangle r = map.getView().getVisibleRect();
       Point center = new Point(r.x + r.width / 2, r.y + r.height / 2);
-      center = map.mapCoordinates(center);
+      center = map.componentToMap(center);
 
       setZoomLevel(state.getLevelCount()-1);
       setZoomButtons();

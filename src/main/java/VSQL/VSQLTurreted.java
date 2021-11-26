@@ -217,7 +217,7 @@ public class VSQLTurreted extends Embellishment0 implements EditablePiece {
       commands[c.length]
           = new KeyCommand
               ("Button up",
-               KeyStroke.getKeyStroke('B', java.awt.event.InputEvent.CTRL_MASK),
+               KeyStroke.getKeyStroke('B', java.awt.event.InputEvent.CTRL_DOWN_MASK),
                Decorator.getOutermost(this));
     }
     return commands;

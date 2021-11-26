@@ -75,7 +75,7 @@ public class VSQLReportState extends ReportState  {
    */
   public Command myKeyEvent(KeyStroke stroke) {
   
-    if (getMap() == null && stroke != KeyStroke.getKeyStroke('D', InputEvent.CTRL_MASK)) {
+    if (getMap() == null && stroke != KeyStroke.getKeyStroke('D', InputEvent.CTRL_DOWN_MASK)) {
       return null;
     }
     else {

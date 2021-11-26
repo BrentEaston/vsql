@@ -105,7 +105,6 @@ import VASSAL.configure.DirectoryConfigurer;
 import VASSAL.configure.ValidationReport;
 import VASSAL.tools.ErrorDialog;
 import VASSAL.tools.ReadErrorDialog;
-import VASSAL.tools.io.IOUtils;
 
 public class ASLBoardPicker extends BoardPicker implements ActionListener {
   private static final Logger logger =
@@ -143,7 +142,7 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
             v.add(b);
           }
           catch (final BoardException e) {
-            ErrorDialog.dataError(new BadDataReport("Board not found",boardDesc,e));
+            ErrorDialog.dataWarning(new BadDataReport("Board not found",boardDesc,e));
           }
           command = command.substring(index + 3);
         }
@@ -153,7 +152,7 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
           v.add(b);
         }
         catch (final BoardException e) {
-          ErrorDialog.dataError(new BadDataReport("Unable to build board",command,e));
+          ErrorDialog.dataWarning(new BadDataReport("Unable to build board",command,e));
         }
       }
       comm = comm.append(new SetBoards(this, v));
@@ -240,15 +239,10 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
     if (terrain == null) {
       terrain = new TerrainEditor();
 
-      InputStream in = null;
-      try {
-        in = GameModule.getGameModule().getDataArchive().getInputStream("boardData/SSRControls");
+      try (InputStream in = GameModule.getGameModule().getDataArchive().getInputStream("boardData/SSRControls")) {
         terrain.readOptions(in);
       }
       catch (IOException ignore) {
-      }
-      finally {
-        IOUtils.closeQuietly(in);
       }
     }
   }
@@ -364,7 +358,7 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
 ///
     final GameModule g = GameModule.getGameModule();
     final String hstr =
-      DigestUtils.shaHex(g.getGameName() + "_" + g.getGameVersion());
+      DigestUtils.sha1Hex(g.getGameName() + "_" + g.getGameVersion());
 
     final File fpath = new File(boardDir, "bd" + name);
 
@@ -372,8 +366,7 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
       fpath.getAbsolutePath(),
       new File(Info.getConfDir(), "tiles/" + hstr),
       new Dimension(256, 256),
-      1024,
-      42
+      1024
     );
 
     try {
@@ -417,7 +410,7 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
         buildBoard(b, "0\t0\t" + name);
       }
       catch (BoardException e) {
-        ErrorDialog.dataError(new BadDataReport("Unable to build board",name,e));
+        ErrorDialog.dataWarning(new BadDataReport("Unable to build board",name,e));
       }
     }
     if (enableDeluxe) {
@@ -930,30 +923,20 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
         boards.addElement(b);
         if (b != null) {
           if (b.getBoardArchive() != null) {
-            InputStream in = null;
-            try {
-              in = b.getBoardArchive().getInputStream("SSRControls");
+            try (InputStream in = b.getBoardArchive().getInputStream("SSRControls")) {
               readOptions(in);
             }
             catch (IOException ignore) {
-            }
-            finally {
-              IOUtils.closeQuietly(in);
             }
           }
 
           for (Enumeration oEnum = b.getOverlays(); oEnum.hasMoreElements();) {
             Overlay o = (Overlay) oEnum.nextElement();
             if (!(o instanceof SSROverlay)) {
-              InputStream in = null;
-              try {
-                in = o.getDataArchive().getInputStream("SSRControls");
+              try (InputStream in = o.getDataArchive().getInputStream("SSRControls")) {
                 readOptions(in);
               }
               catch (IOException ignore) {
-              }
-              finally {
-                IOUtils.closeQuietly(in);
               }
             }
           }
@@ -1316,9 +1299,8 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
             active.addElement(((JComboBox) comp).getSelectedItem());
           }
           else if (comp instanceof JList) {
-            Object val[] = ((JList) comp).getSelectedValues();
-            for (int i = 0; i < val.length; ++i) {
-              active.addElement(val[i]);
+            for (final Object val : ((JList) comp).getSelectedValuesList()) {
+              active.addElement(val);
             }
           }
         }
@@ -1525,8 +1507,7 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
             v.addElement(o);
         }
         else if (source instanceof JList) {
-          Object o[] = ((JList) source).getSelectedValues();
-          for (int i = 0; i < o.length; ++i) {
+          for (final Object o : ((JList) source).getSelectedValuesList()) {
             v.addElement(o);
           }
         }

@@ -76,7 +76,7 @@ public class VSQLConcealable extends Concealable {
     p = new Marker (Marker.ID + VSQLProperties.SIDE, p);
     ((Marker) p).mySetState(getSide(nation));
     p = new AreaOfEffect(AreaOfEffect.ID+"128,128,128;30;1;true;Show Area;;Night;false;NVR;", p);
-    p.setProperty(Properties.OBSCURED_TO_OTHERS, new Boolean(true));
+    p.setProperty(Properties.OBSCURED_TO_OTHERS, true);
     p.setProperty(Properties.OBSCURED_BY, GameModule.getUserId());
 
     return p;

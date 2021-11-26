@@ -75,12 +75,12 @@ public class HindranceKeeper extends AbstractBuildable implements Drawable, KeyL
         if (p[i] instanceof Stack) {
           Stack temp = getVisibleHindrances((Stack) p[i]);
           if (temp != null) {
-            pt = map.componentCoordinates(p[i].getPosition());
+            pt = map.mapToComponent(p[i].getPosition());
             map.getStackMetrics().draw(temp,g,pt.x,pt.y,map.getView(),map.getZoom());
           }
         }
         else if (isVisibleHindrance(p[i])) {
-          pt = map.componentCoordinates(p[i].getPosition());
+          pt = map.mapToComponent(p[i].getPosition());
           p[i].draw(g, pt.x, pt.y, map.getView(), map.getZoom());
         }
       }
@@ -114,7 +114,7 @@ public class HindranceKeeper extends AbstractBuildable implements Drawable, KeyL
       }
     }
     Stack tempStack = null;
-    for (PieceIterator pi = new PieceIterator(s.getPieces(),this);pi.hasMoreElements();) {
+    for (PieceIterator pi = new PieceIterator(s.getPiecesIterator(), this); pi.hasMoreElements();) {
       if (tempStack == null) {
         tempStack = new TempStack();
       }
@@ -128,7 +128,7 @@ public class HindranceKeeper extends AbstractBuildable implements Drawable, KeyL
 
   public void keyReleased(KeyEvent e) {
     if (!map.isPiecesVisible()
-        && KeyStroke.getKeyStrokeForEvent(e).equals(KeyStroke.getKeyStroke(KeyEvent.VK_F10, KeyEvent.SHIFT_MASK, true))) {
+        && KeyStroke.getKeyStrokeForEvent(e).equals(KeyStroke.getKeyStroke(KeyEvent.VK_F10, KeyEvent.SHIFT_DOWN_MASK, true))) {
       Configurer config = GameModule.getGameModule().getPrefs().getOption(DRAW_HINDRANCES);
       config.setValue(Boolean.TRUE.equals(config.getValue()) ? Boolean.FALSE : Boolean.TRUE);
       map.getView().repaint();

@@ -46,7 +46,7 @@ import VASSAL.tools.imageop.Op;
 public class MarkMoved extends Decorator implements EditablePiece {
   public static final String ID = "moved;";
 
-  private static final KeyStroke markStroke = KeyStroke.getKeyStroke('M', java.awt.event.InputEvent.CTRL_MASK);
+  private static final KeyStroke markStroke = KeyStroke.getKeyStroke('M', java.awt.event.InputEvent.CTRL_DOWN_MASK);
   private String markImage;
   private boolean hasMoved = false;
 
@@ -69,7 +69,7 @@ public class MarkMoved extends Decorator implements EditablePiece {
 
   public Object getProperty(Object key) {
     if (Properties.MOVED.equals(key)) {
-      return new Boolean(isMoved());
+      return isMoved();
     }
     else {
       return super.getProperty(key);

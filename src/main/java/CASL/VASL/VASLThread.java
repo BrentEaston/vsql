@@ -33,11 +33,14 @@ import java.io.InputStream;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.StringTokenizer;
+import java.util.concurrent.CancellationException;
+import java.util.concurrent.ExecutionException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.SwingWorker;
 
 import CASL.Map.GameMap;
 import CASL.Map.Hex;
@@ -62,7 +65,6 @@ import VASSAL.counters.Decorator;
 import VASSAL.counters.GamePiece;
 import VASSAL.counters.PieceIterator;
 import VASSAL.counters.Stack;
-import VASSAL.tools.BackgroundTask;
 
 /**
  * Extends the LOS thread to take advantage of CASL's LOS logic and report
@@ -104,7 +106,7 @@ public class VASLThread
   private Image loadingStatus = null;
 
   // Thread to initialize CASL map in background;
-  private Thread initThread;
+  private SwingWorker<String, Void> initWorker;
 
   public VASLThread() {
     // ensure correct Java version
@@ -123,12 +125,20 @@ public class VASLThread
     else {
       switch (status) {
         case LOADING:
-          if (initThread != null && !visible) {
+          if (initWorker != null && !visible) {
             try {
-              initThread.join();
+              initWorker.get();
+            }
+            catch (CancellationException e) {
+              // probably impossible?
+            }
+            catch (ExecutionException e) {
+
             }
             catch (InterruptedException e) {
+              // probably impossible?
             }
+
             launchTruLOS();
           }
           break;
@@ -629,7 +639,7 @@ public class VASLThread
       return;
     }
     int code = e.getKeyCode();
-    String modifiers = e.getKeyModifiersText(e.getModifiers());
+    String modifiers = e.getModifiersExText(e.getModifiersEx());
     // move up
     if (code == KeyEvent.VK_KP_UP || code == KeyEvent.VK_UP) {
       // move the source up
@@ -812,21 +822,35 @@ public class VASLThread
       CASLMap = null;
       visible = false;
       freeResources();
-      initThread = null;
+      initWorker = null;
     }
     // game opening - start a new Thread to load CASL Map
     else if (isPreferenceEnabled()) {
-      if (initThread == null
-          && status != DISABLED) {
+      if (initWorker == null && status != DISABLED) {
         status = LOADING;
-        initThread = new BackgroundTask() {
-          String error = null;
+        initWorker = new SwingWorker<String, Void>() {
 
-          public void doFirst() {
-            error = initCaslMap();
+          @Override
+          protected String doInBackground() {
+            return initCaslMap();
           }
 
-          public void doLater() {
+          @Override
+          protected void done() {
+            String error = null;
+            try {
+              error = get();
+            }
+            catch (CancellationException e) {
+              // probably impossible?
+            }
+            catch (ExecutionException e) {
+
+            }
+            catch (InterruptedException e) {
+              // probably impossible?
+            }
+
             if (error != null) {
               GameModule.getGameModule().warn(error);
               status = ERROR;
@@ -834,9 +858,12 @@ public class VASLThread
             else {
               status = LOADED;
             }
+
             map.repaint();
           }
-        }.start();
+        };
+
+        initWorker.execute();
       }
     }
     else {

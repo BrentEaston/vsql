@@ -494,7 +494,7 @@ public class VSQLFootprint extends MarkMoved {
   public KeyCommand[] myGetKeyCommands() {
     if (commands == null) {
       commands = new KeyCommand[1];
-      commands[0] = new KeyCommand(command, KeyStroke.getKeyStroke(trailKey, InputEvent.CTRL_MASK), Decorator
+      commands[0] = new KeyCommand(command, KeyStroke.getKeyStroke(trailKey, InputEvent.CTRL_DOWN_MASK), Decorator
           .getOutermost(this));
       commands[0].setEnabled(getMap() != null);
     }
@@ -502,7 +502,7 @@ public class VSQLFootprint extends MarkMoved {
   }
 
   public Command myKeyEvent(KeyStroke stroke) {
-    if (KeyStroke.getKeyStroke(trailKey, InputEvent.CTRL_MASK) == stroke) {
+    if (KeyStroke.getKeyStroke(trailKey, InputEvent.CTRL_DOWN_MASK) == stroke) {
       ChangeTracker tracker = new ChangeTracker(this);
       visible = !visible;
       redraw();

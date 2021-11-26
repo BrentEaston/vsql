@@ -29,7 +29,6 @@ import VASSAL.tools.image.ImageUtils;
 import VASSAL.tools.image.tilecache.TileUtils;
 import VASSAL.tools.io.FileArchive;
 import VASSAL.tools.io.FileStore;
-import VASSAL.tools.io.IOUtils;
 import VASSAL.tools.io.InputOutputStreamPump;
 import VASSAL.tools.io.InputStreamPump;
 import VASSAL.tools.io.ProcessLauncher;
@@ -44,10 +43,9 @@ public class ASLTilingHandler extends VASSAL.launch.TilingHandler {
     String aname,
     File cdir,
     Dimension tdim,
-    int mhlim,
-    int pid)
+    int mhlim)
   {
-    super(aname, cdir, tdim, mhlim, pid);
+    super(aname, cdir, tdim, mhlim);
   }
 
 /*
@@ -73,15 +71,8 @@ System.out.println(apath + ", " + imtime + ", " + tcache.getMTime(tpath));
   @Override
   protected Dimension getImageSize(DataArchive archive, String iname)
                                                            throws IOException {
-    InputStream in = null;
-    try {
-      in = archive.getInputStream(iname);
-      final Dimension id = ImageUtils.getImageSize(iname, in);
-      in.close();
-      return id;
-    }
-    finally {
-      IOUtils.closeQuietly(in);
+    try (InputStream in = archive.getInputStream(iname)) {
+      return ImageUtils.getImageSize(iname, in);
     }
   }
 
@@ -142,11 +133,10 @@ System.out.println(apath + ", " + imtime + ", " + tcache.getMTime(tpath));
 
     final List<String> args = new ArrayList<String>();
     args.addAll(Arrays.asList(new String[] {
-      Info.javaBinPath,
+      Info.getJavaBinPath().toString(),
       "-classpath",
       System.getProperty("java.class.path"),
       "-Xmx" + maxheap + "M",
-      "-DVASSAL.id=" + pid,
       "-Duser.home=" + System.getProperty("user.home"),
       "-DVASSAL.port=" + port,
       "VASSAL.tools.image.tilecache.ZipFileImageTiler",
@@ -170,58 +160,48 @@ System.out.println(apath + ", " + imtime + ", " + tcache.getMTime(tpath));
     );
 
     // write the image paths to child's stdin, one per line
-    PrintWriter stdin = null;
-    try {
-      stdin = new PrintWriter(proc.stdin);
+    try (PrintWriter stdin = new PrintWriter(proc.stdin)) {
       for (String m : multi) {
         stdin.println(m);
       }
     }
-    finally {
-      IOUtils.closeQuietly(stdin);
-    }
 
-    Socket csock = null;
-    DataInputStream in = null;
-    try {
-      csock = ssock.accept();
+    try (Socket csock = ssock.accept()) {
       csock.shutdownOutput();
 
-      in = new DataInputStream(csock.getInputStream());
-
-      boolean done = false;
-      byte type;
-      while (!done) {
-        type = in.readByte();
-
-        switch (type) {
-        case STARTING_IMAGE:
-          in.readUTF();
-          break;
-
-        case TILE_WRITTEN:
-          break;
-
-        case TILING_FINISHED:
-          done = true;
-          break;
-
-        default:
-          throw new IllegalStateException("bad type: " + type);
+      try (DataInputStream in = new DataInputStream(csock.getInputStream())) {
+        boolean done = false;
+        byte type;
+        while (!done) {
+          type = in.readByte();
+  
+          switch (type) {
+          case STARTING_IMAGE:
+            in.readUTF();
+            break;
+  
+          case TILE_WRITTEN:
+            break;
+  
+          case TILING_FINISHED:
+            done = true;
+            break;
+  
+          default:
+            throw new IllegalStateException("bad type: " + type);
+          }
         }
       }
-
-      in.close();
-      csock.close();
-      ssock.close();
     }
     catch (IOException e) {
 
     }
     finally {
-      IOUtils.closeQuietly(in);
-      IOUtils.closeQuietly(csock);
-      IOUtils.closeQuietly(ssock);
+      try {
+        ssock.close();
+      }
+      catch (IOException e) {
+      }
     }
 
     // wait for the tiling process to end

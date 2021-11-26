@@ -64,7 +64,6 @@ import VASSAL.configure.ColorConfigurer;
 import VASSAL.counters.Decorator;
 import VASSAL.counters.GamePiece;
 import VASSAL.counters.PieceIterator;
-import VASSAL.tools.io.IOUtils;
 
 /**
  * Extends the LOS thread to take advantage of CASL's LOS logic and report
@@ -217,17 +216,12 @@ public class CASLThread
           newCASLMap = null;
         }
         else {
-          InputStream in = null;
-          try {
-            in = b.getBoardArchive().getInputStream("bd" + boardName + ".map");
+          try (InputStream in = b.getBoardArchive().getInputStream("bd" + boardName + ".map")) {
             newCASLMap = CASL.Map.Map.readMap(in);
           }
           catch (IOException e) {
             freeResources();
             return "@LOS engine disabled... Could not read bd" + boardName + ".map";
-          }
-          finally {
-            IOUtils.closeQuietly(in);
           }
         }
 
@@ -370,7 +364,7 @@ public class CASLThread
   public void mouseDragged(MouseEvent e) {
     if (source != null && isEnabled()) {
     // get the map point, ensure the point is on the CASL map
-    Point p = mapMouseToCASLCoordinates(map.mapCoordinates(e.getPoint()));
+    Point p = mapMouseToCASLCoordinates(map.componentToMap(e.getPoint()));
     if (p == null || !CASLMap.onMap(p.x, p.y)) return;
     Location newLocation = CASLMap.gridToHex(p.x, p.y).nearestLocation(p.x, p.y);
     boolean useAuxNewLOSPoint = useAuxLOSPoint(newLocation, p.x, p.y);
@@ -422,8 +416,8 @@ public class CASLThread
       g.drawImage(loadingStatus, map.getView().getVisibleRect().x, map.getView().getVisibleRect().y, map.getView());
     }
     else if (visible && status == LOADED) {
-      lastAnchor = map.componentCoordinates(anchor);
-      lastArrow = map.componentCoordinates(arrow);
+      lastAnchor = map.mapToComponent(anchor);
+      lastArrow = map.mapToComponent(arrow);
       if (source != null) {
         // source LOS point
         Point sourceLOSPoint;
@@ -614,7 +608,7 @@ public class CASLThread
       return;
     }
     int code = e.getKeyCode();
-    String modifiers = KeyEvent.getKeyModifiersText(e.getModifiers());
+    String modifiers = KeyEvent.getModifiersExText(e.getModifiersEx());
     // move up
     if (code == KeyEvent.VK_KP_UP || code == KeyEvent.VK_UP) {
       // move the source up
@@ -741,7 +735,7 @@ public class CASLThread
 
   private void loadPiece(GamePiece piece) {
     // determine what hex the piece is in
-    Point p = map.mapCoordinates(new Point(piece.getPosition()));
+    Point p = map.componentToMap(piece.getPosition());
     p.x *= map.getZoom();
     p.y *= map.getZoom();
     p.translate(-map.getEdgeBuffer().width, -map.getEdgeBuffer().height);
@@ -854,7 +848,7 @@ public class CASLThread
   }
 
   private Point mapCASLPointToScreen(Point p) {
-    Point temp = map.componentCoordinates(new Point(p));
+    Point temp = map.mapToComponent(p);
     double scale = upperLeftBoard == null ? 1.0 : upperLeftBoard.getMagnification() * ((HexGrid)upperLeftBoard.getGrid()).getHexSize()/ASLBoard.DEFAULT_HEX_HEIGHT;
     if (upperLeftBoard != null) {
       temp.x = (int)Math.round(temp.x*scale);

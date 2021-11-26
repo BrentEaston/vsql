@@ -51,7 +51,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Enumeration;
 import java.util.Iterator;
 
 import javax.swing.ImageIcon;
@@ -81,14 +80,13 @@ import VASSAL.counters.DragBuffer;
 import VASSAL.counters.GamePiece;
 import VASSAL.counters.Hideable;
 import VASSAL.counters.KeyBuffer;
+import VASSAL.counters.PieceAccess;
 import VASSAL.counters.PieceFinder;
 import VASSAL.counters.PieceIterator;
 import VASSAL.counters.PieceVisitorDispatcher;
 import VASSAL.counters.Properties;
 import VASSAL.counters.Stack;
 import VASSAL.tools.FormattedString;
-import VASSAL.tools.PlayerIdFormattedString;
-import VASSAL.tools.Sort;
 import VASSAL.tools.imageop.Op;
 
 /**
@@ -111,7 +109,7 @@ public class PieceMover extends AbstractBuildable implements
   protected PieceFinder dragTargetSelector; // Selects drag target from mouse click on the Map
   protected PieceFinder dropTargetSelector; // Selects piece to merge with at the drop destination
   protected PieceVisitorDispatcher selectionProcessor; // Processes drag target after having been selected
-  private FormattedString format = new PlayerIdFormattedString();
+  private FormattedString format = new FormattedString(GameModule.getGameModule());
 
   public void addTo(Buildable b) {
     dragTargetSelector = createDragTargetSelector();
@@ -246,8 +244,8 @@ public class PieceMover extends AbstractBuildable implements
           DragBuffer.getBuffer().clear();
           if (KeyBuffer.getBuffer().contains(p)) { // If clicking on a selected piece, put all selected pieces into the drag buffer
             DragBuffer.getBuffer().add(p);
-            for (Enumeration oEnum = KeyBuffer.getBuffer().getPieces(); oEnum.hasMoreElements();) {
-              GamePiece piece = (GamePiece) oEnum.nextElement();
+            for (Iterator<GamePiece> i = KeyBuffer.getBuffer().getPiecesIterator(); i.hasNext(); ) {
+              final GamePiece piece = i.next();
               if (piece != p && piece.getParent() != p) {
                 DragBuffer.getBuffer().add(piece);
               }
@@ -393,8 +391,8 @@ public class PieceMover extends AbstractBuildable implements
     Command c = new NullCommand();
     if (!hasMoved || shouldMarkMoved()) {
       if (p instanceof Stack) {
-        for (Enumeration e = ((Stack) p).getPieces(); e.hasMoreElements();) {
-          c.append(markMoved((GamePiece) e.nextElement(), hasMoved));
+        for (final GamePiece gp : ((Stack) p).asList()) {
+          c.append(markMoved(gp, hasMoved));
         }
       }
       else if (p.getProperty(Properties.MOVED) != null) {
@@ -448,7 +446,7 @@ public class PieceMover extends AbstractBuildable implements
       p = map.snapTo(p);
     }
 
-    Hideable.setAllHidden(true);
+    PieceAccess.GlobalAccess.hideAll();
 
     String origin = "";
     Point fromPos = null;
@@ -481,7 +479,8 @@ public class PieceMover extends AbstractBuildable implements
       movedPieceNames.append(bottom.getName());
       origin = OFFMAP;
     }
-    Hideable.setAllHidden(false);
+   
+    PieceAccess.GlobalAccess.revertAll();
 
     Command comm = new NullCommand();
     String destination;
@@ -510,7 +509,7 @@ public class PieceMover extends AbstractBuildable implements
 
     while (it.hasMoreElements()) {
       GamePiece next = it.nextPiece();
-      Hideable.setAllHidden(true);
+      PieceAccess.GlobalAccess.hideAll();
       //if (next.getMap() == map) { // Make sure moved from offmap are reported
       if (next.getMap() == map || OFFMAP.equals(origin)) {
         if (next.getName().length() > 0) {
@@ -521,7 +520,7 @@ public class PieceMover extends AbstractBuildable implements
       else if (next.getMap() != null) {
         originMaps.add(next.getMap());
       }
-      Hideable.setAllHidden(false);
+      PieceAccess.GlobalAccess.revertAll(); 
       String nextOrigin = map.locationName(next.getPosition());
       if (nextOrigin == null || !nextOrigin.equals(origin)) {
         origin = null;
@@ -568,7 +567,7 @@ public class PieceMover extends AbstractBuildable implements
         format.setProperty(Map.MAP_NAME, map.getConfigureName());
       }
 
-      String moveText = format.getText();
+      String moveText = format.getText(map, map, "VASL.build.module.map.PieceMover");
 
       if (moveText.length() > 0) {
         Command report = new Chatter.DisplayText(GameModule.getGameModule().getChatter(), "* " + moveText);
@@ -690,7 +689,7 @@ public class PieceMover extends AbstractBuildable implements
       return -1;
     }
     if (p1.getMap() != p2.getMap()) {
-      result = new Sort.Alpha().compare(p1.getMap().getId(), p2.getMap().getId());
+      result = p1.getMap().getId().compareTo(p2.getMap().getId());
     }
     else {
       Stack s1 = p1 instanceof Stack ? (Stack) p1 : p1.getParent();
@@ -923,8 +922,8 @@ public class PieceMover extends AbstractBuildable implements
       if (DragBuffer.getBuffer().getIterator().hasMoreElements()) {
         Map map = dge.getComponent() instanceof Map.View ? ((Map.View) dge.getComponent()).getMap() : null;
         GamePiece piece = DragBuffer.getBuffer().getIterator().nextPiece();
-        Point mousePosition = map == null ? dge.getDragOrigin() : map.componentCoordinates(dge.getDragOrigin());
-        Point piecePosition = map == null ? piece.getPosition() : map.componentCoordinates(piece.getPosition());
+        Point mousePosition = map == null ? dge.getDragOrigin() : map.mapToComponent(dge.getDragOrigin());
+        Point piecePosition = map == null ? piece.getPosition() : map.mapToComponent(piece.getPosition());
 
         // If DragBuffer holds a piece with invalid coordinates (for example, a card drawn from a deck),
         // drag from center of piece

@@ -504,7 +504,7 @@ public class GameEditFrame extends JFrame  {
 		Point loc = getLocation();
 		dlg.setLocation((frmSize.width - dlgSize.width) / 2 + loc.x, (frmSize.height - dlgSize.height) / 2 + loc.y);
 		dlg.setModal(true);
-		dlg.show();
+		dlg.setVisible(true);
 	}
 
 	//Overridden so we can exit on System Close
@@ -575,8 +575,7 @@ public class GameEditFrame extends JFrame  {
 			frameSize.width = screenSize.width;
 		dialog.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
 
-		dialog.show();
-
+		dialog.setVisible(true);
 	}
 
  	public void showNewScenarioDialog(){
@@ -613,8 +612,7 @@ public class GameEditFrame extends JFrame  {
 		if (frameSize.height > screenSize.height)	frameSize.height = screenSize.height;
 		if (frameSize.width > screenSize.width)  	frameSize.width = screenSize.width;
 		dialog.setLocation((screenSize.width - frameSize.width) / 2, (screenSize.height - frameSize.height) / 2);
-		dialog.show();
-
+		dialog.setVisible(true);
 	}
 
 	public void newScenario(
