@@ -32,7 +32,7 @@ import javax.imageio.stream.MemoryCacheImageInputStream;
 
 import VASSAL.build.GameModule;
 import VASSAL.tools.DataArchive;
-import VASSAL.tools.io.IOUtils;
+import VASSAL.tools.image.ImageUtils;
 
 /**
  * A special kind of SSROverlay constructed on the fly by underlaying a patterned GIF under a board GIF with certain
@@ -59,26 +59,23 @@ public class Underlay extends SSROverlay {
 
   public Image loadImage() {
     Image underlayImage = null;
-    InputStream in = null;
-    try {
-      in = GameModule.getGameModule().getDataArchive().getInputStream("boardData/" + imageName);
-      underlayImage = ImageIO.read(new MemoryCacheImageInputStream(in));
+
+    try (InputStream in = GameModule.getGameModule().getDataArchive().getInputStream("boardData/" + imageName)) {
+      underlayImage = ImageUtils.getImage("boardData/" + imageName, in);
     }
     catch (IOException ex) {
     }
-    finally {
-      VASSAL.tools.io.IOUtils.closeQuietly(in);
-    }
 
     if (underlayImage == null) {
-      try {
-        underlayImage = archive.getImage(imageName);
+      try (InputStream in = archive.getInputStream(DataArchive.IMAGE_DIR + imageName)) {
+        underlayImage = ImageUtils.getImage(DataArchive.IMAGE_DIR + imageName, in);
       }
       catch (IOException ex) {
         System.err.println("Underlay image " + imageName + " not found in " + archive.getName());
         return new BufferedImage(1, 1, BufferedImage.TYPE_4BYTE_ABGR);
       }
     }
+
     Point pos = new Point(0, 0);
     pos = board.getCropBounds().getLocation();
     boundaries.setSize(board.bounds().getSize());

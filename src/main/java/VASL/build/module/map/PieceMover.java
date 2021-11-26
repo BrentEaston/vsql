@@ -50,6 +50,7 @@ import java.awt.image.WritableRaster;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.Iterator;
 
@@ -60,7 +61,6 @@ import javax.swing.JLayeredPane;
 import javax.swing.JRootPane;
 import javax.swing.SwingUtilities;
 
-import VASSAL.Info;
 import VASSAL.build.AbstractBuildable;
 import VASSAL.build.Buildable;
 import VASSAL.build.GameModule;
@@ -81,7 +81,6 @@ import VASSAL.counters.DragBuffer;
 import VASSAL.counters.GamePiece;
 import VASSAL.counters.Hideable;
 import VASSAL.counters.KeyBuffer;
-import VASSAL.counters.Obscurable;
 import VASSAL.counters.PieceFinder;
 import VASSAL.counters.PieceIterator;
 import VASSAL.counters.PieceVisitorDispatcher;
@@ -90,13 +89,13 @@ import VASSAL.counters.Stack;
 import VASSAL.tools.FormattedString;
 import VASSAL.tools.PlayerIdFormattedString;
 import VASSAL.tools.Sort;
-
+import VASSAL.tools.imageop.Op;
 
 /**
  * This is a MouseListener that moves pieces onto a Map window
  */
 public class PieceMover extends AbstractBuildable implements
-    MouseListener, GameComponent, Sort.Comparator {
+    MouseListener, GameComponent, Comparator<GamePiece> {
 
   /** The Preferences key for autoreporting moves.  */
   public static final String AUTO_REPORT = "autoReport";
@@ -121,9 +120,7 @@ public class PieceMover extends AbstractBuildable implements
     map = (Map) b;
     map.addLocalMouseListener(this);
     GameModule.getGameModule().getGameState().addGameComponent(this);
-    if (Info.isDndEnabled()) {
-      map.setDragGestureListener(DragHandler.getTheDragHandler());
-    }
+    map.setDragGestureListener(DragHandler.getTheDragHandler());
   }
 
   /**
@@ -306,12 +303,7 @@ public class PieceMover extends AbstractBuildable implements
       if (markUnmovedButton == null) {
         markUnmovedButton = new JButton();
         if (iconName != null) {
-          try {
-            markUnmovedButton.setIcon(new ImageIcon(GameModule.getGameModule().getDataArchive().getCachedImage(iconName)));
-          }
-          catch (IOException e) {
-            e.printStackTrace();
-          }
+          markUnmovedButton.setIcon(new ImageIcon(Op.load(iconName).getImage()));
         }
         if (markUnmovedButton.getIcon() == null) {
           URL icon = getClass().getResource("/images/unmoved.gif");
@@ -457,7 +449,6 @@ public class PieceMover extends AbstractBuildable implements
     }
 
     Hideable.setAllHidden(true);
-    Obscurable.setAllHidden(true);
 
     String origin = "";
     Point fromPos = null;
@@ -491,7 +482,6 @@ public class PieceMover extends AbstractBuildable implements
       origin = OFFMAP;
     }
     Hideable.setAllHidden(false);
-    Obscurable.setAllHidden(false);
 
     Command comm = new NullCommand();
     String destination;
@@ -521,7 +511,6 @@ public class PieceMover extends AbstractBuildable implements
     while (it.hasMoreElements()) {
       GamePiece next = it.nextPiece();
       Hideable.setAllHidden(true);
-      Obscurable.setAllHidden(true);
       //if (next.getMap() == map) { // Make sure moved from offmap are reported
       if (next.getMap() == map || OFFMAP.equals(origin)) {
         if (next.getName().length() > 0) {
@@ -533,7 +522,6 @@ public class PieceMover extends AbstractBuildable implements
         originMaps.add(next.getMap());
       }
       Hideable.setAllHidden(false);
-      Obscurable.setAllHidden(false);
       String nextOrigin = map.locationName(next.getPosition());
       if (nextOrigin == null || !nextOrigin.equals(origin)) {
         origin = null;
@@ -603,10 +591,6 @@ public class PieceMover extends AbstractBuildable implements
   public void mousePressed(MouseEvent e) {
     if (canHandleEvent(e)) {
       selectMovablePieces(e.getPoint());
-      if (!Info.isDndEnabled()
-          && DragBuffer.getBuffer().getIterator().hasMoreElements()) {
-        map.getView().setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-      }
     }
   }
 
@@ -694,9 +678,7 @@ public class PieceMover extends AbstractBuildable implements
    * Implement Comparator to sort the contents of the drag buffer before completing the drag.
    * This sorts the contents to be in the same order as the pieces were in their original parent stack.
    */
-  public int compare(Object o1, Object o2) {
-    GamePiece p1 = (GamePiece) o1;
-    GamePiece p2 = (GamePiece) o2;
+  public int compare(GamePiece p1, GamePiece p2) {
     int result = 0;
     if (p1.getMap() == null && p2.getMap() == null) {
       return 0;
@@ -939,40 +921,37 @@ public class PieceMover extends AbstractBuildable implements
     /** Fires after user begins moving the mouse several pixels over a map. */
     public void dragGestureRecognized(DragGestureEvent dge) {
       if (DragBuffer.getBuffer().getIterator().hasMoreElements()) {
-        if (Info.is2dEnabled()) {
+        Map map = dge.getComponent() instanceof Map.View ? ((Map.View) dge.getComponent()).getMap() : null;
+        GamePiece piece = DragBuffer.getBuffer().getIterator().nextPiece();
+        Point mousePosition = map == null ? dge.getDragOrigin() : map.componentCoordinates(dge.getDragOrigin());
+        Point piecePosition = map == null ? piece.getPosition() : map.componentCoordinates(piece.getPosition());
 
-          Map map = dge.getComponent() instanceof Map.View ? ((Map.View) dge.getComponent()).getMap() : null;
-          GamePiece piece = DragBuffer.getBuffer().getIterator().nextPiece();
-          Point mousePosition = map == null ? dge.getDragOrigin() : map.componentCoordinates(dge.getDragOrigin());
-          Point piecePosition = map == null ? piece.getPosition() : map.componentCoordinates(piece.getPosition());
-
-          // If DragBuffer holds a piece with invalid coordinates (for example, a card drawn from a deck),
-          // drag from center of piece
-          if (piecePosition.x <= 0 || piecePosition.y <= 0) {
-            piecePosition = mousePosition;
-          }
-
-          // Pieces in an expanded stack need to be offset
-          if (piece.getParent() != null && piece.getParent().isExpanded() && map != null) {
-            Point offset = piece.getMap().getStackMetrics().relativePosition(piece.getParent(), piece);
-            piecePosition.translate(offset.x, offset.y);
-          }
-
-          dragPieceOffCenterX = piecePosition.x - mousePosition.x; // dragging from UL results in positive offsets
-          dragPieceOffCenterY = piecePosition.y - mousePosition.y;
-          dragPieceOffCenterZoom = map == null ? 1.0 : map.getZoom();
-
-          dragWin = dge.getComponent();
-          drawWin = null;
-          dropWin = null;
-
-          makeDragCursor(dragPieceOffCenterZoom);
-
-          setDrawWinToOwnerOf(dragWin);
-
-          SwingUtilities.convertPointToScreen(mousePosition, drawWin);
-          moveDragCursor(mousePosition.x, mousePosition.y);
+        // If DragBuffer holds a piece with invalid coordinates (for example, a card drawn from a deck),
+        // drag from center of piece
+        if (piecePosition.x <= 0 || piecePosition.y <= 0) {
+          piecePosition = mousePosition;
         }
+
+        // Pieces in an expanded stack need to be offset
+        if (piece.getParent() != null && piece.getParent().isExpanded() && map != null) {
+          Point offset = piece.getMap().getStackMetrics().relativePosition(piece.getParent(), piece);
+          piecePosition.translate(offset.x, offset.y);
+        }
+
+        dragPieceOffCenterX = piecePosition.x - mousePosition.x; // dragging from UL results in positive offsets
+        dragPieceOffCenterY = piecePosition.y - mousePosition.y;
+        dragPieceOffCenterZoom = map == null ? 1.0 : map.getZoom();
+
+        dragWin = dge.getComponent();
+        drawWin = null;
+        dropWin = null;
+
+        makeDragCursor(dragPieceOffCenterZoom);
+
+        setDrawWinToOwnerOf(dragWin);
+
+        SwingUtilities.convertPointToScreen(mousePosition, drawWin);
+        moveDragCursor(mousePosition.x, mousePosition.y);
 
         // begin dragging
         try {

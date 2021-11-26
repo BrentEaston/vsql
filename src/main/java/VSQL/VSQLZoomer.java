@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Enumeration;
+import java.util.List;
 
 import javax.swing.KeyStroke;
 
@@ -79,7 +79,7 @@ public class VSQLZoomer extends Zoomer {
       Point center = new Point(r.x + r.width / 2, r.y + r.height / 2);
       center = map.mapCoordinates(center);
 
-      zoomLevel=maxZoom-1;
+      setZoomLevel(0);
       setZoomButtons();
 
       map.centerAt(center);
@@ -95,7 +95,7 @@ public class VSQLZoomer extends Zoomer {
       Point center = new Point(r.x + r.width / 2, r.y + r.height / 2);
       center = map.mapCoordinates(center);
 
-      zoomLevel=0;
+      setZoomLevel(state.getLevelCount()-1);
       setZoomButtons();
 
       map.centerAt(center);
@@ -106,13 +106,15 @@ public class VSQLZoomer extends Zoomer {
   }
   
   public void setZoomButtons() {
-    zoomInButton.setEnabled(zoomLevel > 0);
-    zoomOutButton.setEnabled(zoomLevel < maxZoom - 1);
-    zoomMinButton.setEnabled(zoomLevel < maxZoom - 1);
-    zoomMaxButton.setEnabled(zoomLevel > 0);
+    zoomInButton.setEnabled(state.hasHigherLevel());
+    zoomOutButton.setEnabled(state.hasLowerLevel());
+    zoomMinButton.setEnabled(state.hasLowerLevel());
+    zoomMaxButton.setEnabled(state.hasHigherLevel());
   }
   
   public void setup(boolean gameStarting) {
+    super.setup(gameStarting);
+
     if (gameStarting) {
       
       Prefs prefs = GameModule.getGameModule().getPrefs();
@@ -121,9 +123,9 @@ public class VSQLZoomer extends Zoomer {
       int newZoomStart = ((Integer) prefs.getValue(VSQLProperties.ZOOM_START)).intValue();
       double newZoomFactor = ((Double) prefs.getValue(VSQLProperties.ZOOM_FACTOR)).doubleValue();
       
-      Enumeration e = GameModule.getGameModule().getComponents(VSQLScenInfo.class);
-      if (e.hasMoreElements()) {
-        VSQLScenInfo info = (VSQLScenInfo) e.nextElement();
+      final List<VSQLScenInfo> l = GameModule.getGameModule().getComponentsOf(VSQLScenInfo.class);
+      if (!l.isEmpty()) {
+        final VSQLScenInfo info = l.get(0);
         if (newZoomLevel == 0) {
           newZoomLevel = info.getDefaultZoomLevels();
         }
@@ -144,12 +146,12 @@ public class VSQLZoomer extends Zoomer {
       if (newZoomFactor != 0.0) {
         setAttribute("factor", String.valueOf(newZoomFactor));
       }
-      setZoomButtons();       
     }
     else {
-      zoomLevel = zoomStart-1;
-      setZoomButtons();
+      setZoomLevel(state.getInitialLevel());
     }
+
+    setZoomButtons();       
   }
   
   public void addTo(Buildable b) {

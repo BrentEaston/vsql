@@ -39,7 +39,6 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -52,8 +51,8 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.Scrollable;
+import javax.imageio.ImageIO;
 
-import Acme.JPM.Encoders.GifEncoder;
 import CASL.Map.Bridge;
 import CASL.Map.GameMap;
 import CASL.Map.Hex;
@@ -1989,17 +1988,15 @@ public class 	MapEditor
 		try{
 			frame.setStatusBarText("Saving the Gif map image...");
 			frame.paintImmediately();
-			FileOutputStream os = new FileOutputStream(fileName.substring(0, fileName.indexOf('.')) + ".gif");
 
-			GifEncoder encoder = new GifEncoder((Image) mapImage, os);
-			encoder.encode();
 
-			os.close();
+      final File f = new File(fileName.substring(0, fileName.indexOf('.')) + ".gif");
+      ImageIO.write(mapImage, "GIF", f);
 
 			frame.setStatusBarText("");
 			frame.paintImmediately();
-		} catch (Exception e) {
-
+		}
+    catch (Exception e) {
 			e.printStackTrace();
 			frame.setStatusBarText("Error saving the Gif file");
 		}

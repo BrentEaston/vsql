@@ -29,9 +29,12 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.io.InputStream;
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.Collection;
 import java.util.StringTokenizer;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
@@ -51,12 +54,14 @@ import VASL.counters.TextInfo;
 import VASSAL.build.Buildable;
 import VASSAL.build.GameModule;
 import VASSAL.build.module.GameComponent;
+import VASSAL.build.module.map.boardPicker.Board;
 import VASSAL.command.Command;
 import VASSAL.configure.BooleanConfigurer;
 import VASSAL.configure.ColorConfigurer;
 import VASSAL.counters.Decorator;
 import VASSAL.counters.GamePiece;
 import VASSAL.counters.PieceIterator;
+import VASSAL.counters.Stack;
 import VASSAL.tools.BackgroundTask;
 
 /**
@@ -158,19 +163,18 @@ public class VASLThread
     // if there are any unexpected exceptions, turn off LOS checking
     try {
       // get the board list
-      Enumeration boardList = map.getAllBoards();
+      final Collection<Board> boardList = map.getBoards();
+
+      ASLBoard b = null;
 
       // determine the VASL map dimensions
-	  ASLBoard b = null;
-      while (boardList.hasMoreElements()) {
-        b = (ASLBoard) boardList.nextElement();
+      for (final Board bb: boardList) {
+        b = (ASLBoard) bb;
         mapWidth = Math.max(b.relativePosition().x, mapWidth);
         mapHeight = Math.max(b.relativePosition().y, mapHeight);
       }
       mapWidth++;
       mapHeight++;
-      // reset the enumerator
-      boardList = map.getAllBoards();
       // create the necessary LOS variables
       result = new LOSResult();
       scenario = new Scenario();
@@ -180,16 +184,13 @@ public class VASLThread
       // create the map
       //CASLMap = new GameMap(mapWidth * 32 + 1, mapHeight * 10);
       //CASLMap = createCASLMap(mapWidth * 32 + 1, mapHeight * 10);
-	  CASLMap = createCASLMap(mapWidth  * (int) Math.round(b.getUncroppedSize().getWidth()/56.25) + 1, 
+  	  CASLMap = createCASLMap(mapWidth  * (int) Math.round(b.getUncroppedSize().getWidth()/56.25) + 1, 
 	  						  mapHeight * (int) Math.round(b.getUncroppedSize().getHeight()/64.5));
 
-	  
-	  
       // load the CASL maps
       boolean mapFound = false;
-      while (boardList.hasMoreElements()) {
-
-        b = (ASLBoard) boardList.nextElement();
+      for (final Board bb: boardList) {
+        b = (ASLBoard) bb;
         String boardName = b.getName().startsWith("r") ? b.getName().substring(1) : b.getName();
 
         // set the upper left board
@@ -200,40 +201,43 @@ public class VASLThread
 
         // load the map files
         GameMap newCASLMap;
-        try {
-          newCASLMap = CASL.Map.Map.readMap(VASSAL.tools.DataArchive.getFileStream(b.getFile(), "bd" + boardName + ".map"));
+
+        try (ZipFile zf = new ZipFile(b.getFile())) {
+          final ZipEntry ze = zf.getEntry("bd" + boardName + ".map");
+          if (ze != null) {
+            try (InputStream in = zf.getInputStream(ze)) {
+              newCASLMap = CASL.Map.Map.readMap(in);
+            }
+          }
+          else {
+            freeResources();
+            return "LOS engine disabled... Board " + boardName + " does not support LOS checking";
+          }
         }
         catch (IOException e) {
-          freeResources();
-          return "LOS engine disabled... Board " + boardName + " does not support LOS checking";
-        }
-
-        if (newCASLMap == null) {
           freeResources();
           return "LOS engine disabled... Could not read bd" + boardName + ".map";
         }
 
-        else {
-          mapFound = true;
-	  applyTerrainChanges(b, newCASLMap);
-          // reverse if necessary
-          if (b.isReversed()) {
-            newCASLMap.flip();
-          }
-
-          // add to map
-//          if (!CASLMap.insertGEOMap(newCASLMap, CASLMap.getHex(b.relativePosition().x * 32, b.relativePosition().y * 10))) {
-		if (!CASLMap.insertGEOMap(newCASLMap, CASLMap.getHex(b.relativePosition().x * ((int) (Math.round(b.getUncroppedSize().getWidth()/56.25))), b.relativePosition().y * ((int) (Math.round(b.getUncroppedSize().getHeight()/64.5)))))) {
-            System.err.println("LOS engine disabled... Error building map");
-            newCASLMap = null;
-            freeResources();
-            return "LOS engine disabled... Error building map";
-          }
-
-          // clean up to try to reuse the same memory
-          newCASLMap = null;
-          System.gc();
+        mapFound = true;
+       applyTerrainChanges(b, newCASLMap);
+        // reverse if necessary
+        if (b.isReversed()) {
+          newCASLMap.flip();
         }
+
+        // add to map
+//        if (!CASLMap.insertGEOMap(newCASLMap, CASLMap.getHex(b.relativePosition().x * 32, b.relativePosition().y * 10))) {
+    		if (!CASLMap.insertGEOMap(newCASLMap, CASLMap.getHex(b.relativePosition().x * ((int) (Math.round(b.getUncroppedSize().getWidth()/56.25))), b.relativePosition().y * ((int) (Math.round(b.getUncroppedSize().getHeight()/64.5)))))) {
+          System.err.println("LOS engine disabled... Error building map");
+          newCASLMap = null;
+          freeResources();
+          return "LOS engine disabled... Error building map";
+        }
+
+        // clean up to try to reuse the same memory
+        newCASLMap = null;
+        System.gc();
       }
 
       // found no boards?
@@ -732,8 +736,8 @@ public class VASLThread
       GamePiece[] p = map.getPieces();
       // add each of the pieces to the scenario
       for (int i = 0; i < p.length; ++i) {
-        if (p[i] instanceof VASSAL.counters.Stack) {
-          for (PieceIterator pi = new PieceIterator(((VASSAL.counters.Stack) p[i]).getPieces()); pi.hasMoreElements();) {
+        if (p[i] instanceof Stack) {
+          for (PieceIterator pi = new PieceIterator(((Stack) p[i]).getPiecesIterator()); pi.hasMoreElements();) {
             loadPiece(pi.nextPiece());
           }
         }
@@ -875,8 +879,8 @@ public class VASLThread
     p = b.globalCoordinates(p);
     // Now we need to adjust for cropping of the boards to the left and
     // above the target board
-    for (Enumeration e = map.getAllBoards(); e.hasMoreElements();) {
-      ASLBoard b2 = (ASLBoard) e.nextElement();
+    for (final Board bb: map.getBoards()) {
+      final ASLBoard b2 = (ASLBoard) bb;
       if (b2.relativePosition().y == b.relativePosition().y
           && b2.relativePosition().x < b.relativePosition().x) {
         p.translate(b2.getUncroppedSize().width - b2.bounds().width, 0);
@@ -890,6 +894,7 @@ public class VASLThread
     p.translate(-map.getEdgeBuffer().width, -map.getEdgeBuffer().height);
     return p;
   }
+
   private void applyTerrainChanges(ASLBoard b, GameMap map) {
 
 //	StringTokenizer st = new StringTokenizer(b.getTerrainChanges(), "\t");

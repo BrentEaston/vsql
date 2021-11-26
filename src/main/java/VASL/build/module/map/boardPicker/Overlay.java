@@ -28,13 +28,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-import javax.imageio.ImageIO;
-import javax.imageio.stream.MemoryCacheImageInputStream;
-
 import VASSAL.build.module.map.boardPicker.board.MapGrid;
 import VASSAL.build.module.map.boardPicker.board.MapGrid.BadCoords;
 import VASSAL.tools.DataArchive;
 import VASSAL.tools.SequenceEncoder;
+import VASSAL.tools.imageop.Op;
 import VASSAL.tools.io.IOUtils;
 
 /**
@@ -130,19 +128,7 @@ public class Overlay implements Cloneable {
       c = 'a';
     }
 
-    InputStream in = null;
-    try {
-      in = archive.getImageInputStream(fileName(name + c));
-      im = ImageIO.read(new MemoryCacheImageInputStream(in));
-    }
-    catch (IOException e) {
-      e.printStackTrace();
-    }
-    finally {
-      IOUtils.closeQuietly(in);
-    }    
-
-    return im;
+    return Op.load(fileName(name + c)).getImage();
   }
 
   public String getName() {
@@ -195,7 +181,7 @@ public class Overlay implements Cloneable {
     char c = getOrientation();
     boundaries.setLocation(board.getGrid().getLocation(hex1));
     boundaries.translate(-offset(c, board).x, -offset(c, board).y);
-    boundaries.setSize(archive.getImageSize(fileName(name + c)));
+    boundaries.setSize(Op.load(fileName(name + c)).getSize());
   }
 
   private String fileName(String name) {

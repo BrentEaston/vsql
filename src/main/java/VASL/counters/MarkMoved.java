@@ -37,6 +37,8 @@ import VASSAL.counters.PieceEditor;
 import VASSAL.counters.Properties;
 import VASSAL.counters.SimplePieceEditor;
 import VASSAL.tools.SequenceEncoder;
+import VASSAL.tools.imageop.ImageOp;
+import VASSAL.tools.imageop.Op;
 
 /**
  * Allows a piece to be marked as having moved
@@ -134,20 +136,16 @@ public class MarkMoved extends Decorator implements EditablePiece {
   public void draw(Graphics g, int x, int y, Component obs, double zoom) {
     piece.draw(g, x, y, obs, zoom);
     if (hasMoved) {
-      Rectangle r = piece.getShape().getBounds();
-      try {
-        Image im =
-            GameModule.getGameModule().getDataArchive().getCachedImage(markImage + ".gif");
-        if (zoom != 1.0) {
-          im = GameModule.getGameModule().getDataArchive().getScaledImage(im,zoom);
-        }
-        g.drawImage(im,
-                    x + (int) (zoom * (r.x + r.width)),
-                    y + (int) (zoom * r.y),obs);
+      final Rectangle r = piece.getShape().getBounds();
+
+      ImageOp op = Op.load(markImage + ".gif");
+      if (zoom != 1.0) {
+        op = Op.scale(op, zoom);
       }
-      catch (java.io.IOException ex) {
-        ex.printStackTrace();
-      }
+      
+      g.drawImage(op.getImage(),
+                  x + (int) (zoom * (r.x + r.width)),
+                  y + (int) (zoom * r.y),obs);
     }
   }
 

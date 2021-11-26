@@ -48,10 +48,10 @@ import VASSAL.counters.Decorator;
 import VASSAL.counters.GamePiece;
 import VASSAL.counters.KeyCommand;
 import VASSAL.counters.KeySpecifier;
-import VASSAL.counters.Labeler;
 import VASSAL.counters.PieceEditor;
 import VASSAL.counters.Properties;
 import VASSAL.tools.SequenceEncoder;
+import VASSAL.tools.image.LabelUtils;
 import VASSAL.tools.imageop.ImageOp;
 import VASSAL.tools.imageop.Op;
 
@@ -422,8 +422,8 @@ public class VSQLFootprint extends MarkMoved {
            */
           else if (leader && lastValue > 0 && selected) {
            
-            Labeler.drawLabel(g, lastValue + 1 + "", x1, y1, f, Labeler.CENTER,
-               Labeler.CENTER, CIRCLE_COLOR, null, null);
+            LabelUtils.drawLabel(g, lastValue + 1 + "", x1, y1, f, LabelUtils.CENTER,
+               LabelUtils.CENTER, CIRCLE_COLOR, null, null);
             
           }
         }

@@ -26,7 +26,7 @@
  */
 package VASL.counters;
 
-import java.util.Enumeration;
+import java.util.Iterator;
 
 import javax.swing.KeyStroke;
 
@@ -66,9 +66,8 @@ public class PlaceDM extends PlaceMarker {
       boolean dmExists = false;
       if (getParent() != null) {
         GamePiece outer = Decorator.getOutermost(this);
-        for (Enumeration e = getParent().getPiecesInReverseOrder();
-             e.hasMoreElements();) {
-          GamePiece p = (GamePiece) e.nextElement();
+        for (Iterator<GamePiece> i = getParent().getPiecesReverseIterator(); i.hasNext(); ) {
+          final GamePiece p = i.next();
           if (p.getName().equals("DM")) {
             dmExists = true;
             break;

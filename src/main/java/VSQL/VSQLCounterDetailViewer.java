@@ -10,7 +10,7 @@ import javax.swing.JComponent;
 
 import VASSAL.build.module.map.CounterDetailViewer;
 import VASSAL.counters.GamePiece;
-import VASSAL.counters.Labeler;
+import VASSAL.tools.image.LabelUtils;
 
 public class VSQLCounterDetailViewer extends CounterDetailViewer {
 
@@ -63,7 +63,7 @@ public class VSQLCounterDetailViewer extends CounterDetailViewer {
           String text = counterReportFormat.getText(piece);
           int x = bounds.x - (int) (pieceBounds.x * graphicsZoom) + borderOffset;
           int y = bounds.y + bounds.height + 10;
-          drawLabel(g, new Point(x, y), text, Labeler.CENTER, Labeler.CENTER);
+          drawLabel(g, new Point(x, y), text, LabelUtils.CENTER, LabelUtils.CENTER);
         }
 
         bounds.translate((int) (pieceBounds.width * graphicsZoom), 0);

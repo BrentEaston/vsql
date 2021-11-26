@@ -19,16 +19,13 @@
 package VASL.build.module.map.boardPicker;
 
 import VASSAL.tools.DataArchive;
-import VASSAL.tools.io.IOUtils;
+import VASSAL.tools.image.ImageUtils;
 
 import java.awt.*;
 import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
 import java.util.StringTokenizer;
-
-import javax.imageio.ImageIO;
-import javax.imageio.stream.MemoryCacheImageInputStream;
 
 public class SSROverlay extends Overlay {
   private Point basePos;
@@ -53,7 +50,13 @@ public class SSROverlay extends Overlay {
       catch (IOException e) {
         throw new IllegalArgumentException("Unable to open "+overlayFile);
       }
-      boundaries.setSize(archive.getImageSize(name));
+
+      Dimension size = null;
+      try (InputStream in = archive.getInputStream(DataArchive.IMAGE_DIR + name)) {
+        size = ImageUtils.getImageSize(name, in);
+      }
+
+      boundaries.setSize(size);
 
       boundaries.setLocation(basePos);
     }
@@ -69,16 +72,11 @@ public class SSROverlay extends Overlay {
 
   protected Image loadImage() {
     Image im = null;
-    InputStream in = null;
-    try {
-      in = archive.getImageInputStream(name);
-      im = ImageIO.read(new MemoryCacheImageInputStream(in));
+    try (InputStream in = archive.getInputStream(DataArchive.IMAGE_DIR + name)) {
+      im = ImageUtils.getImage(name, in);
     }
     catch (IOException e) {
       e.printStackTrace();
-    }
-    finally {
-      IOUtils.closeQuietly(in);
     }
 
     return im;

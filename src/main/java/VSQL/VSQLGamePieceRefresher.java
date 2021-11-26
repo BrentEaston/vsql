@@ -201,13 +201,10 @@ public class VSQLGamePieceRefresher extends AbstractConfigurable {
   
   // Find a new Piece matching the oldpiece
   protected void findNewPiece(GamePiece oldPiece) {
-
-    boolean done = false;
-
-    Enumeration pwe = GameModule.getGameModule().getComponents(PieceWindow.class);
-    while (pwe.hasMoreElements() && ! done) {
-      AbstractConfigurable b = (AbstractConfigurable) pwe.nextElement();
-      done = checkBuildable(oldPiece, b);
+    for (final PieceWindow pw: GameModule.getGameModule().getComponentsOf(PieceWindow.class)) {
+      if (checkBuildable(oldPiece, pw)) {
+        break;
+      }
     }
   }
 

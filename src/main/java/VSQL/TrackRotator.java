@@ -60,6 +60,9 @@ import VASSAL.counters.KeySpecifier;
 import VASSAL.counters.PieceEditor;
 import VASSAL.counters.PieceImage;
 import VASSAL.tools.SequenceEncoder;
+import VASSAL.tools.imageop.GamePieceOp;
+import VASSAL.tools.imageop.ImageOp;
+import VASSAL.tools.imageop.Op;
 
 /**
  * A Decorator that rotates a GamePiece to an arbitrary angle
@@ -82,9 +85,8 @@ import VASSAL.tools.SequenceEncoder;
   private double[] validAngles = new double[]{0.0};
   private int angleIndex = 0;
 
-  private HashMap<Double, Image> images = new HashMap<Double, Image>();
   private HashMap<Double, Rectangle> bounds = new HashMap<Double, Rectangle>();
-  private PieceImage unrotated;
+  private GamePieceOp unrotated;
 
   private double tempAngle, startAngle;
   private boolean drawGhost;
@@ -103,7 +105,7 @@ import VASSAL.tools.SequenceEncoder;
   }
 
   public void setInner(GamePiece p) {
-    unrotated = new PieceImage(p);
+    unrotated = Op.piece(p);
     super.setInner(p);
   }
 
@@ -142,11 +144,11 @@ import VASSAL.tools.SequenceEncoder;
   }
 
   public Rectangle getRotatedBounds() {
-    Rectangle r = (Rectangle) bounds.get(new Double(getAngle()));
-    if (r == null) {
-      r = piece.boundingBox();
+    if (unrotated.isChanged()) {
+      bounds.clear();
     }
-    return r;
+
+    return bounds.computeIfAbsent(getAngle(), k -> piece.boundingBox());
   }
 
   public Shape getShape() {
@@ -193,12 +195,12 @@ import VASSAL.tools.SequenceEncoder;
       piece.draw(g, x, y, obs, zoom);
     }
     else {
-      Image rotated = getRotatedImage(getAngle(), obs);
-      Rectangle r = getRotatedBounds();
-      Image zoomed = GameModule.getGameModule().getDataArchive().getScaledImage(rotated,zoom);
-      g.drawImage(zoomed,
+      final ImageOp op = Op.rotateScale(unrotated, getAngle(), zoom);
+      final Rectangle r = getRotatedBounds();
+
+      g.drawImage(op.getImage(),
                   x + (int) (zoom * r.x),
-                  y + (int) (zoom * r.y),obs);
+                  y + (int) (zoom * r.y), obs);
     }
   }
 
@@ -375,46 +377,6 @@ import VASSAL.tools.SequenceEncoder;
   }
 
   public void mouseMoved(MouseEvent e) {
-  }
-
-  public Image getRotatedImage(double angle, Component obs) {
-    Image rotated = getCachedUnrotatedImage(angle);
-    if (unrotated.isChanged()) {
-      clearCachedImages();
-      rotated = null;
-    }
-    if (rotated == null) {
-      Rectangle rotatedBounds;
-      Rectangle unrotatedBounds = piece.boundingBox();
-      rotatedBounds = boundingBox();
-      rotated = new BufferedImage(rotatedBounds.width, rotatedBounds.height, BufferedImage.TYPE_4BYTE_ABGR);
-      ((BufferedImage)rotated).setRGB(0,0,rotatedBounds.width,rotatedBounds.height,new int[rotatedBounds.width*rotatedBounds.height],0,rotatedBounds.width);
-      Graphics2D g2d = ((BufferedImage)rotated).createGraphics();
-      g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-      AffineTransform t = AffineTransform.getTranslateInstance(-rotatedBounds.x, -rotatedBounds.y);
-      t.rotate(-Math.PI * angle / 180.0);
-      t.translate(unrotatedBounds.x, unrotatedBounds.y);
-      g2d.drawImage(unrotated.getImage(obs), t, obs);
-      images.put(new Double(angle), rotated);
-      bounds.put(new Double(angle), rotatedBounds);
-    }
-    return rotated;
-  }
-
-  private Image getCachedUnrotatedImage(double angle) {
-    if (validAngles.length == 1) {
-      angle = validAngles[0];
-    }
-    Image rotated = (Image) images.get(new Double(angle));
-    return rotated;
-  }
-
-  private void clearCachedImages() {
-    for (Image im : images.values()) {
-      GameModule.getGameModule().getDataArchive().unCacheImage(im);
-    }
-    images.clear();
-    bounds.clear();
   }
 
   public String getDescription() {

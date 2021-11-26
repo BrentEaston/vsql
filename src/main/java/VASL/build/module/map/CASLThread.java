@@ -38,8 +38,7 @@ import java.util.concurrent.ExecutionException;
 
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
-
-import org.jdesktop.swingworker.SwingWorker;
+import javax.swing.SwingWorker;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

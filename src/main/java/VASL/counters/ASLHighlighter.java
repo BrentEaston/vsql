@@ -33,7 +33,7 @@ import VASSAL.build.module.GlobalOptions;
 import VASSAL.build.module.Map;
 import VASSAL.counters.ColoredBorder;
 import VASSAL.counters.GamePiece;
-import VASSAL.counters.Labeler;
+import VASSAL.tools.image.LabelUtils;
 
 /**
  * In VASL, we draw the hex location when a unit is selected
@@ -54,9 +54,9 @@ public class ASLHighlighter extends ColoredBorder implements Buildable {
         r = p.getParent().bottomPiece().getShape().getBounds();
       }
       y += (int) (zoom * (r.y + r.height + 6));
-      Labeler.drawLabel(g, p.getMap().locationName(p.getPosition()),
-                        x, y, f, Labeler.CENTER, Labeler.TOP,
-                        Color.black, Color.white, Color.black);
+      LabelUtils.drawLabel(g, p.getMap().locationName(p.getPosition()),
+                          x, y, f, LabelUtils.CENTER, LabelUtils.TOP,
+                          Color.black, Color.white, Color.black);
     }
   }
 

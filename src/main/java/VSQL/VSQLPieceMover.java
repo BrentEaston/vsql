@@ -158,7 +158,7 @@ public class VSQLPieceMover extends ASLPieceMover {
       if (p instanceof Stack) {
         Vector<GamePiece> toMove = new Vector<GamePiece>();
         int pos = 0;
-        for (PieceIterator pi = new PieceIterator(((Stack) p).getPieces());
+        for (PieceIterator pi = new PieceIterator(((Stack) p).getPiecesIterator());
              pi.hasMoreElements();) {
           GamePiece p1 = pi.nextPiece();
           if (p1.getProperty(ASLProperties.LOCATION) == null && !isBelowNonMoveable((Stack) p, pos)) {

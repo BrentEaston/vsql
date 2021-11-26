@@ -177,8 +177,7 @@ public class Concealment extends Decorator implements EditablePiece {
    */
   public boolean canConceal(GamePiece p) {
     Concealable c = (Concealable) Decorator.getDecorator(p, Concealable.class);
-    if (c == null
-        || !c.isMaskableBy(GameModule.getUserId())) {
+    if (c == null || !c.isMaskable()) {
       return false;
     }
     else {
