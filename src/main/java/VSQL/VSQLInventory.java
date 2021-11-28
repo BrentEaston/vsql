@@ -20,6 +20,7 @@ package VSQL;
 
 import java.awt.Component;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,6 +28,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
@@ -94,6 +96,7 @@ import VASSAL.counters.Stack;
 import VASSAL.preferences.PositionOption;
 import VASSAL.tools.FormattedString;
 import VASSAL.tools.LaunchButton;
+import VASSAL.tools.swing.SwingUtils;
 
 public class VSQLInventory extends AbstractConfigurable implements GameComponent {
   protected LaunchButton launch;
@@ -280,7 +283,21 @@ public class VSQLInventory extends AbstractConfigurable implements GameComponent
               }
 
               public void paintIcon(Component c, Graphics g, int x, int y) {
-                piece.draw(g, -r.x, -r.y, c, pieceZoom);
+                // get actual zoom and adjust transform
+                final Graphics2D g2d = (Graphics2D) g;
+                final double os_scale = g2d.getDeviceConfiguration().getDefaultTransform().getScaleX();
+                final AffineTransform orig_t = g2d.getTransform();
+                g2d.setTransform(SwingUtils.descaleTransform(orig_t));
+
+                piece.draw(
+                  g,
+                  (int)(-r.x * os_scale),
+                  (int)(-r.y * os_scale),
+                  c,
+                  pieceZoom * os_scale
+                );
+
+                g2d.setTransform(orig_t);
               }
 
             });
