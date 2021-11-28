@@ -36,17 +36,21 @@ public class VSQLHindranceKeeper extends HindranceKeeper  {
     }
     
     if (isLOSvisible(m)) {
+      final Graphics2D g2d = (Graphics2D) g;
+      final double os_scale = g2d.getDeviceConfiguration().getDefaultTransform().getScaleX();
+      final double zoom = map.getZoom() * os_scale;
+
       // Find and draw any Overlay counters at full strength
       GamePiece[] pieces = m.getPieces();
       for (int i = 0; i < pieces.length; ++i) {
         if (pieces[i] instanceof Stack) {
           Stack s = (Stack) pieces[i];
           for (int j = 0; j < s.getPieceCount(); j++) {
-            apply(s.getPieceAt(j), g, m);
+            apply(s.getPieceAt(j), g, m, os_scale, zoom);
           }
         }
         else {
-          apply(pieces[i], g, m);
+          apply(pieces[i], g, m, os_scale, zoom);
         }          
       }
     }
@@ -79,13 +83,11 @@ public class VSQLHindranceKeeper extends HindranceKeeper  {
       }
     }
   }
-  
-  
-  protected void apply(GamePiece p, Graphics g, Map m) {
+
+  protected void apply(GamePiece p, Graphics g, Map m, double os_scale, double zoom) {
     if ("Overlay".equals(p.getProperty("Level"))) {
-      Point pt = m.mapToComponent(p.getPosition());
-      p.draw(g, pt.x, pt.y, m.getView(), m.getZoom());
+      final Point pt = m.mapToDrawing(p.getPosition(), os_scale);
+      p.draw(g, pt.x, pt.y, m.getView(), zoom);
     }
-    
   }
 }
