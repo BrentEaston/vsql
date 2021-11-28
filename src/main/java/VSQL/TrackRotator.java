@@ -206,14 +206,18 @@ import VASSAL.tools.imageop.Op;
 
   public void draw(Graphics g, Map map) {
     if (drawGhost) {
-      Point p = map.mapToComponent(getPosition());
-      Graphics2D g2d = (Graphics2D) g;
+      final Graphics2D g2d = (Graphics2D) g;
+      final double os_scale = g2d.getDeviceConfiguration().getDefaultTransform().getScaleX();
+      final double zoom = map.getZoom() * os_scale;
+
+      Point p = map.mapToDrawing(getPosition(), os_scale);
+
       AffineTransform t = g2d.getTransform();
       g2d.transform(AffineTransform.getRotateInstance(-Math.PI * tempAngle / 180., p.x, p.y));
       g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5F));
       g2d.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR);
       g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-      piece.draw(g, p.x, p.y, map.getView(), map.getZoom());
+      piece.draw(g, p.x, p.y, map.getView(), zoom);
       g2d.setTransform(t);
     }
   }
