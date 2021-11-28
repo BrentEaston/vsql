@@ -19,6 +19,7 @@
 package VASL.build.module.map;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -69,19 +70,24 @@ public class HindranceKeeper extends AbstractBuildable implements Drawable, KeyL
   public void draw(Graphics g, Map m) {
     if (!m.isPiecesVisible()
         && Boolean.TRUE.equals(GameModule.getGameModule().getPrefs().getValue(DRAW_HINDRANCES))) {
+
+      final Graphics2D g2d = (Graphics2D) g;
+      final double os_scale = g2d.getDeviceConfiguration().getDefaultTransform().getScaleX();
+      final double zoom = map.getZoom() * os_scale;
+
       GamePiece[] p = m.getPieces();
       java.awt.Point pt;
       for (int i = 0; i < p.length; ++i) {
         if (p[i] instanceof Stack) {
           Stack temp = getVisibleHindrances((Stack) p[i]);
           if (temp != null) {
-            pt = map.mapToComponent(p[i].getPosition());
-            map.getStackMetrics().draw(temp,g,pt.x,pt.y,map.getView(),map.getZoom());
+            pt = map.mapToDrawing(p[i].getPosition(), os_scale);
+            map.getStackMetrics().draw(temp, g, pt.x, pt.y, map.getView(), zoom);
           }
         }
         else if (isVisibleHindrance(p[i])) {
-          pt = map.mapToComponent(p[i].getPosition());
-          p[i].draw(g, pt.x, pt.y, map.getView(), map.getZoom());
+          pt = map.mapToDrawing(p[i].getPosition(), os_scale);
+          p[i].draw(g, pt.x, pt.y, map.getView(), zoom);
         }
       }
     }
