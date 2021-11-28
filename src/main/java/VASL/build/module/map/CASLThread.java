@@ -111,12 +111,6 @@ public class CASLThread
   private SwingWorker<String, Void> initThread;
 
   public CASLThread() {
-    // ensure correct Java version
-    if (System.getProperty("java.version").startsWith("1.1")) {
-      System.err.println("LOS checking turned off:  Java version " + System.getProperty("java.version"));
-      status = DISABLED;
-      freeResources();
-    }
   }
 
   /** Invoked when the user hits the "LOS" button */
