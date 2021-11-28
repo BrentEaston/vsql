@@ -677,9 +677,6 @@ public class 	MapEditor
 				screen2D.draw(cursorShape);
 			}
 		}
-
-		// free resources
-		screen2D.dispose();
 	}
 
 	public void update(Graphics screen) {

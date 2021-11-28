@@ -116,8 +116,5 @@ class CounterInfoPanel extends JPanel {
 				Color.black,
 				checkMark);
 		}
-
-		// free resources
-		screen2D.dispose();
 	}
 }
