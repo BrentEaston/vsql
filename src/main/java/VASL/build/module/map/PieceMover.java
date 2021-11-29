@@ -567,7 +567,7 @@ public class PieceMover extends AbstractBuildable implements
         format.setProperty(Map.MAP_NAME, map.getConfigureName());
       }
 
-      String moveText = format.getText(map, map, "VASL.build.module.map.PieceMover");
+      String moveText = format.getText(map);
 
       if (moveText.length() > 0) {
         Command report = new Chatter.DisplayText(GameModule.getGameModule().getChatter(), "* " + moveText);

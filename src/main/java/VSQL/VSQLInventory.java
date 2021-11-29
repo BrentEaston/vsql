@@ -813,10 +813,10 @@ public class VSQLInventory extends AbstractConfigurable implements GameComponent
 
     public String toString() {
       if (node != null && node.isLeafParent()) {
-        return childlessFormat.getText(this, this, "VSQL.VSQLInventory.Counter");
+        return childlessFormat.getText(this);
       }
       else {
-        return format.getText(this, this, "VSQL.VSQLInventory.Counter");
+        return format.getText(this);
       }
     }
 

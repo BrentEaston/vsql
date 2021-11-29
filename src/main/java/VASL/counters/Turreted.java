@@ -86,7 +86,7 @@ public class Turreted extends Embellishment implements EditablePiece {
     return piece.getShape();
   }
 
-  protected Image getCurrentImage() throws java.io.IOException {
+  protected Image getCurrentImage() {
     if (flipped || value != getVehicleCA()) {
       try {
         return Op.load((flipped ? back : front) + value + ".gif").getImage(null);

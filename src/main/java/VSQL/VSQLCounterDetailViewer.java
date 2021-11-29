@@ -60,7 +60,7 @@ public class VSQLCounterDetailViewer extends CounterDetailViewer {
         g.setClip(oldClip);
 
         if (isTextUnderCounters()) {
-          String text = counterReportFormat.getText(piece, piece, "VSQL.VSQLCounterDetailViewer");
+          String text = counterReportFormat.getText(piece);
           int x = bounds.x - (int) (pieceBounds.x * graphicsZoom) + borderOffset;
           int y = bounds.y + bounds.height + 10;
           drawLabel(g, new Point(x, y), text, LabelUtils.CENTER, LabelUtils.CENTER);

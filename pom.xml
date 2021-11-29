@@ -2,13 +2,13 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>CombatCommander</groupId>
-	<artifactId>CombatCommander</artifactId>
+	<groupId>VSQL</groupId>
+	<artifactId>VSQL</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
   <properties>
     <!-- set Vassal version here -->
-    <vassal.version>3.6.0-beta6</vassal.version>
+    <vassal.version>3.5.8</vassal.version>
 
     <!-- set Java version here -->
     <maven.compiler.source>11</maven.compiler.source>
