@@ -291,6 +291,9 @@ public class VSQLFootprint extends MarkMoved {
 
     piece.draw(g, x, y, obs, zoom);
 
+    final Graphics2D g2d = (Graphics2D) g;
+    final double os_scale = g2d.getDeviceConfiguration().getDefaultTransform().getScaleX();
+
     /*
      * If we are asked to be drawn at a different zoom from the current map zoom
      * setting, then don't draw the trail as it will be in the wrong place.
@@ -298,12 +301,11 @@ public class VSQLFootprint extends MarkMoved {
      */
     double mapZoom = zoom;
     if (this.getMap() != null) {
-      mapZoom = this.getMap().getZoom();
+      mapZoom = this.getMap().getZoom() * os_scale;
     }
 
     if (visible && (zoom == mapZoom)) {
       Font f = new Font("Dialog", Font.PLAIN, (int) (BASE_FONT_SIZE * zoom));
-      Graphics2D g2d = (Graphics2D) g;
       boolean selected = Boolean.TRUE.equals(getProperty(Properties.SELECTED));
       Composite oldComposite = g2d.getComposite();
 
