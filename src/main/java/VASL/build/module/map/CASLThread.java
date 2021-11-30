@@ -23,6 +23,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
@@ -410,8 +411,12 @@ public class CASLThread
       g.drawImage(loadingStatus, map.getView().getVisibleRect().x, map.getView().getVisibleRect().y, map.getView());
     }
     else if (visible && status == LOADED) {
-      lastAnchor = map.mapToComponent(anchor);
-      lastArrow = map.mapToComponent(arrow);
+      final Graphics2D g2d = (Graphics2D) g;
+      final double os_scale = g2d.getDeviceConfiguration().getDefaultTransform().getScaleX();
+
+      lastAnchor = map.mapToDrawing(anchor, os_scale);
+      lastArrow = map.mapToDrawing(arrow, os_scale);
+
       if (source != null) {
         // source LOS point
         Point sourceLOSPoint;
@@ -525,7 +530,9 @@ public class CASLThread
             default:
               g.setColor(Color.white);
           }
-          g.setFont(RANGE_FONT);
+
+          g.setFont(RANGE_FONT.deriveFont((float)(RANGE_FONT.getSize() * os_scale)));
+
           if (isVerbose()) {
             lastRangeRect = drawString(g,
                        sourceLOSPoint.x - 20,
@@ -576,6 +583,8 @@ public class CASLThread
           else {
             lastRangeRect.add(drawString(g, targetLOSPoint.x - 20, targetLOSPoint.y + shift * 2 - 2, resultsString));
           }
+
+          lastRangeRect = map.drawingToMap(lastRangeRect, os_scale);
         }
       }
     }
