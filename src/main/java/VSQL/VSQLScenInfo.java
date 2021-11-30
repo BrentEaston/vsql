@@ -497,9 +497,8 @@ public class VSQLScenInfo extends AbstractBuildable implements GameComponent, Co
     }
 
     class BlankRenderer implements TableCellRenderer {
-
       public Component getTableCellRendererComponent(JTable arg0, Object arg1, boolean arg2, boolean arg3, int arg4, int arg5) {
-        return null;
+        return new JLabel();
       }
     }
 
