@@ -18,6 +18,30 @@
  */
 package VASL.build.module.map;
 
+import VASL.build.module.map.boardPicker.ASLBoard;
+import VASL.build.module.map.boardPicker.ASLBoardSlot;
+import VASL.build.module.map.boardPicker.BoardException;
+import VASL.build.module.map.boardPicker.Overlay;
+import VASL.build.module.map.boardPicker.SSROverlay;
+
+import VASSAL.Info;
+import VASSAL.build.BadDataReport;
+import VASSAL.build.Buildable;
+import VASSAL.build.Builder;
+import VASSAL.build.Configurable;
+import VASSAL.build.GameModule;
+import VASSAL.build.module.map.BoardPicker;
+import VASSAL.build.module.map.GlobalMap;
+import VASSAL.build.module.map.boardPicker.Board;
+import VASSAL.build.module.map.boardPicker.BoardSlot;
+import VASSAL.build.module.map.boardPicker.board.HexGrid;
+import VASSAL.command.Command;
+import VASSAL.command.NullCommand;
+import VASSAL.configure.DirectoryConfigurer;
+import VASSAL.configure.ValidationReport;
+import VASSAL.tools.ErrorDialog;
+import VASSAL.tools.ReadErrorDialog;
+
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.awt.Container;
@@ -37,6 +61,8 @@ import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.math.BigInteger;
 import java.text.Collator;
 import java.util.ArrayList;
@@ -63,7 +89,6 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -73,38 +98,12 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 
 import org.apache.commons.codec.digest.DigestUtils;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-
-import VASL.build.module.map.boardPicker.ASLBoard;
-import VASL.build.module.map.boardPicker.ASLBoardSlot;
-import VASL.build.module.map.boardPicker.BoardException;
-import VASL.build.module.map.boardPicker.Overlay;
-import VASL.build.module.map.boardPicker.SSROverlay;
-
-import VASSAL.Info;
-import VASSAL.build.BadDataReport;
-import VASSAL.build.Buildable;
-import VASSAL.build.Builder;
-import VASSAL.build.Configurable;
-import VASSAL.build.GameModule;
-import VASSAL.build.module.map.BoardPicker;
-import VASSAL.build.module.map.GlobalMap;
-import VASSAL.build.module.map.boardPicker.Board;
-import VASSAL.build.module.map.boardPicker.BoardSlot;
-import VASSAL.build.module.map.boardPicker.board.HexGrid;
-import VASSAL.command.Command;
-import VASSAL.command.NullCommand;
-import VASSAL.configure.DirectoryConfigurer;
-import VASSAL.configure.ValidationReport;
-import VASSAL.tools.ErrorDialog;
-import VASSAL.tools.ReadErrorDialog;
 
 public class ASLBoardPicker extends BoardPicker implements ActionListener {
   private static final Logger logger =
@@ -364,7 +363,7 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
 
     final ASLTilingHandler th = new ASLTilingHandler(
       fpath.getAbsolutePath(),
-      new File(Info.getConfDir(), "tiles/" + hstr),
+      new File(getCacheDir(), "tiles/" + hstr),
       new Dimension(256, 256),
       1024
     );
@@ -382,6 +381,15 @@ public class ASLBoardPicker extends BoardPicker implements ActionListener {
     possibleBoards.add(b);
   }
 
+  private File getCacheDir() {
+    try {
+      final Method m = Info.class.getDeclaredMethod("getCacheDir");
+      return (File) m.invoke(null);
+    }
+    catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+      return Info.getConfDir();
+    }
+  }
   public void validate(Buildable target, ValidationReport report) {
   }
 
