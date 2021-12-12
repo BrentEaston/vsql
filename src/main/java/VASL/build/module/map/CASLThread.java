@@ -509,9 +509,6 @@ public class CASLThread
         }
         // use the draw range property to turn all text on/off
         if (drawRange) {
-          // determine if the text should be above or below the location
-          boolean shiftSourceText = sourceLOSPoint.y > targetLOSPoint.y;
-          int shift = g.getFontMetrics().getHeight();
           // draw the source elevation
           switch (source.getBaseHeight() + source.getHex().getBaseHeight()) {
             case -1:
@@ -532,6 +529,9 @@ public class CASLThread
           }
 
           g.setFont(RANGE_FONT.deriveFont((float)(RANGE_FONT.getSize() * os_scale)));
+          // determine if the text should be above or below the location
+          boolean shiftSourceText = sourceLOSPoint.y > targetLOSPoint.y;
+          int shift = g.getFontMetrics().getHeight();
 
           if (isVerbose()) {
             lastRangeRect = drawString(g,
