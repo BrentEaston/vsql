@@ -426,7 +426,7 @@ public class CASLThread
         else {
           sourceLOSPoint = new Point(source.getLOSPoint());
         }
-        sourceLOSPoint = mapCASLPointToScreen(sourceLOSPoint);
+        sourceLOSPoint = mapCASLPointToScreen(sourceLOSPoint, os_scale);
         // target LOS point
         Point targetLOSPoint;
         if (useAuxTargetLOSPoint) {
@@ -435,18 +435,18 @@ public class CASLThread
         else {
           targetLOSPoint = new Point(target.getLOSPoint());
         }
-        targetLOSPoint = mapCASLPointToScreen(targetLOSPoint);
+        targetLOSPoint = mapCASLPointToScreen(targetLOSPoint, os_scale);
         // transform the blocked-at point
         Point b = null;
         if (result.isBlocked()) {
           b = new Point(result.getBlockedAtPoint());
-          b = mapCASLPointToScreen(b);
+          b = mapCASLPointToScreen(b, os_scale);
         }
         // transform the hindrance point
         Point h = null;
         if (result.hasHindrance()) {
           h = new Point(result.firstHindranceAt());
-          h = mapCASLPointToScreen(h);
+          h = mapCASLPointToScreen(h, os_scale);
         }
         // draw the LOS thread
         if (result.isBlocked()) {
@@ -850,14 +850,14 @@ public class CASLThread
     return null;
   }
 
-  private Point mapCASLPointToScreen(Point p) {
-    Point temp = map.mapToComponent(p);
+  private Point mapCASLPointToScreen(Point p, double os_scale) {
+    Point temp = map.mapToDrawing(p, os_scale);
     double scale = upperLeftBoard == null ? 1.0 : upperLeftBoard.getMagnification() * ((HexGrid)upperLeftBoard.getGrid()).getHexSize()/ASLBoard.DEFAULT_HEX_HEIGHT;
     if (upperLeftBoard != null) {
       temp.x = (int)Math.round(temp.x*scale);
       temp.y = (int)Math.round(temp.y*scale);
     }
-    temp.translate((int) (map.getEdgeBuffer().width * map.getZoom()), (int) (map.getEdgeBuffer().height * map.getZoom()));
+    temp.translate((int) (map.getEdgeBuffer().width * map.getZoom() * os_scale), (int) (map.getEdgeBuffer().height * map.getZoom() * os_scale));
     // adjust for board cropping
     if (upperLeftBoard != null) {
       int deltaX = 0, deltaY = 0;
@@ -877,8 +877,8 @@ public class CASLThread
         deltaX = crop.x;
         deltaY = crop.y;
       }
-      temp.translate((int) Math.round(-deltaX * map.getZoom()*upperLeftBoard.getMagnification()),
-          (int) Math.round(-deltaY * map.getZoom()*upperLeftBoard.getMagnification()));
+      temp.translate((int) Math.round(-deltaX * map.getZoom() * os_scale * upperLeftBoard.getMagnification()),
+          (int) Math.round(-deltaY * map.getZoom() * os_scale * upperLeftBoard.getMagnification()));
     }
     return temp;
   }
