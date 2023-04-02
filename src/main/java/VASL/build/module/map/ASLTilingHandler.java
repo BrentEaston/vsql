@@ -1,25 +1,11 @@
 package VASL.build.module.map;
 
-import static VASSAL.tools.image.tilecache.ZipFileImageTilerState.STARTING_IMAGE;
-import static VASSAL.tools.image.tilecache.ZipFileImageTilerState.TILE_WRITTEN;
-import static VASSAL.tools.image.tilecache.ZipFileImageTilerState.TILING_FINISHED;
-
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.DataInputStream;
 import java.io.File;
 import java.io.InputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 import VASSAL.Info;
 import VASSAL.launch.TilingHandler;
@@ -29,14 +15,7 @@ import VASSAL.tools.image.ImageUtils;
 import VASSAL.tools.image.tilecache.TileUtils;
 import VASSAL.tools.io.FileArchive;
 import VASSAL.tools.io.FileStore;
-import VASSAL.tools.io.InputOutputStreamPump;
-import VASSAL.tools.io.InputStreamPump;
-import VASSAL.tools.io.ProcessLauncher;
-import VASSAL.tools.io.ProcessWrapper;
 import VASSAL.tools.lang.Pair;
-import VASSAL.tools.swing.EDT;
-import VASSAL.tools.swing.ProgressDialog;
-import VASSAL.tools.swing.Progressor;
 
 public class ASLTilingHandler extends VASSAL.launch.TilingHandler {
   public ASLTilingHandler(
@@ -48,34 +27,6 @@ public class ASLTilingHandler extends VASSAL.launch.TilingHandler {
     super(aname, cdir, tdim, mhlim);
   }
 
-/*
-  @Override
-  protected boolean isFresh(FileArchive archive,
-                            FileStore tcache, String iname)
-                                                           throws IOException {
-    final String apath = iname;
-
-    // look at the first 1:1 tile
-    final String tpath = TileUtils.tileName(iname, 0, 0, 1);
-
-    // check whether the image is older than the tile
-    final long imtime = archive.getMTime(apath);
-
-System.out.println(apath + ", " + imtime + ", " + tcache.getMTime(tpath));
-
-    return imtime > 0 && // time in archive might be goofy
-           imtime <= tcache.getMTime(tpath);
-  }
-*/
-
-  @Override
-  protected Dimension getImageSize(DataArchive archive, String iname)
-                                                           throws IOException {
-    try (InputStream in = archive.getInputStream(iname)) {
-      return ImageUtils.getImageSize(iname, in);
-    }
-  }
-
   @Override
   protected Pair<Integer,Integer> findImages(
     DataArchive archive,
@@ -83,11 +34,11 @@ System.out.println(apath + ", " + imtime + ", " + tcache.getMTime(tpath));
     List<String> multi,
     List<Pair<String,IOException>> failed) throws IOException
   {
-    final FileArchive fa = archive.getArchive();
-    final String iname = fa.getFile().getName() + ".gif";
-
     int maxpix = 0; // number of pixels in the largest image
     int tcount = 0; // tile count
+
+    final FileArchive fa = archive.getArchive();
+    final String iname = fa.getFile().getName() + ".gif";
 
     // look at the first 1:1 tile
     final String tpath = TileUtils.tileName(iname, 0, 0, 1);
@@ -99,13 +50,14 @@ System.out.println(apath + ", " + imtime + ", " + tcache.getMTime(tpath));
     if (imtime <= 0 || // time in archive might be goofy
         imtime > tcache.getMTime(tpath)) {
       final Dimension idim;
+      // skip images with fresh tiles
       try {
         idim = getImageSize(archive, iname);
       }
       catch (IOException e) {
         // skip images we can't read
         failed.add(Pair.of(iname, e));
-        return new Pair<Integer,Integer>(0, 0);
+        return new Pair<>(0, 0);
       }
 
       // count the tiles at all sizes if we have more than one tile at 1:1
@@ -119,105 +71,35 @@ System.out.println(apath + ", " + imtime + ", " + tcache.getMTime(tpath));
       }
     }
 
-    return new Pair<Integer,Integer>(tcount, maxpix);
+    return new Pair<>(tcount, maxpix);
   }
 
   @Override
-  protected void runSlicer(List<String> multi, final int tcount, int maxheap)
-                                   throws CancellationException, IOException {
-
-    final InetAddress lo = InetAddress.getByName(null);
-    final ServerSocket ssock = new ServerSocket(0, 0, lo);
-
-    final int port = ssock.getLocalPort();
-
-    final List<String> args = new ArrayList<String>();
-    args.addAll(Arrays.asList(new String[] {
-      Info.getJavaBinPath().toString(),
-      "-classpath",
-      System.getProperty("java.class.path"),
-      "-Xmx" + maxheap + "M",
-      "-Duser.home=" + System.getProperty("user.home"),
-      "-DVASSAL.port=" + port,
-      "VASSAL.tools.image.tilecache.ZipFileImageTiler",
-      aname,
-      cdir.getAbsolutePath(),
-      String.valueOf(tdim.width),
-      String.valueOf(tdim.height)
-    }));
-
-    args.addAll(multi);
-
-    // set up the process
-    final InputStreamPump outP = new InputOutputStreamPump(null, System.out);
-    final InputStreamPump errP = new InputOutputStreamPump(null, System.err);
-
-    final ProcessWrapper proc = new ProcessLauncher().launch(
-      null,
-      outP,
-      errP,
-      args.toArray(new String[args.size()])
-    );
-
-    // write the image paths to child's stdin, one per line
-    try (PrintWriter stdin = new PrintWriter(proc.stdin)) {
-      for (String m : multi) {
-        stdin.println(m);
+  protected StateMachineHandler createStateMachineHandler(int tcount, Future<Integer> fut) {
+    return new StateMachineHandler() {
+      @Override
+      public void handleStart() {
       }
-    }
 
-    try (Socket csock = ssock.accept()) {
-      csock.shutdownOutput();
+      @Override
+      public void handleStartingImageState(String ipath) {
+      }
 
-      try (DataInputStream in = new DataInputStream(csock.getInputStream())) {
-        boolean done = false;
-        byte type;
-        while (!done) {
-          type = in.readByte();
-  
-          switch (type) {
-          case STARTING_IMAGE:
-            in.readUTF();
-            break;
-  
-          case TILE_WRITTEN:
-            break;
-  
-          case TILING_FINISHED:
-            done = true;
-            break;
-  
-          default:
-            throw new IllegalStateException("bad type: " + type);
-          }
-        }
+      @Override
+      public void handleTileWrittenState() {
       }
-    }
-    catch (IOException e) {
 
-    }
-    finally {
-      try {
-        ssock.close();
+      @Override
+      public void handleTilingFinishedState() {
       }
-      catch (IOException e) {
-      }
-    }
 
-    // wait for the tiling process to end
-    try {
-      final int retval = proc.future.get();
-      if (retval != 0) {
-        throw new IOException("return value == " + retval);
+      @Override
+      public void handleSuccess() {
       }
-    }
-    catch (ExecutionException e) {
-      // should never happen
-      throw new IllegalStateException(e);
-    }
-    catch (InterruptedException e) {
-      // should never happen
-      throw new IllegalStateException(e);
-    }
+
+      @Override
+      public void handleFailure() {
+      }
+    };
   }
 }
