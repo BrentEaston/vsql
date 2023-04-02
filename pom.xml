@@ -5,7 +5,7 @@
 
 	<groupId>VSQL</groupId>
 	<artifactId>VSQL</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>4.3.3.4</version>
 
   <properties>
     <!-- set Vassal version here -->
