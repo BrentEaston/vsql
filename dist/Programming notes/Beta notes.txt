@@ -1,0 +1,50 @@
+Jay Yanek & Dennis Jorgenson -- 7/15/03
+
+*****************************
+*** THIS IS A BETA MODULE ***
+*****************************
+
+CONTENTS:
+-- Beta Suggestions
+-- Known bugs
+-- Known Issues
+-- Misc Notes
+
+
+BETA SUGGESTIONS:
+-- Alan Y.  7/15:  Move entrench to Basic menu.  COMPLETED.  Often enough used.
+-- Alan Y.  7/15:  Change "Neutrals" counter menu to "Rumanian / Axis Minor".  COMPLETED.  More accurate and sets up well for COD.
+-- Pete P.  7/14:  Tighten up the CE on vehicles.  COMPLETED.  Reduced offset by 50%.
+-- Jay Y.   7/14:  Russian 537's when flipped show berserk.  COMPLETED.  Wrong mapping.
+-- Pete P.  7/13:  Mortars are 180 degrees out of phase.  COMPLETED.  I was looking at the counters wrong!
+-- Bill T.  7/11:  -1 acq. not flipping to -2.  COMPLETED.
+-- Bill T.  7/11:  Problem with Remove All not working on DF and AF couners.  COMPLETED.  Will be in 2.0.14.  I broke this when I renamed the counters to a shorter name.  ugh.
+-- Jay W.   7/11:  Remove reporting for certain counters (ctrl-F).  COMPLETED.  Went through and removed reporting from non-essential functions, including DC, FT, Pf, planes, entrench, etc.
+-- Jay W.   7/11:  More overlays:  Add ASL woods overlays for up to 5 woods hexes.  PENDING:  I can do this, but if I add most overlays it adds quite a bit of size to the module (around 0.5MB), plus would slow it down.  Do we really want to do this?
+-- Bill T.  7/11:  Draggable overlay for woods hex.  ADDRESSED.  Added in 2.0.13-beta
+-- Bill T.  7/11:  Russian ATM -- is the BX number correct?  Currently BX12.  PENDING.  May need to be BX10.
+-- Jay Y.   7/10:  SS Sub Menu proposal (whether to put SS on their own menu).  PENDING user input.  Received four so far.  Most favor leaving it as one large menu.
+-- Pete P.  7/10:  Trouble with server.  Have server check for correct VASSAL version in addtion to module version.  FORWARDED to Rodney.  VASSAL engine issue.
+-- Pete P.  7/10:  Trouble with server.  Autosync option should be turned off.  FORWARDED.  This is Rodney's area and a VASSAL engine issue.  Forwarded to Rodney for consideration.
+-- Jay W.   7/10:  Counter names for some counters are too long.  ADDRESSED.  Went through and shortened several counters.  Inexperienced infantry now 'i', partisans now 'p'.  SS remain SS.  Several more.  Updated in 2.0.13-beta.
+-- Jay W.   7/10:  Fix stacking issues with wire, roadblocks, mines, etc.  ADDRESSED.  Had "does not move" attribute.  I have removed all of these attributes and maked them a "mark\location".  They should function like stairs now.  Updated in 2.0.13-beta.
+-- Chris S. 7/10:  Problem with maps giving errors.  ADDRESSED.  Chris had not mapped his board directory.
+-- Bill T.  7/10:  Blank labels should be inside counters, not on top.  COMPLETED.  Placed in 2.0.13-beta
+
+
+KNOWN BUGS
+none
+
+
+KNOWN ISSUES
+-- Concealment:  When a unit conceals, the very small concealment counter's color for the concealing player (the ? that is "part" of the piece) shows in the nationality color, but may not exactly match the counter color.  Similar in VASL4.x, and is being addressed.  Does not affect gameplay.
+-- Compatability:  Known that VSQL 2.5 is not compatable with versions 1.9 and before.  It is compatable with 2.0.0 on up.
+-- PLC counters:  Currently they will only conceal for Germans.  May need to have a separate PLC depending on the country.
+-- American vehicle colors look different than the squads.  Known issue (by design).  Dennis *may* repunch new vehicles if people find this to be a problem.
+-- Nationality preferences menu.  Is still shown, but is not used.  Working on a new .class file to hide this menu.
+
+
+MISC NOTES:
+-- PLC's:  Added a "yellow" PLC for testing.  Functions like regular SMC's, except there are no numbers on it.
+-- Credits:  Who's name is missing?
+-- Concealment counters #1:  Currently we have a "large" and a "small" set depending on whether the top counter is 1/2" or 5/8".  Should we just stick with all 1/2" counters?

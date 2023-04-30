@@ -1,0 +1,23 @@
+General Hotkeys -- May '05
+
+The items in the "Tools" menu can also be accessed directly from
+either the map or controls window, with these commands:
+
+      Roll 1 Die              -- CTRL-1 or F1
+      Roll 2 Dice             -- CTRL-2 or F2
+      Zoom map out            -- CTRL-3 or F3
+      Zoom map in             -- CTRL-4 or F4
+      Charts and Tables       -- CTRL-5 or F5
+      Internet Dice Roller    -- CTRL-6 or F6
+      Scenario Info Window    -- CTRL-7 or F7
+      Check LOS               -- CTRL-0 or F10
+      Page Down               -- Step through open log file
+      Right-Click any counter -- Popup menu of Counter options
+      Right-Click on map      -- Scrolls map in that direction
+      Click and Drag on map   -- Draws a rectangle to select multiple counters
+
+You may chat with the mouse in any of the VASL windows, instead of
+entering text into the control window.
+
+You may scroll the map with the arrow keys if no counters are selected
+(click on empty hex to de-select counters).

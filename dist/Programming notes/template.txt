@@ -1,0 +1,72 @@
+COUNTER TEMPLATES
+Jay Yanek 7/11/03
+
+This is the basic counter template used for various classifications.
+I tried to stick to this template schedule for counter consistency. 
+NOTE:  ** is an "optional" attribute, depending on counter type.
+
+MMC/SMC
+Basic piece (should have K for clone)
+colored background (still needed)
+Layer (counter graphics go here)
+Layer (berserk, or just make a blank layer)
+place marker (Often DM+4, DM+2, or can route)
+place marker (CX)
+text label (use L for the key)
+can be concealed
+can be marked moved (use VASL version, not standard version)
+report changes
+** Has Info (inexperienced, etc.)
+can be invisible (H, HIP)
+
+
+SW/SL guns
+Basic piece (should have K for clone)
+colored background (still needed)
+Layer (counter graphics go here)
+text label (use L for the key)
+can be concealed
+can be marked moved (use VASL version, not standard version)
+report changes
+** Has Info (inexperienced, etc.)
+can be invisible (H, HIP)
+
+
+CONCEALMENT
+Basic piece (should have K for clone)
+colored background (still needed)
+Layer (counter graphics go here)
+text label
+Is concealment counter
+can be marked moved (use VASL version, not standard version)
+report changes
+can be invisible
+
+GUNS/VEHICLES
+Basic piece (should have K for clone)
+colored background (still needed)
+Layer (counter graphics go here)
+** Turreted (optional)
+** Layer (optional.  Often CE/Stun)
+Layer (wreck/malfunction)
+** place marker (optional.  Often DM)
+text label
+can be concealed
+can be marked moved (use VASL version, not standard version)
+report changes
+** Has info
+** Marker(s) (Hindrance)
+can be invisible
+
+GENERAL
+Basic piece (should have K for clone)
+Layer (counter graphics go here)
+** Layer (optional)
+Text Label (add in the 'L')
+Can Be Marked Moved (use VASL version, not standard version)
+Report Changes (often 'F')
+** Does Not Stack (optional)
+** Has info (optional)
+** Can Rotate (optional)
+** Marker(s) (Hindrance,Location)
+Can Be Invisible

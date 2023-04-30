@@ -1,0 +1,35 @@
+USING VSQL EXTENSIONS
+
+VSQL 3.0 is a 'stabilised' version, meaning that it will not be upgraded 
+again for some time, but this does not mean that devlopment within the 
+VSQL has finished. 
+
+VASSAL allows existing modules to be extended by using 'mini-modules' 
+called Extensions that add extra maps, counters and other resources to 
+an existing module. 
+
+Extensions currently being developed include:
+
+ - Crescendo of Doom counterset
+ - GI: Anvil of Victory counterset
+ - Additional Personal Leader Counters
+
+These extensions will be distributed via the VSQL web page at the VASSALEngine 
+web site.
+
+Extensions are distributed with a '.mdx' suffix, to distinguish them from 
+modules, which normally have a '.mod' suffix.
+
+An extension is installed by copying it to the directory called 'vsql_ext' 
+contains in the same directory as the 'vsql.mod' module file your are loading 
+to run VSQL.
+
+If you are using the stand-alone VSQL 3.0 package, this is easy. The vsql.mod 
+file and a pre-created vsql_ext directory exist within the zip package and 
+are created in the folder where you unzip the package. 
+
+If you are using the Webstart version of VSQL 3.0, the situation is a little 
+more complicated. The vsql_ext directory must be created in the folder where 
+you installed the VASSAL documentation the first time you installed VASSAL. 
+You may need to search your disk for the 'Tutorial' and 'ReferenceManual' 
+folders.

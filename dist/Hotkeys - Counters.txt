@@ -1,0 +1,85 @@
+Counter Hotkeys -- April, 2005
+
+Add counters by dragging them from the toolbar at the top of the map.
+
+Right-click to expand a stack in order to view its contents.
+(Mac users hold down the apple key.)  Right-click again to return it
+to compacted form.
+
+Mouse-over a stack will also show a stack without expanding it
+
+Click and drag stacks to move them, or individual counters
+from an expanded stack.  Shift-click to select multiple counters to move.
+
+Lasso several stacks at once by drawing a box around them with the left-
+mouse button.  NOTE:  You must use keyboard commands to affect all
+pieces.
+
+Click on a counter to select it.  (It will be drawn with a thick
+black border.)   Then use these commands to alter the counter:
+
+right-arrow	move upward one position in the stack
+left-arrow	move downward one position in the stack
+up-arrow	move to top of stack
+down-arrow	move to bottom of stack
+
+ALL COUNTERS
+CTRL  h	HIP/unHIP (see CONCEALMENT)
+CTRL  l	Change label.  To end, hit return
+CTRL  k	Clone
+CTRL  d	Delete
+
+
+INFANTRY
+
+CTRL  m	Marked Moved
+CTRL  c	Conceal/unconceal (see CONCEALMENT)
+CTRL  x	Mark CX, exhausted
+CTRL  f	Flip with DM (can route for US mmc)
+CTRL  b	Berserk (Russians, SS)
+CTRL  t	Show the movement trail a counter took that phase
+
+VEHCICLES
+CTRL  i	Displays Vehicle/Gun info (special ammo, etc.)
+CTRL  m	Marked Moved	
+CTRL  c	Conceal/unconceal (see CONCEALMENT)
+CTRL  f	Flip with DM (typically wrecked)
+CTRL  x	Mark CX, exhausted
+CTRL  w	Stun/+1 TH/Withdraw
+CTRL  s	Rotate Turret CA right, (CW)
+CTRL  a	Rotate Turret CA left, (CCW) 
+CTRL  b	CE/BU
+CTRL  x	Rotate hull right, CW
+CTRL  z	Rotate hull left, (CCW)
+CTRL  t	Show the movement trail a counter took that phase
+
+SPECIAL COUNTERS
+Track
+CTRL  c	Change color
+
+Smoke & OBA
+CTRL  n	Change nationality (color)
+
+Control markers
+CNTL  f	Change nationality
+
+Mines
+CNTL  z	Increase mine factors
+CNTL  x	Decrease mine factors
+CNTL  f	Flip to ‘No Mines’ display
+
+Bunkers
+CTRL  a	Rotate bunker through 90 degrees
+CTRL  s	Move Red CA arrow through 45 degrees
+Use a combination of CTRL a and CTRL s to get the red bunk arrow pointing
+correctly along the appropriate hex spine.
+
+Mac users can also use the Apple key instead of the CTRL.
+
+It is legal for you to manipulate counters belonging to your
+opponent.  Honor system applies. 
+
+Your own concealed units are drawn with a "?" in the upper
+left corner.  Your opponent's concealed units look like dummies to
+you.  Your own HIP units are drawn at faded, against
+a white background.  Your opponent's HIP units are invisible to you.

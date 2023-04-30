@@ -1,0 +1,102 @@
+Virtual (VSQL) Squad Leader Developmental History – April, 2005
+
+
+Remote Play for SQUAD LEADER (SQL) emerged shortly after the release of 
+The game title by the Avalon Hill Game Company (TAHGC) in 1977.  Initially 
+this was conducted by regular postal mail (PBM) and evolved as technology 
+allowed to Play by Phone (PBP), Play by text Electronic Mail (PBEM); Play by 
+Graphics (PBG) using a shared drawing computer application and editable map 
+file, Play by Browser (PBB) where a current game map is posted on a website.  
+As of the mid-1990’s, Advanced Squad Leader (ASL) had developed into an 
+independent branch of the boardgaming community. Similar to its routs in the 
+PREASL AKA SQUAD LEADER series (which included CROSS OF IRON 
+(COI), CRESCENDO OF DOOM (COD), GI: ANVIL OF VICTORY (GIA)), 
+ASL brought WWII small unit combat to the Boardgame tabletop.  SQL retains a 
+following due to its inherent playability and turn-based play more suited to 
+gamers seeking to play remotely in distinct increments of time.  ASL greatly 
+expanded the realism and complexity at a loss of playability.  Its most distinctive 
+characteristic from SQL is its high level of interactivity between the players.
+
+To enable remote play in the most efficient manner, Rodney Kinney created a Sun 
+Java application, Virtual Advanced Squad Leader (VASL) which featured real 
+time Internet server play in addition to email capability.  The primary feature of 
+Sun Java, platform independence, allowed players to interact regardless of their 
+corresponding computer operating systems (any version of Windows, Macintosh, 
+Unix, Linux) with have Java capability.
+
+VASL was discovered by members of the SQL community, and used for remote 
+PBEM and real-time server games of the SQL series.  For many, this was a 
+frustrating conversion, which required counter substitution, counter labeling, and 
+other efforts to make an ASL system work for SQL.  An example of this is the 
+vehicle outlines, which do not have meaning in the ASL system, but do have 
+impact in SQL LOS and other capabilities.
+
+Around 1999, several SQL players worked independently (Tom Leete, Ian 
+McDowall, Bill Thomson) culling the VASL 6K+image set to represent those 
+needed for SQL play.  At the same time, Rodney Kinney was approached to make 
+a specific VSQL application for SQL play.  Squad Leader Academy (SQLA), a 
+subset of Wargame Academy (WGA) organized a project management approach 
+to the creation of VSQL by surveying the members of the Squad Leader Email 
+List (SLLIST), the SQLA player database, and other VASL users for SQL.  The 
+results of the 2/10/2000 survey, focusing on what capabilities the VSQL 
+application should have, was reviewed jointly with Rodney as to the suggestion’s 
+merits, values, and effort required.
+
+Most likely driven by other gamer’s similar requests for other game titles, Rodney 
+responded with the creation of the VASSAL engine, which allows others to 
+configure maps, counter sets, charts and other custom items to create specific 
+game title ‘Modules’ for the VASSAL engine.  SQLA defined and created all the 
+images and elements necessary for the VSQL module.  An alpha playtest version 
+of the early VASSAL engine and VSQL module was organized in 9/08/2001 and 
+subsequently aborted as the development and lack of capabilities of both the 
+VASSAL engine and VSQL module were not yet mature to enable effective play.  
+Additionally, the VSQL expectation was for a stand-alone application similar to 
+VASL3.02 rather then the new operation requirements of the VASSAL engine.
+
+Further Development of both VASSAL and VSQL resulted in VSQL version 1.85 
+(Jeff Thorpe, Bill Thomson), resulting in a Beta Test event (2/14/2003) which 
+recruited 10 VSQL members for trial.  At this time, the infusion of a parallel 
+effort by Jay Yanek (module redesign) and complete set of hand painted counter 
+art counters (Dennis Jorgenson) resulted in a ‘Final’ version of VSQL for SQL 
+play in version 2.0.3. Several of the features incorporated in 1.85 were lost in this 
+parallel effort.
+
+Maintaining the momentum of Jay and Dennis, the resources of SQLA were 
+assimilated to create the COI capable version of VSQL to be released as VSQL 
+version 2.5.  With the additional constant input of prolific VSQL players (Pete 
+Pollard, Scott Powers, and Alan Yngve), VSQL 2.5 quickly went through final 
+customization and Playtest trial (July 2003) resulting in its release in time for 
+demonstration at the World Boardgame Championships Squad Leader tournament 
+(8/3/03; Baltimore Maryland) and the Squad Leader Academy PBEM CROSS OF 
+IRON event to being September, 2003.
+
+VSQL 3.0 has been released as the "last and final" version.  VASSAL has gone
+through significant changes, and trying to keep the VSQL module compatable has
+been difficult.  Through the efforts of Brent Easton and his programming, in
+consultation of the v3.0 team (Bronson Barnhart, David Carter, Dennis Jorgenson,
+Timothy St. Jean, Bill Skulley, Bill Thomson, Jay Yanek, Alan Yngve), this version
+of VSQL is released with a stand-alone version of VASSAL (version 1.9.9) which
+will stabilize the module.  This new module is backward compatable, as well as
+has been modified to readily accept upcoming expansions for COD and GIA.
+
+Similar to George Orwell’s ANIMIAL FARM, all contributors efforts are greatly 
+appreciated; however, the extended contributions of time and efforts of some key 
+individuals are more appreciated than others.  This is especially evident of 
+Rodney Kinney who made this all possible.  As Rodney’s investment in the initial 
+creation of the maintenance of the VASSAL engine has been done with no 
+monetary compensation, Squad Leader Academy will direct any contributions to 
+Rodney in appreciation.
+
+The project team wishes to thank all involved in this VSQL development, which 
+spanned five years to date. 
+
+Bronson Barnhart, John Blazel, Frank Bradshaw, Russ Butler, David Carter,
+Alain Chabot, Lars Clausen, Andrew Cowdery, Jason Coyle, Tim Delong, Andy Dupras, Brent Easton, Chris Edwards, John Fermendzin, Brian Gagnon, Jon Grantham, Dennis Jurgenson, Rodney Kinney, Marc Lammers, Dan Leader, Thomas Leete, Ian McDowall, Eric Pass, Pete Pollard, Scott Powers, Jason Russ,
+Timothy St. Jean, Bill Skulley, Chris Stewart, Eric Stranger, Curtis Teeters,
+Joe Thomas, Jeff Thorpe, David VanBronkhorst, Jay White, Jay Yanek,
+and Alan Yngve.
+
+Bill Thomson and Jay Yanek 
+Squad Leader Academy 
+VSQL Project Managers 
+April, 2005

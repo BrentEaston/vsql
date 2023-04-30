@@ -1,0 +1,141 @@
+FAQ -- JJY April, 2005
+
+
+CONTENTS
+-- Why does the map window open up so large?
+-- How do I find out what a counter can "do"?
+-- How do I expand my stack?
+-- Can I see what is in a stack without double-clicking?
+-- How do I scroll the map?
+-- I cannot seem to be able to select/move a particular piece!
+-- When I look at the counters menu, I can see the list of counters, but I 
+   cannot see any counter graphics!  Where did the graphics go in the list?
+-- Where did the "concealment" counters go?
+-- What is this "info" thingy on counters?  (ctrl-I)
+-- Why are there SL vehicles and COI+ vehicle tabs?
+-- Why are there some counters that have an SL or COI+ designation?
+-- Can I see where a counter moved on the board?
+-- Why do I need a password?
+-- Why don't my units report their movement in the chat window?
+-- Can I replay/load games from VASL3.x?  VSQL1.x?
+-- It takes games a long time to load.  Why?
+-- I'm getting "Out of Memory" errors!
+-- I see a problem!  A counter is missing/wrong/mislabeled/doesn't work 
+   right/etc.!
+-- So who are Brandi and Roman anyway?
+
+
+WHY DOES THE MAP WINDOW OPEN UP SO LARGE?
+This seems to be a windows issue.  Occasionally, when you open a game, the map 
+window will open unzoomed, but full screen.  I just resize the map.
+
+HOW DO I FIND OUT WHAT A COUNTER CAN "DO"?
+Right click on the specific counter when on the map board.  You'll get a drop
+down list that shows "special" commands for that specific counter.  Many will
+automatically add a piece to the board for convenience (like a DM counter when
+a squad breaks).
+
+HOW DO I EXPAND MY STACK?
+To expand your stack, double-click on it!  Right clicking on a stack will show 
+the selected *unit* properties.
+
+CAN I SEE WHAT IS IN A STACK WITHOUT DOUBLE-CLICKING?
+Just mouse-over the stack, and you should see the contents.  The "delay time"
+to see the contents is a preference that can be changed.
+
+HOW DO I SCROLL THE MAP?
+The map window can be scrolled several ways.  First, you can use the drag bars 
+at the right or the bottom of the map window.  Second, you can right-click on 
+any open area on the map.  The map will recenter in that direction.  Third, you 
+can use the arrow keys to scroll if you have that option set in "file\edit 
+preferences\general\use arrow key to scroll."  Finally, if you have selected and 
+are "holding" a piece (i.e. left-click and holding), you can drag a piece and it 
+will scroll the map too.
+
+I CANNOT SEEM TO SELECT/MOVE A PARTICULAR PIECE!
+Certain pieces are marked "can not be moved."  These might be roadblocks, wire, 
+control/ownership markers, etc.  To move or do anything with these pieces, 
+shift-leftclick them to select them.  To see that piece's drop-down menu, shift-
+leftclick to select the piece, then shift-right click to see the menu.
+
+WHEN I LOOK AT THE COUNTERS MENU, I CAN SEE THE LIST OF COUNTERS, BUT I CANNOT 
+SEE ANY COUNTER GRAPHICS!  WHERE DID THE GRAPHICS GO IN THE LIST?
+There is a vertical bar that you can move left-right to resize the sub-windows 
+in the counter menu.  The counter should be on the left, and the list of 
+counters for that counter type on the right.
+
+WHERE DID THE "CONCEALMENT" COUNTERS GO?
+The concealment counters are on their own sub menu within a particular country.  
+We put them there to keep from having to repeat the same counter, and making it 
+a "one-stop shopping" place to find concealment and blanks.
+
+WHAT IS THIS "INFO" THINGY ON COUNTERS?  (CTRL-I)
+This is a new feature.  Many counters have special information about them, 
+especially vehicles.  For instance, perhaps a vehicle was not capable of 
+intensive fire, or was not equipped with a radio.  We have put that in the 
+"Info" tag.  Just press ctrl-I to see if there is special information.  The info 
+was pulled from the vehicle tables at the back of the manual.
+
+WHY ARE THERE SL VEHICLES AND COI+ VEHICLE TABS?
+Since the counters look and function very differently, we made two tabs for the 
+vehicles and guns.  SL vehicles do not have turrets, and are graphically 
+different.  COI adds turret capability to those vehicles that have turrets, plus 
+have the correct COI+ graphic.  When we add COD, those vehicles will also go 
+into the COI+ tab since COD just ADDS them, not replaces them.
+
+WHY ARE THERE SOME COUNTERS THAT HAVE AN SL OR COI+ DESIGNATION?
+Most counters will work for all gamettes.  However, a "few" do not.  An example 
+is the German panzerfaust.  In SL, there was only one panzerfaust.  In COI, 
+there are several.  Rather than making a separate menu system all together, we 
+put everything in one menu.  For the few counters that had replacements like 
+these, we listed them in the same list.  The exception to this is the Vehicles 
+and Guns.
+
+CAN I SEE WHERE A COUNTER MOVED ON THE BOARD?
+Hit ctrl-T.  You will see where the counter moved that phase.  If it is a
+vehicle, an "arrow" will indicate the direction of the covered arc of that
+vehicle when it initially entered the hex.
+
+WHY DO I NEED A PASSWORD?
+Passwords allow you to Hide your counters/notes (HIP), or conceal stacks so your 
+opponent cannot inspect them.  Your opponent can never see your HIP units, but 
+they can unconceal your units if you let them by setting the option in 
+"File\edit preferences\general\let opponent unconceal my units."
+
+WHY DON'T MY PIECES SHOW THE "MOVED" TAG?
+Did you remember to set the preference in "file\edit preferences\general\mark 
+moved pieces"?
+
+WHY DON'T MY UNITS REPORT THEIR MOVEMENT IN THE CHAT WINDOW?
+Did you remember to set the preference in "file\edit preferences\general\auto-
+report moves"?
+
+CAN I REPLAY/LOAD GAMES FROM VASL3.X?  VSQL 1.x?
+Sorry, no.  VSQL3.0 is backward compatable to version 2.0 and up only.  Same 
+answer for VSQL 1.x.
+
+IT TAKES GAMES A LONG TIME TO LOAD.  WHY?
+If you are on a slower machine, loading a game with multiple mapboards, and 
+limited RAM, it will take a while to load if you are using the "enable LOS 
+checking" option.  If this option is turned on, the game loads quite a bit of 
+LOS data into RAM to help you in determining if a shot is blocked or not.  To 
+load faster, disable this function in "file\edit preferences\LOS\enable LOS 
+checking."  You still can check LOS, but you will not get feedback as to whether 
+VASSAL thinks LOS is blocked or not.
+
+I'M GETTING "OUT OF MEMORY" ERRORS!
+If you are running the Stand-alone version of VSQL, make sure you are running the 
+‘vsql.bat’ file and not the ‘runVSQL.jar’ file. The Webstart version of VSQL should 
+already be configured to use 256Mb of memory.
+
+I SEE A PROBLEM!  A COUNTER IS MISSING/WRONG/MISLABELED/DOESN'T WORK RIGHT/ETC.!
+Although we strive for perfection, even perfectionists make mistakes.  Please 
+drop an email to vsql@wargameacademy.org and we'll look into it.
+
+SO WHO ARE BRANDI AND ROMAN ANYWAY?
+Brandi and Roman are Jay Yanek's standard poodles.  They are internationally 
+certified "therapy animals," meaning they are certified to visit hospitals, 
+nursing homes, etc. and bring therapy to people.  Therapy can be either physical 
+therapy (retrieving a ball that a patient throws), or just being loved by a 
+patient that has been in the hospital for an extended period of time.  To learn 
+more about my therapy animals, visit www.deltasociety.org 

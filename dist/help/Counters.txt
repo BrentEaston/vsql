@@ -1,0 +1,42 @@
+	Add counters by dragging them from the toolbar at the top of
+the map.
+
+	Right-click to expand a stack in order to view its contents.
+(Mac users hold down the apple key.)  Right-click again to return it
+to compacted form.
+
+	Click and drag stacks to move them, or individual counters
+from an expanded stack.  Shift-click to select multiple counters to move.
+
+	Click on a counter to select it.  (It will be drawn with a thick
+black border.)   Then use these commands to alter the counter:
+
+right-arrow	move upward one position in the stack
+left-arrow	move downward one position in the stack
+up-arrow	move to top of stack
+down-arrow	move to bottom of stack
+CTRL  f		flip
+CTRL  d		delete
+CTRL  k		clone
+CTRL  x		rotate clockwise 
+CTRL  z		rotate counter-clockwise
+CTRL  s		rotate TCA clockwise
+CTRL  a		rotate TCA counter-clockwise
+CTRL  c		conceal/unconceal (see CONCEALMENT)
+CTRL  h		HIP/unHIP (see CONCEALMENT)
+CTRL  b		CE/BU 
+CTRL  l		change label.  To end, hit return
+CTRL  i		displays Vehicle/Gun info (special ammo, etc.)	
+CTRL  o		assume ownership (counter will be considered yours)
+
+	Mac users can also use the Apple key instead of the CTRL.
+
+	It is legal for you to manipulate counters belonging to your
+opponent.  Honor system applies.
+
+	Your own concealed units are drawn with a "?" in the upper
+left corner.  Your opponent's concealed units look like dummies to
+you.  Your own HIP units are drawn at smaller-than-normal size against
+a white background.  Your opponent's HIP units are invisible to you.
+
+ENDHELP

@@ -1,0 +1,81 @@
+-------------------------------------------------------------------
+SQUAD LEADER SEQUENCE OF PLAY FOR EMAIL GAMES:
+SL# refers to the SoP on back page of rulebook, NOT rule numbers!
+-------------------------------------------------------------------
+
+<<<<< A. FIRST MAILING OF PLAYER TURN >>>>>
+
+Verify opponent's actions (prior C1-C8)
+
+A1. Rout own units, as desired or required
+A2. Determine initial spotting round accuracy (SL 8.1)
+A3. Make own Close Combat attacks
+
+--NEXT PLAYER TURN ACTUALLY STARTS--
+
+A4. Own Rally Phase activity (SL 1.)
+A5. Offboard Artillery actions (1 of 5, fifth is counter-battery) (SL 1.6)
+A6. Prep Fire attacks (including FFE)
+A7. Movement of units (potential for impulses with vehicle movement)
+May be conditional on specific Mine discovery guidelines.
+A8. SPECIFY OVERRUN ATTACKS
+
+<<<<< B. NON-PHASING RESPONSE MAILING >>>>>
+
+Verify: opponent's actions (A1-A8)
+
+B1. Minefield attacks (SL 3.3) (unit continues unless situation meets
+special "mine discovery" order submitted as part of A7)
+B2. Defensive Fire attacks (SL 4.1)
+B3. Remove concealment from units adjacent to enemy units (SL 4.2)
+
+<<<<< C. LAST MAILING OF PLAYER TURN >>>>>
+
+Verify opponent's actions (B1-B3)
+
+C1. OVERRUN ATTACKS (A8)
+C2. Advancing Fire attacks
+C3. Rout own units as desired or required
+C4. Advance phase (SL 5.) (note that adjacent broken units will rout prior to this Advance Phase movement)
+C5. Determine initial spotting round accuracy (SL 8.1)
+C6. Make own Close Combat attacks
+
+-- PARTS OF NEXT PLAYER TURN --
+
+C7. Own Rally Phase activities (SL 1.)
+C8. Offboard Artillery actions (1 of 4) for coming Defensive Fire (SL 1.6)
+
+----------------------------------------------------------------------
+
+SOME VERY IMPORTANT NOTES:
+
+1. The goal of this sequence of play is to assure that each side has full ownership of all the decisions and actions of their own forces. If an internet dice-roller is used, usual procedure is for the firing player to summarize all attacks and results within the mailing.
+
+2. (Pregame) Any activities that would have been ordered prior to the first mailing must be provided as a special PREGAME ORDER.
+
+3. The phasing player is given the option to do vehicle movement in impulses, if this is desired. Impulses permit subsequent actions based upon the reaction of the defense to earlier movement.
+
+4. (Warning) Overruns must be specified during FIRST MAILING (A8) but not resolved until LAST MAILING (C1) so that defender has a chance to defensive fire without the pre-knowledge of the result.
+
+5. Three numbering schemes that players have used:
+  * 1.1-1.3 (three mailings of first player turn in turn #1, 1.4-1.6 (three mailings of second player turn in turn #1).
+  * 1a.rpm/def/end (three mailings of first player turn in turn #1), 1b.rpm/def/end (three mailings of second player turn in turn #1).
+  * R/G/A (force identification), a/b/c (for three mailings of specified force's player turn.
+
+5a.  A sample logfile will look like this:  
+	01-Guards-GT2-GE-begin.vlog
+
+	The "01" is the incremental log number.  It is incremented with each logfile.
+	The "Guards" references the scenario (i.e. The Guards Counterattack) in play in an abbreviated form.
+	The "GT2" references the current Game Turn number.
+	The "GE" specifies which player turn it currently is.
+	The "begin" or "a" states that the Rally, Prep, and Movement phases are contained within the log.
+		or "DFph" or "b" for a Defensive Fire log
+		or "end" or "c" for a log that contains AFPh thru CCPh, plus the 
+			Rally Phase activity of next player turn for the ending player.
+
+6. Email Turn syntax. There are many ways to do this, and each player will tend to develop their own style of syntax as you play more games. Important issue is to provide all of the information that your opponent needs to interpret your text, which should include: current location, movement route (perhaps MF and MP expended), target for firing (range is helpful to minimize the effect of typos), firepower/basic to hit numbers, all applicable DRMs to be applied.  For quicker play and less typing it is suggested that players adapt the use of the abbreviations found in the front of the G.I.:  Anvil of Victory rulebook.
+
+A comment about VSQL (Virtual SQL) Java-based gaming assistant:
+When Using VSQL for email play, this sequence of play can work well. This game assistant has numerous advantages, including keeping unit location records and making available the opportunity to play interactively over the internet. VSQL also has an internal pseudo-random number generator, which can speed play if its use is acceptable to both players. If using VSQL software interactively, one should get agreement on announced attacks before requesting a dice roll and all Morale Check rolls should be done by the player owning the units.
+

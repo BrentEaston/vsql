@@ -1,0 +1,137 @@
+PREFERENCES
+The preferences menu can be configured.  Here is some help for the options:
+
+PERSONAL
+--------
+
+- Name:  Your "game name".  This is what will be printed in logs, or shown on 
+the server.
+
+- Password:  Your "password".  The password is used to identify you as the 
+owner of hidden or concealed pieces.  You'll never have to type it in game.
+WARNING - If you change your password during a game, you will not be able to 
+see any of your hidden or concealed units.
+
+SOUNDS
+------
+
+- These are the sounds used if you log into the server.  SUGGEST that you
+leave the default sounds, although you may change them to any sound that
+you choose.
+
+CHAT WINDOW
+-----------
+
+- This menu is for the "chat window" where you see dice rolls and type
+information in-game.  You can change the colors or fonts of specific
+messages.  The default font is SansSerif 12.  Default game messages are
+pink, System messages are light grey, "My text" messages are dark grey, 
+and Other's Text Messages are black.  Change them to anything that looks
+good to you.
+
+GENERAL
+-------
+
+- Auto-Report Moves:  SUGGEST CHECKED.  
+As you move pieces, an entry is written in the main window.  If you want that 
+listed, leave it on.  If you don't want it listed, and thus your opponent not 
+to see anything, uncheck it.
+
+- Center On Opponent's Moves:  SUGGEST CHECKED. 
+During the logfile play, if this is checked, the board will "re-center" on your
+opponent's pieces as they move, helping to know exactly where things are moving.  
+Unchecked, the board remains stationary, meaning, you may not be able to see 
+pieces that are moving off of the visible screen.
+
+- Let Opponent Unconceal My Units:  SUGGEST UNCHECKED.  
+Your opponent will only see a stack of "?" on your concealed counters.  If you 
+leave this option checked, your opponent can inspect the stack just like you can.
+
+-- Use combined application window:  SUGGEST either preference.  
+When checked, there will only be one VSQL window, with all sub-windows automatically
+docked to the main window.  You will not be able to move the windows around,
+but you can  resize them.  If UNCHECKED, all windows are undocked and can be
+moved around.  This will, however, make several taskbar buttons appear on
+Windows XP units.
+
+- Smooth image scaling:  SUGGEST CHECKED. 
+Makes graphics look nicer.
+
+- Board Directory:  The directory you have your VASL/VSQL boards stored in.
+
+- Use Arrow Keys To Scroll:  SUGGEST UNCHECKED.
+When checked, the arrow keys will scroll your map.  Unchecked, and you need to 
+use your mouse.  Note that you can always "right-click" in a map hex and the 
+board will move in that direction.
+
+- Use CTRL-space to view stack details:  SUGGEST UNCHECKED.  
+When unchecked, a popup window will appear automatically whenever you hold the
+mouse still over a stack. If you leave this option checked, you need to press
+the control and space keys together to view a stacks contents.
+
+- Delay before popup display (ms):  SUGGEST 700.  
+This is the delay when you mouse-over a stack before the contents are displayed.
+
+LOS
+---
+
+- Retain LOS-hindrance Counters:  SUGGEST CHECKED.
+When unchecked, and you check LOS (F10), all map counters will temporarily 
+disappear from the map.  If checked, certain counters (vehicles, rubble, etc) 
+that can affect LOS, will remain on the map.
+
+- Snap Thread to Grid:  SUGGEST CHECKED.  
+If checked, the LOS thread will always center on a hex or hex intersection.  
+If unchecked, the LOS can roam freely.
+
+- Thread Color:  SUGGEST DEFAULT. 
+Self explanatory.
+
+- Enable LOS Checking:  SUGGEST UNCHECKED.  
+This turns on the special LOS checking features of VSQL, where the LOS will 
+attempt to determine if a LOS is blocked or not.  We have found some errors, so 
+use it with caution.
+
+- Hindrance Thread Color:  SUGGEST DEFAULT.  
+Color of the LOS thread if the routine thinks the LOS is "Hindered" (ASL rule).
+
+- Blocked Thread Color:  SUGGEST DEFAULT.  
+Color of the LOS thread if the routine thinks the LOS is Blocked.
+
+- Verbose LOS mode:  SUGGEST DEFAULT.  
+If checked, and if you have "Enable LOS Checking", VASSAL will tell you why it 
+thinks a LOS is blocked/hindered.
+
+VSQL
+----
+
+- Position all counters in center of hex?  SUGGEST CHECKED:  
+Suggested for SL level play. This will put all counters ONLY into the 
+center of the hex.  Note, that if you also want to allow counters to be put onto 
+the hex edges or intersections for bypass movement (later rule sets), 
+you can uncheck.
+
+- Rule Level:  Defaults to SL.  This is for future expansion modules.
+
+
+ INTERNET DIE ROLLER
+ -------------------
+ 
+- Email results?  If this is checked, results of each dice roll (using the
+roller) will be emailed to you and your opponent.
+
+- Address book:  Place to put your favorite email opponent addresses.  Note,
+they must be ADDed before they are saved. You can use addresses like 
+'Bob Robertson <bob@somewhere.com>' Only the part within the <> angle brackets
+will be used for the email address.
+
+- Primary Email:  This is YOUR email address.
+
+- Secondary Email:  This is the CURRENT opponent.  This must be changed
+every time you are playing a different opponent, otherwise, the emailed
+rolls will go to the wrong place.
+
+- Put multiple rolls into a single email:  SUGGEST CHECKED.  
+Allows you to have SEVERAL rolls in one email.  I think this is a nicer interface to use,
+and allows flexibility in description of the roles.  Play with a couple
+of test rolls to determine your preference.

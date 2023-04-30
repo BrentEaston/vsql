@@ -1,0 +1,169 @@
+CURRENT VERSIONS
+VASSAL 1.1.14
+VSQL 2.0.16-beta – pending
+
+BETA VERSION HISTORY
+2.0.16-beta – 7/1X/03 -- Jay Yanek & Dennis Jorgenson
+? Tightened the CE counters when they appear on vehicles.  Set them to offset at –8,-8 instead 
+of –16,-16.
+? Added SL and COI Quick Reference Cards to the Charts menu.  Also added misc. charts.
+? Changed Neutrals menu to be ‘Rumanian / Axis minor’.  First, they’re actually Rumanian.  
+Second, sets it up well for COD.
+? Moved Entrenchment counter to Basic menu.  It is an often enough used counter.
+? Updated Entrenchment graphic to have more of a white border.  It is now more easily seen on 
+the overview map.
+? Added updated SL American vehicle colors.  Vehicle colors for Americans now match 
+squads.
+? Added first five ‘named’ PLCs.
+? Moved the poodles to the PLC / Hero counter.  Hey, they’re Jay’s hero’s!
+? 
+
+
+2.0.15-beta – 7/15/03 -- Jay Yanek & Dennis Jorgenson
+? Tightened the CE counters when they appear on vehicles.  Set them to offset at –8,-8 instead 
+of –16,-16.
+? Added SL and COI Quick Reference Cards to the Charts menu.  Also added misc. charts.
+
+2.0.14-beta – 7/14/03 -- Jay Yanek & Dennis Jorgenson
+? Fixed “remove counters” bug.  DF and AF counters were not removing because they were 
+renamed.
+? Fixed –1 acq (all four counters) where the counter was not flipping.  Layer was not active.
+? Removed “moved” attribute from nearly all Info counters.
+? Fixed large mortar covered arc.  They were 180 degrees out of phase.
+? Added “CX” option to each infantry unit.  Now ctrl-X will place a CX counter on that unit 
+(similar functionality as the DM counter).
+? Removed some reporting keys from counters that did not need it (‘A’ and ‘S’ were common 
+ones).
+? Changed menu system by pulling out the “Basic” menu and making it its own top-level. 
+Should make it easier for users to get to repeat counters quickly.
+? Fixed the Russian 537.  The flipped side was showing “berserk”.
+
+2.0.13-beta -- 7/11/03 -- Jay Yanek & Dennis Jorgenson
+? Added Russian 4-5-8.
+? Added German SS armor leaders.
+? Added “hero” counter (under PLC menu).
+? Added “berserk” counters to Russian and SS armor leaders/CE.
+? Updated turret counters to new graphics.
+? Added overlays for grain, marsh, rubble (stone & wood), woods, and water.
+? Deleted “does not move” attribute from all pieces (via beta test input).  Replaced with 
+“marker/location” for all of these counters.  Should help with playability.
+? Blank counters text labels have been center justified in all directions.  Text will now draw in 
+the center of the counter vs. the top.
+? Fixed name of German CE 9-2 SS (was labeled as 9-1)
+? Shortened many counter names per beta input.  Should reduce the “verbage” that shows up 
+on the info window during play.  Along this line, abbreviated:  Partisan with ‘p’, 
+Inexperienced with ‘i’.  SS names will remain with the ‘ss’ suffix.
+? Updated several “info” counters with the correct “can be marked moved” attribute.  
+VASL/VSQL uses a custom attribute, not the standard one that comes with VASSAL.
+
+2.0.12-beta -- 7/9/03 -- Jay Yanek & Dennis Jorgenson
+? Fixed German panzerfausts (all).  Was reporting “malf” text in chat window when moved on 
+front side.  Removed text and removed suffix setting.
+? Added level name to several Info counters so that when the counter is moved/changed, it 
+shows the appropriate layer name in the chat window.
+? Enabled the transparent stacking option in “map window\stacking options\color of pieces 
+when not expanded”.  Set transparent per instructions.  Now when pieces are stacked and not 
+expanded, you can see portions of the lower pieces.
+? Back added the “overview” window “map window\overview window”.  Was originally taken 
+out to help faster module building. 
+
+2.0.11-beta -- 7/8/03 -- Jay Yanek & Dennis Jorgenson
+? Fixed several spelling errors in Dennis’ name(!)
+? Updated American, German, Russian FFE counters.  Left the Blue/Red OBA counters in the 
+set for now.
+? Updated Entrench and Melee graphics per input from Dennis.
+? Deleted “Level” from Locations menu.  Redundant.
+? Added new ASLCommandEncoder.class file to the \VASL\build\module section (via Rodney 
+Kinney).  This .class will allow us to toggle the Nationality function so it does not appear on 
+the Preferences menu.  Currently, the flag in the buildfile is not set.  Rodney needs to work 
+out a bug.
+? Removed “ASL” from the Roadblock counter.
+? Fixed American M3 MG (SL vehicle).  It was showing wrecked only.
+? Removed “does not stack” from track counter.  Was dropping counter to bottom of a stack!
+? Adjusted all MMC/SMC counters “place marker” attribute to have the DM marker defined 
+properly.  Now the DM placed by these counters will function the same as the DM on the 
+Basic menu.
+? Fixed Russian 5-3-7 – berserk graphic was not loading.
+
+2.0.10-beta -- 7/7/03 -- Jay Yanek & Dennis Jorgenson
+? Moved PzKw IIF in menu to correct position.  Was in wrong location.
+? Fixed American AT 76 (SL).  Was reading the AT 57 counters.
+? Fixed American HOW 105 (SL).  Was reading the AT 57 counters.
+? Added 2.0.3 American AT counters to images file for compatibility.
+? Updated Prep/DF/AF counters per user input.  Prep/AF are white.  DF is gray.  Also changed 
+counter layout for Prep to conform to template.
+? Updated Sewer counter to new graphic.  Changed layout to conform to template.  Deleted 
+sewer.gif from counterset (now info-Sewer)
+? Updated Melee counter to new graphic.  Changed layout to conform to template.  (now info-
+Melee)
+? Updated Fanatic counter to new graphic.  Changed layout to conform to template.  Deleted 
+fan.gif from counterset.  (now info-Fanatic)
+? Updated Wind counter to new graphic set.  Deleted wind1-x series and replaced with newly 
+named counters (info-wind-(dir,force,hex)) 
+? Deleted Melee/CC and TI counters from General menu since this was redundant from the 
+Basic menu.
+? Removed several redundant counters from the original COI game build.  These counters were 
+when the vehicle rotation was previously defined as VCA #1 was SE instead of NE.
+? Removed multiple obsolete counters not used from buildfile and images directory.
+
+2.0.9-beta -- 7/3/03 -- Jay Yanek & Dennis Jorgenson
+? Updated Russian LMG, MMG, Radio, 7-0 through 10-3 leaders, and Mortar.  Color on 
+counter plus backside was wrong.
+? Deleted unused graphics from images directory:  ru-smc-8-0 through ru-smc-10-2.  These 
+were misnamed.
+? Does Not Stack:  Removed the "DNS" attribute from the following counters.  Substituted the 
+Marker/Location attribute:  Smoke, Fire (both), Rubble, AR, Starshell, Aircraft (all).
+? Clone Key:  Unified all counters to clone with "ctrl-K".  Some were still cloning with "ctrl-c" 
+(part of legacy).
+? Added "SCROLL FOR MORE" on the main menu.  People may have a hard time seeing the 
+OBA and Transport menu unless they remember to scroll.
+? Changed spacer in Help menu to have '*****' for better visual separation
+? Updated "poodle" graphics due to Dennis' donation (Easter Egg)
+? Updated splash to indicate beta status.
+? Added CE/Stun/+1TH/Withdraw to all vehicles.  All vehicles can now button/unbutton (ctrl-
+b), and cycle through the stun list if needed (ctrl-w).
+? Added hotkey for screen shot (F6)
+? Updated Keyboard Help file to reflect recent changes (Stun, Screenshot, etc.)
+
+Version 2.0.8a-beta  (Jay Yanek & Dennis Jorgenson)
+? Compatibility exists backward to version 2.0.  Future expansions will be compatible with this 
+module.
+? Added COI counterset (provided by Dennis Jorgenson).  New counterset does not use the 
+“nationality” functionality any more.  This can be ignored on the preferences menu (this 
+menu will be removed in a future version).
+? All vehicle/gun wrecks/malfunctions now rotate along all six directions.
+? Added “DM +2” counter for SS units (similar functionality to the American “Can Route” 
+counter).  DM+2 and “Can Route” are flips of the basic DM counter.
+? Added appropriate counters from the VASL 4.10 module which enhance VSQL.  (e.g.  
+fanatic, No ammo/cannister/etc, fortified building, etc.)
+? Added “Control” counters to show side ownership / victory conditions.
+? Retained the VASL 4.10 OBA counters, using the hexside determinations (helps gameplay)
+? Added “PLC” menu (for future expansion)
+? Moved Concealment counters to their own menu for each country.
+? Separated SL and COI  vehicles and guns into separate menus for each country via tab.
+? Added Draggable Overlays from VASL 4.10.
+? Updated Charts for all modules, including COD and GI since they were available.  COD and 
+GI functionality will be added at a later date.
+? Removed the “Overview” window.  This can be back added if players would like it 
+reinstalled.
+? Added hotkeys to Image Capture, LOS, etc. consistent with VASL 4.10
+? Changed the “Remove” menu on the Map window to better reflect gameplay.
+? Changed the Defensive Fire counter to a gray background to facilitate easy spotting.
+? Changed “level” counter to have colors to ease gameplay.
+? Added help menus, credits, etc. to the “help” tab.
+? All vehicles now will remain as “hindrances” when checking LOS (if that option is chosen 
+on the preferences menu.  Now you will be able to see if the LOS thread crosses the vehicle 
+silhouette.
+? Appropriate counters have “can not be moved” attribute.  To drag those counters, shift-click.
+? Counters like the “level” counter added the Marker attribute with the “Location” flag to 
+allow units to stack both above or below the counter.  Moving units through this type of 
+counter will no longer drag the counter with the stack.  To move these special counters if the 
+counter if it is part of a stack, expand the stack then drag the counter out.
+? Fixed concealment bug.  Now all units in a concealment stack will conceal.
+? Reorganized attributes on all counters to make them consistent.
+? Reorganized menus to make them fit the new counterset.
+? Revamped module to include latest VASSAL improvements.
+? Updated .class code to be consistent with the VASL series.
+? Added “template” text file to the beta-distribution package.  To be used so future authors can 
+understand how various genres of pieces are built. 
+? NOTE:  There are many more minor changes not listed.

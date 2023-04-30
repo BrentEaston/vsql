@@ -1,0 +1,35 @@
+	Welcome to VASL.  Version 3.0
+
+	For detailed help on a topic, check the documentation
+directory for the User's Guide, which may be opened with any web browser.
+
+	If you're new to VASL, choose "Load Scenario", pick the
+"intro.log" file and step through it for a quick walk-through.
+
+	To connect to the online VASL server, select "VASL Main Room"
+from the Connections menu.  You should be connected to your internet
+provider first.  
+
+	To create a new scenario, choose "New Scenario" from the File
+menu.  To save a game (board configuration and all counter positions),
+select "Save Scenario."  Select "Load Scenario" to load a saved game.
+See "Postal VASL" in the User's Guide for information on playing by email.
+
+	ACKNOWLEDGEMENTS
+
+	Extreme thanks to Carl Fung for the counter artwork, and to
+Gordon Molek, Tom Repetti, Bruce Mansfield, and Carl Pfeiffer for the
+beautiful maps.  Thanks to testers for their suggestions and
+enthusiasm.  Thanks to Hasbro for not dragging me into court.
+
+	LICENSE
+
+	You may not distribute VASL in exchange for any sort of fee
+without my explicit written consent.  There is no charge for personal
+use of VASL.  On the other hand, if this software isn't worth $10,
+then I don't know what is.  Donations accepted by Rodney Kinney at
+10787 Massachusetts Ave, LA CA 90024.  Include your email address and
+I'll tell you how to disable the "friendly reminder."  Also, read the
+license that comes with the Java Runtime Environment.
+
+ENDHELP

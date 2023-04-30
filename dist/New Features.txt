@@ -1,0 +1,88 @@
+Quick Start & New Features
+For "technical" help:  vsql@wargameacademy.org
+
+
+Welcome to VSQL 3.0.  We're excited to offer this updated module to you, and 
+hope you'll enjoy the work that the VSQL team has put into making the VSQL 
+experience better.  To learn more about the team, click on the "credits" tab in 
+the VSQL "Help" menu.  We've tried to document many of the new items in the 
+module here, but we strongly encourage you to "explore".
+
+-- Stand-alone VSQL
+VSQL is now available in a stand-alone non-networked version packaged with matching 
+VASSAL version 1.9.9. VSQL can be run either using the Webstart facility (which will 
+remain fixed at running vassal 1.9.9), or via the stand-alone package. VSQL save
+files are not compatible between version 1.9.9 and version 2.0 of VASSAL.
+
+There are three run files in the VSQL directory that can be used to run stand-alone
+VSQL:
+
+ runVSQL.jar - Run VASSAL/VSQL with default memory allocation (usually 96Mb).
+ vsql.bat    - Run VASSAL/VSQL on Windows with 256Mb Memory allocation.
+ vsql.sh     - Run VASSAL/VSQL on Unix/Linux with 256Mb Memory allocation.
+
+-- Re-worked Concealment.
+Concealed counters can no longer be identified or modified by your opponent.
+
+-- Improved Scenario Info window.
+The remaining ASL specific fields have been removed and the window re-organised
+for better play. The window opend to a decent size by default and the two note 
+windoes are now on separate tabs. The text used is a monospace font so the 
+board display diagrams now look correct.
+
+-- Movement Trail for Infantry and Vehicles.
+All vehicle and infantry units now remember their recent movement history. Use the
+'Ctrl-T' command to toggle the display of the movement history. Movement trails of
+unselected units are displayed semi-transparent. For selected units, the trail is 
+displayed in bold and for vehicles shows the CA of the vehicle when it entered the hex.
+For Leader counters, it displays the number of units in the stack including the leader
+that moved into the hex. Movement Trails are cleared and turned off when units are
+marked as 'Not Moved'
+
+-- Changed bunkers to act like concealment counters.
+Counters moved under a bunker countre will not automatically become concealed. 
+NOTE - This is to prevent your opponent from inspecting the bunker contents, as
+per the rules. Normal fire rules apply as per SL Rule 56.
+
+-- Changed Track counter to 'Does not Stack'.
+There was a proble with adding Track counters to games while replaying a logfile. The 
+added Track counters interfered with the movement of units by the logfile. This has
+been solved by changing Track units to 'Does Not Stac' units. This causes the Track counters
+to drop to bottom of a stack, so Track counters will rotate 45 degrees automatically w
+hen dropped onto board to ensure visiblity.
+
+-- Invisible counters are now 'Non-moveable'.
+This means that Invisible counteres will not stack with visible counters and be carried 
+along by stacks moving over them.
+
+-- Units stacked under 'Non-moveable' counters are also 'Non-moveable'.
+For example, moving units over the top of units stacked under a bunker or 2nd Level 
+counter will no longer merge and move with the units underneath.
+
+-- Add Smoke options to Remove All menu.
+New options on the 'Remove All' menu to remove different varieties of smoke.
+
+-- Included 'lasso' facility to select multiple counters.
+Bought forward from VASSAL 2.0, this allows you to draw a rectangle on the map and select
+a group of units at once, enabling you to apply the same keyboard command to them all at
+once. 
+
+-- Delay setting for Mouseover viewer moved to General Preferences.
+Each player can now set their own Mouseover popup viewer delay.
+
+-- Added F6 as Hotkey for Internet Dice Roller
+
+-- Added 'DOES NOT MOVE' as ctrl-I Info comment to all Non-moveable markers
+
+-- Ctrl-I info display automatically turns off when counter unselected.
+
+-- Removed 'Nationality Colors' tab from preferences.
+
+-- PLC counters moved from main module to extension vsql_plc.mdx
+To allow future expansion. The vsql_plc.mdx extension file will be distributed pre-installed
+in the stand-alone version of VSQL. Webstart users will need to download and install the file
+separately. New Generic American, Russian and German PLC counters now available that will 
+conceal as their correct Nationality color.
+
+-- Online help updated.
+You're reading it!

@@ -1,0 +1,23 @@
+The items in the "Tools" menu can also be accessed directly from
+either the map or controls window, with these commands:
+
+	Show/Hide Toolbar	-- CTRL-space
+	dr			-- CTRL-1 or F1
+	DR			-- CTRL-2 or F2
+	Zoom out		-- CTRL-3 or F3
+	Zoom in			-- CTRL-4 or F4
+	QRDC Tables		-- CTRL-5 or F5
+	OBA Draw Pile		-- CTRL-6 or F6
+	Scenario Info Window	-- CTRL-7 or F7
+	Mark All Unmoved	-- CTRL-8 or F8
+	Check LOS		-- CTRL-0 or F10
+	Step			-- Page Down
+	Back			-- Page Up
+
+You may chat with the mouse in any of the VASL windows, instead of
+entering text into the control window.
+
+You may scroll the map with the arrow keys if no counters are selected
+(click on empty hex to de-select counters).
+
+ENDHELP

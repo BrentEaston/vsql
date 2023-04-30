@@ -1,0 +1,140 @@
+Items for VSQLv3/0/1 maintanebce update consideration
+(problems to fix and player wish list)
+
+NOT IN ANY PARTICULAR ORDER!  Items as of 2/16/2006.
+
+1) Change stack angle so that you can move selected portions of a 
+spread stack to the hex directly "above" the current stack. (AY/BE)
+
+2) Add "fired" submenu to all units, with Prep/def/advancing fire
+options. (BE)
+-- Maybe limit to infantry units and vehicles with weapons?
+(once you create the counter you can easile move it around in the stack)
+
+3) Fix LOS problems and items that are ASL (not SL/etc) definitions
+-- Gully treatment (SLList)
+-- Cliffs need to be by hexside, not the image as now (AY)
+-- On some boards terrain extends past a hexside, this erroneous
+extension should NOT block an LOS (AY)
+-- identify others!
+
+4) Report BU/CE status change for vehicles (AY)
+
+5) Trail Report Problem when moving ldr/sqd out of larger stack (AY)
+  See notes and example in "34_SL3_GT5beg.log"
+[Basically, if you have a large stack from which you pull ldr/squad,
+the "trail" function won't report a "2" in the first hex moved, but
+only in the second and subsequent hexes.]
+
+6) Charts window will not go to the background, is either primary or 
+closed (multiple-window preference choice only?) (AY)
+
+7) Entrenchments don't need "moved" characteristic (AY)
+
+8) SMOKE: The Problem is it is hard to see the SMOKE (especially under 
+vehicles) and not possible to verify terrain in the smoke hex, even by 
+using the LOS option. (AY, SB, BT, JY, and others)
+-- perhaps make smoke into hex-shape counters?
+-- perhaps lighten smoke background so you can see the underlying board
+terrain?
+-- perhaps turn smoke 45 degrees to increase visibility?
+-- perhaps have smoke NOT retained (or lightened?) in LOS function
+
+9) SMOKE: Since it is possible to place multiple smokes in one hex, is 
+there a way to show this on the map without having to check the mouse-over
+display? Possible for them to visibly stack? (AY)
+
+10) Full-hex characteristics:  Since smoke, fire, and rubble make the ENTIRE
+hex into that terrain/characteristic, can these be hex-shaped/sized markers?
+[This would really help in the scenarios w/river-edge mist, like SL#11.] (AY)
+
+11) On the map, you can not scroll the "overview" window, making it useless
+in the cases that you'd like to use it (in big scenarios, like SL#11). (AY)
+-- If not possible to implement a scroll function, perhaps remove function?
+
+12) SL 105art does not rotate on malfunction side (AY)
+
+13) Should have a preference setting for WHICH of the seven map sizes should
+be the default when loading a scenario save/log file. If not possible, have
+VSQL load at the _middle_ size setting. (AY)
+
+14) Turn Record:  If possible, move this function to the end of the menu at
+the top of the map, continue reporting changes to the value. (AY)
+
+15) Turn record:  Change reporting from "# - Axis" to "Axis - #" (by putting
+the Axis/Allies label ABOVE the number value in the field.  If possible use 
+"turn" instead of a dash. (AY)
+
+16) Info Page:  Add OBA module information (in the currecnt turn space) (AY)
+-- Space for listing module calibre, identified by Axis/Allied.  Pull-down
+menu would be great but a fillable field (three characters wide) would work
+along with an Axis/Allied indicator.  Probably need about four sets of fields.
+-- Have OBA information carry over into "private notes" section, but have
+the private notes page include a field for entering mission information.
+
+17) When writing to a logfile, can the "save game" option be non-selectable?
+This would save a lot of beginners from bad mistakes. (AY)
+
+18) AFV presentation fixes (all for COI?): (AY)
+-- there should be a way for all markers (malfunction, etc) to automatically
+travel with the vehicle, perhaps by putting these into the vehicle menu?
+-- the (GI) method of using a turret image for CE was not an improvement and
+should not be used.  Instead, use either the COI "CE" counter or the one now
+used on SL vehicles.  [Keep it separate from the turret.]
+-- When a tank is fliped to become a wreck, remove all extra characteristics
+(turret, CE, malfunctions, abandoned ...)
+
+19) Make the removal of "hidden status" report on the chat dialogue.
+Perhaps "?" -> "9-1" (for example).
+
+20) American leaders: (AY)
+Currently generates the "non-DM" marker when flipped, need to return the 
+characteristic of the _regular_ DM marker like in the older versions.
+
+21) MINE Counters: (AY)
+Can we add a "cleared" option on this counter, perhaps the "minen" image with
+an international red circle and slash?  Need for both AP and AT mines.
+
+22) In the Counters/Info tab:Locations/terrain; please put the "rubble", "fire"
+and "building fire" at the top of the listing.  These are the ones that are used
+the most during play. (AY)
+
+23) In counters/Info:Vehicular; put the "CE" first, preferably with the white
+counter the first one up.  These get a lot of use with HTs and their passengers.
+In fact, it would be nice to have a white "BU" option too ... since sometimes
+there are passengers in one HT, some CE and some not. (AY)
+
+24) Blank counters.  In the earlier VASL, when you added a label to a blank
+counter (small/large with a nationality, white, OR clear/user-labeled), the 
+label was centered on the counter, instead of being on the top.  Could this 
+characteristic be returned? (AY)
+
+25) Problem with whole hexes that are split between two boards.half hexes.
+SL "standard" reporting system is to report location using the lower numbered
+board.  (JY, and many others)
+
+26) Preference Folder for File/Load game: (JY)
+This would be real helpful (AY).  On my machine it goes to whatever folder 
+I've used most recently for a load or save ... means a lot of selecting when 
+you do other things on your computer, too.  BTW, it _does_ a good job of
+remembering your last load value ... makes it real easy to slightly rename
+a file when you do your own email log.  Please RETAIN that feature!
+
+27) Range counting in the LOS checker: (JY)
+Have the LOS checker report range even if not in verbose mode. AY: I'd like 
+that, I don't use verbose mode, but counting the range would be real helpful!
+
+28) Internet Dice server as an extension module: (JY)
+Anything to make this easier to modify would be good.
+
+29) Wishful thinking: (AY) This is probably beyond VSQL but, can terrain 
+features like orchards, shellholes, hedges, walls ... be transformable in
+the terrain SSR options?  Particularly for their removal from the maps?
+
+ x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x x
+
+Items for VSQLv4 consideration:
+[items that require latter VASSAL version]
+
+A) Night Shading on Boards (BE)
+

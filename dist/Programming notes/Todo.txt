@@ -1,0 +1,26 @@
+TO DO LIST -- 7/14/03  JJY
+
+
+Dennis:  (graphics)
+-- Low:  PLC in each silhouette
+-- Low:  Add PLCs with names
+
+Rodney:  (vassal engine / server)
+-- Hi:  Note to Rodney:  When you close a scenario, if you started a logfile, it should prompt if you want to save the LOGfile!!!  Otherwise it gets lost!!!  (FORWARDED) -- to be released in next VASSAL version
+-- Hi:  Have Server only allow player to sync if they have same module AND same vassal version  (FORWARDED) -- to be released in next VASSAL version
+-- Med:  Turn off autosync feature in the server  (FORWARDED)
+-- Low:  update .class to remove nationality color from preferences.  (FORWARDED)
+-- Low:  update .class with default nationality colors.  (FORWARDED)
+-- Low:  make very small concealment counters (on concealed units) configurable.  (FORWARDED)\
+-- Low:  Make "overview" map toggleable.
+-- Low:  Make layers movable within layer.
+
+
+
+Jay:
+-- Low:  determine how to conceal PLC's (via nationality)
+-- Low:  Add hints for making a shortcut to run the module.
+   In Windows:
+   Target:  "location of VASSAL" "location of module"
+   "C:\My Documents\SL\vassal\VASSAL.exe"  "Modules\vsql2-0-9a-beta.zip"
+   Start In:  "C:\My Documents\SL\vassal"

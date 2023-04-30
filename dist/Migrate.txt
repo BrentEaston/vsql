@@ -1,0 +1,49 @@
+******************************************************************
+******************************************************************
+*** It is STRONGLY encouraged for both players to be using the ***
+*** same version of VSQL, at least to be using 2.0 or greater. ***
+******************************************************************
+******************************************************************
+
+--For users of VASL 3.0 (using the old VASL engine)
+
+    Modules are NOT compatable.  Unfortunately, since counters
+were completely renamed, you will NOT be able to replay or load VASL
+3.0 games into VSQL.
+    NOTE:  THE VASL 3.0 SERVER IS NO LONGER AVAILABLE.  THE ONLY
+           SERVER AVAILABLE IS FOR VASSAL GAMES.
+
+--For users of VSQL *PRIOR* to version 2.0 (using VASSAL)
+
+    Modules are NOT compatable with VSQL 2.0 or greater, since the
+counters were completely renamed when the game was rebuilt.  You
+will NOT be able to replay or load VSQL pre-2.0 games into VSQL
+2.0 or greater.
+
+--For users of VSQL 2.0 and greater (using VASSAL)
+
+    Modules ARE compatable.  You will get a version alert; however, you
+should still be able to play the logfile.  You may need to 
+
+
+--GENERAL NOTES:
+
+    VSQL 2.x offers many obvious improvements over VASL 3.0 and pre-VSQL
+2.0, and a few things that may take getting used to.
+
+   Muscle retraining alert: Right-clicking no longer expands
+stacks.  Right-clicking brings up a popup menu with commands for that
+counter.  Stacks are expanded by double-clicking on them.
+
+    You can also right-click in the counters window to manipulate
+counters before dragging them onto the map.
+
+    The "Change ownership" command is gone.  In effect, units are
+owned by the player that conceals them.  Also note the preferences
+setting that allows you to control whether your opponent can unconceal
+your units during a game.
+
+    VASL 4.0 and 3.0 use different servers.  You can't connect to
+3.0's server with 4.0 or vice versa.
+
+
