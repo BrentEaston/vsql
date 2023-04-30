@@ -30,6 +30,26 @@
   </repositories>
 
   <build>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>dist</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>buildFile.xml</include>
+          <include>moduledata</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>dist</directory>
+        <filtering>false</filtering>
+        <excludes>
+          <exclude>buildFile.xml</exclude>
+          <exclude>moduledata</exclude>
+        </excludes>
+      </resource>
+    </resources>
+
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
