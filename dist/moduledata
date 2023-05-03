@@ -3,6 +3,6 @@
   <version>${project.version}</version>
   <VassalVersion>${vassal.version}</VassalVersion>
   <dateSaved>1638740053831</dateSaved>
-  <description>SQLS with LookAt; see version history</description>
+  <description>Virtual Squad Leader</description>
   <name>VSQL</name>
 </data>
