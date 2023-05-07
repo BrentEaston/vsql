@@ -67,8 +67,8 @@ public class Underlay extends SSROverlay {
     }
 
     if (underlayImage == null) {
-      try (InputStream in = archive.getInputStream(DataArchive.IMAGE_DIR + imageName)) {
-        underlayImage = ImageUtils.getImage(DataArchive.IMAGE_DIR + imageName, in);
+      try (InputStream in = archive.getInputStream(imageName)) {
+        underlayImage = ImageUtils.getImage(imageName, in);
       }
       catch (IOException ex) {
         System.err.println("Underlay image " + imageName + " not found in " + archive.getName());

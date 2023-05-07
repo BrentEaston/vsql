@@ -52,7 +52,7 @@ public class SSROverlay extends Overlay {
       }
 
       Dimension size = null;
-      try (InputStream in = archive.getInputStream(DataArchive.IMAGE_DIR + name)) {
+      try (InputStream in = archive.getInputStream(name)) {
         size = ImageUtils.getImageSize(name, in);
       }
 
@@ -72,7 +72,7 @@ public class SSROverlay extends Overlay {
 
   protected Image loadImage() {
     Image im = null;
-    try (InputStream in = archive.getInputStream(DataArchive.IMAGE_DIR + name)) {
+    try (InputStream in = archive.getInputStream(name)) {
       im = ImageUtils.getImage(name, in);
     }
     catch (IOException e) {
