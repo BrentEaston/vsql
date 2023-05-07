@@ -1,1 +1,1036 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"><html><head><title>VSQL-Version-History-200930</title><meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></head><body><h1 align="center">VSQL Version History</h1><p align="center"><strong>updated 210423</strong></p><hr><h3><em>Note: Version 4.2.3 is specific to Vassal Engine 3.2.17; Version 4.3 is   specific to Vassal engine 3.3+ (requiring Java 8. update 295 aka Java SDK 15].   The two versions are not compatible and are independent in terms of capability.</em> </h3><h3>Version 4.2.3 (Scott Bramley, Pete Pollard, Bill Thomson) 210423</h3><ul>  <li> Paul Blankenship's PBU LookAt capability assimilated. Similar to VASL from     which the code was extracted, CNTL-Right Click will temporarily draw a large     red circle on the map around the mouse location. This is used to draw opponent's     attention to the location being acted upon. This circle will appear both during     server play and any logfile. </li>  <li>Removed Basic Counter Tray II.</li>  <li>Renamed Basic Counter Tray from Tray from &#8216;Basic I&#8217; to &#8216;Basic&#8217;.</li>  <li>Remove Marked Moved on Graveyard</li>  <li>Removed blank help file.</li>  <li>Updated version history. There was a gap between 4.1.7 and this version.   </li>  <li>Enabled the missing 'Change Vehicle ID' trait in the The Squad Leader STGIII(75)     and STGIII(105).</li>  <li>Squad and crew unit ID label changed to blank replacing default of '1' or     'A'. Player can redefine by SHIFT-N. </li>  <li>Return the counters to the original artwork     <ul>      <li>Removed AE squad type identifier on GE 838.</li>      <li>Changed the 'Cv' squad type identifier on GE 548 &amp; RU 537 to 'C'.</li>      <li>Removed 'E' squad type identifier on GE 468.</li>      <li>Removed 1 squad type identifier from GE 467. 1st line squad notation         used in GIA using GIA counter; exists in the CodGia module extension.</li>      <li>Removed C squad type identifier from GE 436. </li>      <li>Removed Cr crew type identifier from GE 248.</li>      <li> Removed Cr squad type identifier from GE 247. </li>      <li>Removed SS icon from all SS leaders, squads, leaders, and snipers.</li>      <li>Removed Cr crew type identifier from AM 246.</li>    </ul>  </li>  <li>Removed counters of unknown purpose/scenarios. (The images remain in the     module should they be needed later.)     <ul>      <li>GE FJ 548 squad type identifier with GE (1)08 sub-units.</li>      <li>GE 447 2nd line squad. They are introduced in GIA and exist in the CodGia         module extension.</li>      <li>RU 448 squad.</li>      <li>[RU 458 squad type retained as used in several WGA scenarios; represents         elite rifle squad introduced in ASL].</li>      <li>[RU 9-0 and 10-0 Commissar counters retained as used in several WGA         scenarios; Commissars introduced in ASL].</li>      <li>[Retained GE 447 counters utilized in selected WG SQL/COI scenarios;         GE 447 2nd line squad. They are introduced in GIA.]</li>    </ul>  </li>  <li>Updated all the default squad letters of 'A' to &#8216;blank&#8217; for     all nationalities. [The Shift-N trait remains should player wish to letter     squads]. Some scenarios may require the owning player to secretly define which     squad possess a SW [in VSQL play denoted by creating a Delayed Note].</li>  <li> Updated all the default crew numbers of '1' to &#8216;blank&#8217; for     all nationalities. [The Shift-N trait remains should player wish to letter     squads]. Some scenarios may require the owning player to secretly define which     squad possess a SW [in VSQL play denoted by creating a Delayed Note].</li>  <li>Updated the default &#8216;Your Name Here&#8217; on Russian Armor Leaders.     Replaced with the same convention as German: TSgt, Lt., Cpt., Major, Col.</li>  <li>Modified COI Horse counter to three sides, Normal [12 MP], Charging [18     MP] , and winded [6 MP]. </li>  <li>PENDING: Remove all Wounded Leader counters [standard, berserk, heroic].     Wounded leaders Is introduced I COD 122]. This trait will exist in the COD/GIA     v9.2 module extension. The wound icon will be added via trait rather than     a new set of wounded leaders for all nationalities. There is a wounded leader     in SQL WG1##, this is addressed in SSR.</li>  <li> PENDING: Remove the &#8216;Wounded&#8217; trait on all sniper counters.     There is no wounded status for snipers in SQLS; ASL uses an completely different     mechanism for Snipers. </li>  <li>DEBATING: Add Berserk superimposed sidebars trait to all infantry units     [SMC, MMC] similar to VASL. At present there are red counters for Russian     and SS units in SQL &amp; COI. However starting in COD, all units can go Berserk.     Red Counters for all nationalities is no longer distinct. Morale of Berserk     units is standardized in GIA independent of nationality. <br>    DEBATING: Add Fanatic superimposed sidebars trait to all infantry units [SMC,     MMC] similar to VASL. At present fanatic units are a function of SSR and such     notation is a mental exercise based on location or usage of a Label trait.   </li>  <li><strong><font color="#9900CC">NOTE: WGA will continue to update 4.2.x as     needed. None of my 8+ computers can run Java 11+ required for Vassal Engine     3.4 due to limitation of computer age and OS limitations; Mac and Windows.     Same is true for my other 40+ Vassal modules. [BT]</font></strong></li></ul><h3>Version 4.2.2 [not documented; some indications on Module: Squad Leader page.   Best guess is Bill Sosnicki]</h3><h3>Version 4.2 [not documented; some indications on Module: Squad Leader page.   Best guess is Bill Sosnicki]</h3><h3>Version 4.1.7 (Bill Sosnicki)</h3><ul>  <li> Corrected missing 2ROF for German PzKwIIF</li>  <li> Fixed German 838 so it doesn't report DM after rallying, (really, this     time its fixed)</li>  <li> Completed adding all vehicle nomenclatures to all existing CoD &amp; GIA     vehicles</li></ul><h3>Version 4.1.6b (Bill Sosnicki)</h3><ul>  <li> Fixed French 458 GIA counter so it will now Deploy (Alt-Y) properly and     clone when needed.</li>  <li> GIA counters were updated with better images.</li>  <li>Turned Squad ID letter 90 degrees so double letters ( i.e.: AA ) may be     used.</li>  <li> German 548 &amp; 468 FJ counters now reflect (1)-0-8 when dropping as noted     in 99.7 of the COI rules.</li>  <li> The Game Turn/Phase counter now goes to 30 Game Turns instead of 16.</li></ul><h3>Version 4.1.6a (Bill Sosnicki)</h3><ul>  <li> Added Russian Commissar counters (9-0, 10-0)</li></ul><h3>Version 4.1.6 (Bill Sosnicki)</h3><ul>  <li> Added Rooftop to Building Level counter with rules reference</li>  <li> Add entry/counter for German SPW 250/7; Wgt 5.6, Type ht, Date 41-44, Hit     +1, Kill -4/ -5, MP 20, CS 4, MA B81, ROF 2, AAMG 2, Bx 11+, OT. </li>  <li>Add 2 factor AAMG for SPW 251/16 and SPW 251/2. </li>  <li>Add 81 mm mortar with 2 ROF for SPW 251/2 and delete &#8220;S&#8217; capacity.   </li>  <li>The 37L armament of SPW 250/10 should be a Bow mount, not turret.</li>  <li> The 37L armament of SPW 251/10 should be a Bow mount, not turret.</li>  <li>Beginning with GIA all HMG &amp; MMG for all nations may now be dismantled   </li></ul><h3>Version 4.1.5a (Bill Sosnicki)</h3><ul>  <li> Added red &#8220;target&#8221; points to Infantry Bypass counter </li>  <li>Target Track now drops to bottom of stack when placed on board</li>  <li> Ctrl-I : Updated info so as to be more consistent with other info</li></ul><h3>Version 4.1.5 (Bill Sosnicki)</h3><ul>  <li> Corrected Russian KV-IIA artwork to show it as a SP Gun not as a turreted     vehicle</li></ul><h3>Version 4.1.4d (Bill Sosnicki)</h3><ul>  <li>Removed the old Turn counter leaving the new one installed</li></ul><h3>Version 4.1.4c (Bill Sosnicki)</h3><ul>  <li>Fixed additional Turn Counter reflecting Player Phases within Player Turn,     it really works now</li></ul><h3><strong>Version 4.1.4b (Bill Sosnicki) 090816</strong></h3><ul>  <li>Fixed several British Vehicles missing TCA traits </li>  <li>Fixed OBA counters so as to stack normally (right-click FFE, select, down     arrow, select other counter)</li>  <li>Added Hazardous Movement counter</li>  <li> Fixed Russian 4-5-8 so it will report a broken side</li>  <li> Fixed French B1-Bis</li>  <li> Added Player Phase to Turn counter</li></ul><h3>Version 4.1.4a (Bill Sosnicki) 090816</h3><ul>  <li>&quot;Motion&quot; option now on vehicle right-click</li>  <li> German 50mm mortar will now conceal.</li>  <li> Trenches now report a covered arc per 137.1 and 137.3, not exactly CA,     but counter will rotate</li></ul><h3>4.1.4 08/16/09 (Bill Sosnicki) 090816</h3><ul>  <li> Fixed &quot;Main Gun Status&quot; to Place correct &quot;MA Malf/Disable&quot;     counter</li>  <li> Fixed &quot;SA Gun Status&quot; to Place correct &quot;SA Malf/Disable&quot;     counter</li>  <li> Fixed &quot;AAMG Status&quot; to Place correct &quot;AAMG Malf/Disable&quot;     counter</li>  <li> Fixed &quot;BMG Status&quot; to Place correct &quot;BMG Malf/Disable&quot;     counter</li>  <li> Fixed &quot;CMG Status&quot; to Place correct &quot;CMG Malf/Disable&quot;     counter</li>  <li> Fixed &quot;Vehicle Status&quot; to Place correct &quot;BOG/Immob/etc&quot;     counter</li>  <li> Added &quot;On-Target&quot; die roll number(s) to OBA AR counters</li></ul><h3>Version 4.1.3a (Bill Sosnicki)</h3><ul>  <li>Replaced some vehicle counter artwork with newer, correct, counters</li></ul><h3>Version 4.0 (Brent Easton, Bill Sosnicki) 090215</h3><ul>  <li>Brent Easton provided the main core of VSQL 4 project, which utilizes a     different vassal engine from that of its previous versions. VSQL 4 project     required to be repopulated and reprogrammed with all known features which     were developed up through version 3.30e. VSQL 4 project also required all     new counters to be created which enabled them to be used whether one was playing     under COI or GIA environments. This allowed the program to maintain a smaller     file size.</li></ul><h3>Version 3.0 (Brent Easton) 050601</h3><ul>  <li> Fixed reporting of movement of HIP unit. Now reported as '* ? Moves ? -&gt;     ?'</li>  <li> Changed color of German COI colors to match SL colors.</li>  <li> Reworked Concealment in general to prevent HIP, Delete and Clone by opponent     on Concealed units and to make certain extra ? counters are indistinguishable     from ordinary counters.</li>  <li> Re-organised order of traits in all counters. Removed Clone and Delete     from BasicPiece to separate traits. Major traits added via prototypes</li>  <li> Removed all Colored Background traits and set Invisible background color     correctly. </li>  <li>Fixed Concealable to prevent Concealed traits being activated by Control     keys, even though there is no menu item.</li>  <li> Changed bunkers to act like concealment counters. Modified concealment     processing so any unit moved out from under a Concealment counter or Bunker     by the owner will become unconcealed.</li>  <li> Moved all 'Has Info' traits above 'Concealable' so opponent cannot see     it on a concealed counter.</li>  <li> American blank counters fixed to conceal as American color, not German.</li>  <li> Large American and Russian blank counters now conceal with correct large     size concealment counters.</li>  <li> Changed existing PLC counters to conceal with 'PLC' colored concealment     counters.</li>  <li> Created new German, American and Russian Generic PLC's that conceal as     correct nationality.</li>  <li> Fixed angle of Ford counters so they cross from hexside to hexside</li>  <li> Cleaned up Scenario Info window - Removed SAN stuff, changed note windows     to tabs, changed text to monospaced, increased size on opening, added 'prev     turn' button, report turn counter change.</li>  <li> Added Movement Trail to Infantry and Vehicles</li>  <li> Ran images through an image optimizer to remove comments.</li>  <li> Changed Track counter to 'Does not Stack' to solve problems with adding     them to map while replaying a logfile. Causes Track counter to drop to bottom     of stack, so counter will rotate 45 degrees when dropped onto board to ensure     visibility.</li>  <li> Changed Roadblock, Wire, Ford, &quot;V&quot; and Smoke counters to be 'Does     Not Stack' </li>  <li>Invisible counters are 'Non-moveable' and will not stack with visible counters</li>  <li> Add Smoke options to Remove All menu.</li>  <li> Included 'lasso' facility to select multiple counters (from vassal 2.0).</li>  <li> Delay setting for Mouseover viewer moved to General Preferences.</li>  <li> Added F6 as Hotkey for Internet Dice Roller.</li>  <li> Added 'DOES NOT MOVE' as ctrl-I Info comment to all Non-moveable markers</li>  <li> Ctrl-I info display automatically turns off when counter unselected.</li>  <li> Marking units not moved also turns off movement trail display.</li>  <li> Removed 'Nationality Colors' tab from preferences.</li>  <li> PLC counters moved from main module to extension vsql_plc.mdx</li>  <li> Fixed German AA 88 counters rotation/repair/limber commands</li>  <li> Added American 6+1 leader.</li>  <li> Default Smoke counter changed to generic instead of German.</li>  <li> Changed 'Flip' on 2nd Level counter to 'Increase/Decrease'</li>  <li> Units underneath a 'Non-moveable' counter (e.g. 2nd Level, Bunker) will     not stack and move with counters that are moved on top of the 'Non-moveable'     counter.</li>  <li> Changed menu references to 'COI+' to 'COI'</li>  <li> Report CX command for Infantry Units.</li>  <li> Report Hex when concealing units.</li>  <li> Suppress Reporting when units still in toolbox.</li>  <li> Online help files updated. Added a separate Preferences page and an Internet     Die Roller page.</li></ul><h3>Version 2.5.8 (Brent Easton) 050214</h3><ul>  <li> Fixed bug in LOS checker for LOS from hill to base of same hill.</li>  <li> Fixed 2.5.7 corruption bug causing units to disappear when logfiles opened     with earlier versions</li>  <li> Fixed Turret CA bug introduced in 2.5.5</li>  <li> Fixed Angle of Bridge counters so they cross from hexside to hexside</li>  <li> Updated SS squad DM to show DM+2 (was +4)</li>  <li> Fixed American leader DM to show &quot;can route&quot; instead of &quot;DM+4&quot;</li>  <li> Removed COD and GIA Charts. To be included in Extensions.</li>  <li> Added prototypes to Infantry, Vehicle, Gun and SW units to support COD     and GI extensions and future programming efforts.</li></ul><h3>Version 2.5.7 (Brent Easton, Jay Yanek) 041025</h3><ul>  <li> Version 2.5.7 is broken and should not be used. Log files cannot be viewed     with other versions of VSQL.</li></ul><h3> Version 2.5.6 10/15/04 (Brent Easton) 041015</h3><ul>  <li> Fixed bug where movement auto-reporting not working</li></ul><h3>Version 2.5.5 (Brent Easton) 041006</h3><ul>  <li> Added Icon for Map Overview button</li>  <li> Migrated fix for gray Concealed counter display from VASL</li>  <li> Added colored layers to tracking counter</li>  <li> Added Rumanian Crew Counter</li>  <li> Display correct roll message when using Internet Die Roller</li>  <li> Fixed errors and minor reorganization of COI charts</li>  <li> Added explanation of Bunker Control keys to help file</li></ul><h3>Version 2.5.4 (Brent Easton) 040804</h3><ul>  <li> Included latest VASL code to fix 'flipping' maps bug.</li>  <li> Updated LOS engine to follow SL rules for blind hexes and grain hexes and     to report SL rule numbers.</li>  <li> Included Internet Dice Roller.</li>  <li> Added new VSQL preference tab with new preference to turn off grid snapping     to hex edges and corners.</li>  <li> Adjusted Mouse-over stack viewer options to take advantage of new features.     Now displays grid reference when showing counters. Always displays grid reference     when map zoomed out.</li>  <li> Replaced dice, charts and overlays buttons with icons.</li>  <li> Removed OBA button.</li>  <li> Fixed SW level for German 50mm ATG.</li>  <li> Fixed errors and minor reorganization of SL Charts.</li>  <li> Added PBEM procedures to Help Menu</li></ul><h3><strong>Version 2.5.3 1/05/04 (Brent Easton) 040105</strong></h3><ul>  <li> Updated CASL &amp; VASL code to support version 1.3 vassal. Also fixes     missing 'moved' markers.</li>  <li> Added Mouse-over counter viewer.</li></ul><h3>Version 2.5.2 (Jay Yanek) 040103</h3><ul>  <li> Remove &quot;location&quot; from parachute counter.</li>  <li> Russian SL truck now reporting properly.</li>  <li> Mines are now hindrance counters and should stack properly.</li>  <li> GE SL 75mm updated</li>  <li> Several other &quot;minor&quot; counter updates.</li>  <li> Fixed Russian leaders 8-0 through 10-3. Were not berserking correctly</li>  <li> Made Roadblock a hindrance counter.</li>  <li> Change Rumanian concealment counter &quot;colored background&quot; attribute     from 'ge' to 'al' to allow it to properly conceal Rumanian units.</li></ul><h3>Version 2.5 (Jay Yanek &amp; Dennis Jorgenson) 030721</h3><ul>  <li> Added first five 'named' PLCs.</li>  <li> Changed &quot;Can be invisible&quot; trait on most Info counters to have     the background color be white instead of transparent. Helps to see counters     better <br>    on the board.</li>  <li> Added SL and COI Quick Reference Cards to the Charts menu. Also added misc.     charts.</li>  <li> Removed &quot;moved&quot; attribute from nearly all Info counters.</li>  <li> Added &quot;CX&quot; option to each infantry unit. Now ctrl-X will place     a CX counter on that unit (similar functionality as the DM counter).</li>  <li> Removed some reporting keys from counters that did not need it ('A' and     'S' were common ones).</li>  <li> Changed menu system by pulling out the &quot;Basic&quot; menu and making     it its own top-level. Should make it easier for users to get to repeat counters     quickly.</li>  <li> Added German SS armor leaders.</li>  <li> Added &quot;hero&quot; counter (under PLC menu).</li>  <li> Added &quot;berserk&quot; counters to Russian and SS armor leaders/CE.</li>  <li> Updated turret counters to new graphics.</li>  <li> Added overlays for grain, marsh, rubble (stone &amp; wood), woods, and     water.</li>  <li> Deleted &quot;does not move&quot; attribute from all pieces (via beta test     input). Replaced with &quot;marker/location&quot; for all of these counters.     Should help with <br>    playability.</li>  <li> Blank counters text labels have been center justified in all directions.     Text will now draw in the center of the counter vs. the top.</li>  <li> Shortened many counter names per beta input. Should reduce the &quot;verbiage&quot;     that shows up on the info window during play. Along this line, abbreviated:     Partisan with 'p', Inexperienced with 'i'. SS names will remain with the 'ss'     suffix.</li>  <li> Updated several &quot;info&quot; counters with the correct &quot;can be     marked moved&quot; attribute. VASL/VSQL uses a custom attribute, not the standard     one that comes with VASSAL.</li>  <li> Enabled the transparent stacking option in &quot;map window\stacking options\color     of pieces when not expanded&quot;. Set transparent per instructions. Now when     pieces are stacked and not expanded, you can see portions of the lower pieces.</li>  <li> Updated American, German, Russian FFE counters. Left the Blue/Red OBA counters     in the set for now.</li>  <li> Added new ASLCommandEncoder.class file to the \VASL\build\module section     (via Rodney Kinney). This .class will allow us to toggle the Nationality function     so it does not appear on the Preferences menu. Currently, the flag in the     buildfile is not set. Rodney needs to work out a bug.</li>  <li> Adjusted all MMC/SMC counters &quot;place marker&quot; attribute to have     the DM marker defined properly. Now the DM placed by these counters will function     the same as the DM on the Basic menu.</li>  <li> Added 2.0.3 American AT counters to images file for compatibility.</li>  <li> Updated Prep/DF/AF counters per user input. Prep/AF are white. DF is gray.     Also changed counter layout for Prep to conform to template.</li>  <li> Removed several redundant counters from the original COI game build. These     counters were when the vehicle rotation was previously defined as VCA #1 was     SE instead of NE</li>  <li> Removed multiple obsolete counters not used from buildfile and images directory.</li>  <li> Does Not Stack: Removed the &quot;DNS&quot; attribute from the following     counters. Substituted the Marker/Location attribute: Smoke, Fire (both), Rubble,     AR, Starshell, Aircraft (all)</li>  <li> Added CE/Stun/+1TH/Withdraw to all vehicles. All vehicles can now button/unbutton     (ctrl-b), and cycle through the stun list if needed (ctrl-w).</li>  <li> Compatibility exists backward to version 2.0. Future expansions will be     compatible with this module.</li>  <li> Added COI counterset (provided by Dennis Jorgenson). New counterset does     not use the &quot;nationality&quot; functionality any more. This can be ignored     on the preferences menu (this menu will be removed in a future version).</li>  <li> All vehicle/gun wrecks/malfunctions now rotate along all six directions.</li>  <li> Added &quot;DM +2&quot; counter for SS units (similar functionality to     the American &quot;Can Route&quot; counter). DM+2 and &quot;Can Route&quot;     are flips of the basic DM counter.</li>  <li> Added appropriate counters from the VASL 4.10 module which enhance VSQL.     (e.g. fanatic, No ammo/canister/etc, fortified building, etc.)</li>  <li> Added &quot;Control&quot; counters to show side ownership / victory conditions.</li>  <li> Added &quot;PLC&quot; menu (for future expansion)</li>  <li> Moved Concealment counters to their own menu for each country.</li>  <li> Separated SL and COI vehicles and guns into separate menus for each country     via tab.</li>  <li> Added Draggable Overlays from VASL 4.10.</li>  <li> Updated Charts for all modules, including COD and GI since they were available.     COD and GI functionality will be added at a later date.</li>  <li> Changed the &quot;Remove&quot; menu on the Map window to better reflect     gameplay.</li>  <li> Changed the Defensive Fire counter to a gray background to facilitate easy     spotting.</li>  <li> Added help menus, credits, etc. to the &quot;help&quot; tab.</li>  <li> All vehicles now will remain as &quot;hindrances&quot; when checking LOS     (if that option is chosen on the preferences menu. Now you will be able to     see if the LOS thread crosses the vehicle silhouette.</li>  <li> Counters like the &quot;level&quot; counter added the Marker attribute     with the &quot;Location&quot; flag to allow units to stack both above or below     the counter. Moving units through this type of counter will no longer drag     the counter with the stack. To move these special counters if the counter     if it is part of a stack, expand the stack then drag the counter out.</li>  <li> Reorganized attributes on all counters to make them consistent. </li>  <li>Reorganized menus to make them fit the new counterset.</li>  <li> Revamped module to include latest VASSAL improvements.</li>  <li> Updated .class code to be consistent with the VASL series.</li>  <li> Added &quot;template&quot; text file to the beta-distribution package.     To be used so future authors can understand how various genres of pieces are     built. </li>  <li>NOTE: There are many more minor changes not listed.</li></ul><h3>Version 2.0.0 through 2.0.3 (Dennis Jorgenson &amp; Jay Yanek)</h3><ul>  <li> Improved counter art.</li>  <li> Updated .class code to keep up with server changes.</li></ul><h3><strong>Version 1.9.1 (Rodney Kinney)</strong></h3><ul>  <li> Some unspecified bug fix.</li></ul><h3>Version 1.9.0 (Jeff Thorpe)</h3><ul>  <li> Map Centering function Implemented. Right-mouse-click on map will now center     the map at the click position.</li></ul><h3>Version 1.8.9 (Jeff Thorpe)</h3><ul>  <li> Location attribute added to many counters, making them visible from within     an unexpanded stack. HUGE IMPROVEMENT! (Thanks RK for the suggestion!)</li></ul><h3>Version 1.8.8 (Jeff Thorpe)</h3><ul>  <li> Fortifications &quot;Does not Stack&quot; trait prevented re-ordering within     the stack. Removed.</li></ul><h3>Version 1.8.7 (Jeff Thorpe)</h3><ul>  <li> American Vehicles had become all M-10s. Back to what they're supposed to     be.</li>  <li> The &quot;Remove All: DM&quot; function had broke. Fixed.</li></ul><h3>Version 1.8.6 (Jeff Thorpe)</h3><ul>  <li>LOS functionality lost in 185 returns!</li></ul><h3>Version 1.8.5 (Bill Thomson)</h3><ul>  <li> Russian counter background is now more brown</li>  <li> All blank counters have labeling enabled</li>  <li> Nationality blank counter can be concealed</li></ul><h3>Version 1.8.4 (Jeff Thorpe)</h3><ul>  <li> The firepower counters all had the &quot;does not stack&quot; option selected,     along with the &quot;hold shift key to select&quot; box checked. This resulted     in not being able to see the counter at all once placed unless all the counters     in the hex . The &quot;does not stack&quot; trait, were removed.</li></ul><h3>Version 1.8.3 (Bill Thomson &amp; Rodney Kinney)</h3><ul>  <li> Replaced the LOS function which got lost in the earlier version</li>  <li> Changed the control key from 'B' to 'F' for infantry, SW, and guns to be     consistent with VASL but retained 'W' to change vehicles to wreck status.</li>  <li> Control key for Russian conversion t Berserk is Control 'R'.</li>  <li> Corrected the rotation control for a few strays to be 'X' and 'Z'.</li>  <li> Rodney fixed the LOS issues </li>  <li>The &quot;hide pieces&quot; option in the module which got unchecked in     1.8.1 was re-checked it</li>  <li> The various armed and unarmed halftracks were named AHT and UHT.</li>  <li> Some AFV names designations where capitalized (M4A4 from M4a4)</li></ul><h3>Version 1.8.2 (Bill Thomson)</h3><ul>  <li> Replaced the LOS function which got lost in the earlier version</li>  <li> Changed the control key from 'B' to 'F' for infantry and 'W' to 'F' for     vehicles and guns to be consistent with VASL</li>  <li> Corrected the rotation control for a few strays to be 'X' and 'Z'.</li>  <li> Rodney fixed the LOS issues </li>  <li>HOWEVER in my taking editing shortcuts, all counters share the same images     as the first in its class negating this version.</li></ul><h3>Version 1.8.1 (Bill Thomson)</h3><ul>  <li> All markers will no longer move by drag and drop with exceptions for .DM,     Starshells, CE, Vehicle mg malf, vehicle gun ma,malf,, OBA, If the need arises,     markers can be moved using a control+shift.</li></ul><h3><strong>Version 1.8.0 (Bill Thomson)</strong></h3><ul>  <li> All Counter labels standardized and installed for all unit counters as     black 10 point text on white background with vertical alignment: top 0 offset,     Horizontal alignment: center 0 off set, vertical text justification: bottom,     horizontal test justification: center </li>  <li>Hero Counters deleted</li>  <li> Control key for HIP changed from 'I' to 'H'</li>  <li> Control Mask concealment for all PLC changed to nationality color background</li>  <li> Vehicle, gun, bunker rotation control key changed from '[X' to 'X' for     clockwise and from and 'Z]' to 'Z' for clockwise rotation.</li>  <li> Invisible capability added to entrenchments, wire, and roadblock. As may     be HIP by SSR.</li>  <li> Blank counters may be HIP</li></ul><h3>Version 1.7.9 (Bill Thomson)</h3><ul>  <li> Blank counters added to toolbar</li>  <li> Labels now aligned to top center of counter</li>  <li> Label background now white background; nationality text colors</li></ul><h3>Version 1.7.8 (Jeff Thorpe &amp; Bill Thomson)</h3><ul>  <li> A notes windows was added</li>  <li> The info/unit menus were reorganized;' Infantry' unit menu became 'Firepower'</li>  <li> Smoke and OBA were extracted from other unit menus and and put into a new     menu 'Smoke/OBA'</li>  <li> Direction layer added to Artillery Requests</li></ul><h3>Version 1.7.6 and 1.7.7 (Rodney Kinney)</h3><ul>  <li> Minor tweaks for comparability with VASSAL engine upgrade 1.0b24</li></ul><h3>Version 1.7.5 (Unknown)</h3><h3>Version 1.0 (Jay Yanek)</h3><ul>  <li> ASL counterset culled for only those needed in SQL creating the SQL module.</li></ul><h3>NOTE: VSQL was the 3rd Vassal module; following VASL and Panzerblitz/Panzerleader. </h3><h3> Comments: </h3><p>Please send all additional comments, modification/error correction to Bill   Thomson and/or Scott Bramley</p><ul>  <li>bill@wargameacademy.org [scott@wargameacademy.org]</li>  <li>www.wargameacademy.org</li>  <li>discord WGA8888</li>  <li>817-501-2978 -6 GMT; US Central Time<br>  </li></ul></body></html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+
+<head>
+
+<title>VSQL-Version-History-200930</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+
+</head>
+
+
+
+<body>
+
+<h1 align="center">VSQL Version History</h1>
+
+<p align="center"><strong>updated 210423</strong></p>
+
+<hr>
+<h3><em>Note: Version 4.2.3 is specific to Vassal Engine 3.2.17; Version 4.3 is 
+  specific to Vassal engine 3.3+ (requiring Java 8. update 295 aka Java SDK 15]. 
+  The two versions are not compatible and are independent in terms of capability.</em> 
+</h3>
+<h3>Version 4.2.3 (Scott Bramley, Pete Pollard, Bill Thomson) 210423</h3>
+<ul>
+  <li> Paul Blankenship's PBU LookAt capability assimilated. Similar to VASL from 
+    which the code was extracted, CNTL-Right Click will temporarily draw a large 
+    red circle on the map around the mouse location. This is used to draw opponent's 
+    attention to the location being acted upon. This circle will appear both during 
+    server play and any logfile. </li>
+  <li>Removed Basic Counter Tray II.</li>
+  <li>Renamed Basic Counter Tray from Tray from &#8216;Basic I&#8217; to &#8216;Basic&#8217;.</li>
+  <li>Remove Marked Moved on Graveyard</li>
+  <li>Removed blank help file.</li>
+  <li>Updated version history. There was a gap between 4.1.7 and this version. 
+  </li>
+  <li>Enabled the missing 'Change Vehicle ID' trait in the The Squad Leader STGIII(75) 
+    and STGIII(105).</li>
+  <li>Squad and crew unit ID label changed to blank replacing default of '1' or 
+    'A'. Player can redefine by SHIFT-N. </li>
+  <li>Return the counters to the original artwork 
+    <ul>
+      <li>Removed AE squad type identifier on GE 838.</li>
+      <li>Changed the 'Cv' squad type identifier on GE 548 &amp; RU 537 to 'C'.</li>
+      <li>Removed 'E' squad type identifier on GE 468.</li>
+      <li>Removed 1 squad type identifier from GE 467. 1st line squad notation 
+        used in GIA using GIA counter; exists in the CodGia module extension.</li>
+      <li>Removed C squad type identifier from GE 436. </li>
+      <li>Removed Cr crew type identifier from GE 248.</li>
+      <li> Removed Cr squad type identifier from GE 247. </li>
+      <li>Removed SS icon from all SS leaders, squads, leaders, and snipers.</li>
+      <li>Removed Cr crew type identifier from AM 246.</li>
+    </ul>
+  </li>
+  <li>Removed counters of unknown purpose/scenarios. (The images remain in the 
+    module should they be needed later.) 
+    <ul>
+      <li>GE FJ 548 squad type identifier with GE (1)08 sub-units.</li>
+      <li>GE 447 2nd line squad. They are introduced in GIA and exist in the CodGia 
+        module extension.</li>
+      <li>RU 448 squad.</li>
+      <li>[RU 458 squad type retained as used in several WGA scenarios; represents 
+        elite rifle squad introduced in ASL].</li>
+      <li>[RU 9-0 and 10-0 Commissar counters retained as used in several WGA 
+        scenarios; Commissars introduced in ASL].</li>
+      <li>[Retained GE 447 counters utilized in selected WG SQL/COI scenarios; 
+        GE 447 2nd line squad. They are introduced in GIA.]</li>
+    </ul>
+  </li>
+  <li>Updated all the default squad letters of 'A' to &#8216;blank&#8217; for 
+    all nationalities. [The Shift-N trait remains should player wish to letter 
+    squads]. Some scenarios may require the owning player to secretly define which 
+    squad possess a SW [in VSQL play denoted by creating a Delayed Note].</li>
+  <li> Updated all the default crew numbers of '1' to &#8216;blank&#8217; for 
+    all nationalities. [The Shift-N trait remains should player wish to letter 
+    squads]. Some scenarios may require the owning player to secretly define which 
+    squad possess a SW [in VSQL play denoted by creating a Delayed Note].</li>
+  <li>Updated the default &#8216;Your Name Here&#8217; on Russian Armor Leaders. 
+    Replaced with the same convention as German: TSgt, Lt., Cpt., Major, Col.</li>
+  <li>Modified COI Horse counter to three sides, Normal [12 MP], Charging [18 
+    MP] , and winded [6 MP]. </li>
+  <li>PENDING: Remove all Wounded Leader counters [standard, berserk, heroic]. 
+    Wounded leaders Is introduced I COD 122]. This trait will exist in the COD/GIA 
+    v9.2 module extension. The wound icon will be added via trait rather than 
+    a new set of wounded leaders for all nationalities. There is a wounded leader 
+    in SQL WG1##, this is addressed in SSR.</li>
+  <li> PENDING: Remove the &#8216;Wounded&#8217; trait on all sniper counters. 
+    There is no wounded status for snipers in SQLS; ASL uses an completely different 
+    mechanism for Snipers. </li>
+  <li>DEBATING: Add Berserk superimposed sidebars trait to all infantry units 
+    [SMC, MMC] similar to VASL. At present there are red counters for Russian 
+    and SS units in SQL &amp; COI. However starting in COD, all units can go Berserk. 
+    Red Counters for all nationalities is no longer distinct. Morale of Berserk 
+    units is standardized in GIA independent of nationality. <br>
+    DEBATING: Add Fanatic superimposed sidebars trait to all infantry units [SMC, 
+    MMC] similar to VASL. At present fanatic units are a function of SSR and such 
+    notation is a mental exercise based on location or usage of a Label trait. 
+  </li>
+  <li><strong><font color="#9900CC">NOTE: WGA will continue to update 4.2.x as 
+    needed. None of my 8+ computers can run Java 11+ required for Vassal Engine 
+    3.4 due to limitation of computer age and OS limitations; Mac and Windows. 
+    Same is true for my other 40+ Vassal modules. [BT]</font></strong></li>
+</ul>
+
+<h3>Version 4.2.2 [not documented; some indications on Module: Squad Leader page. 
+
+  Best guess is Bill Sosnicki]</h3>
+
+<h3>Version 4.2 [not documented; some indications on Module: Squad Leader page. 
+
+  Best guess is Bill Sosnicki]</h3>
+
+<h3>Version 4.1.7 (Bill Sosnicki)</h3>
+
+<ul>
+
+  <li> Corrected missing 2ROF for German PzKwIIF</li>
+
+  <li> Fixed German 838 so it doesn't report DM after rallying, (really, this 
+
+    time its fixed)</li>
+
+  <li> Completed adding all vehicle nomenclatures to all existing CoD &amp; GIA 
+
+    vehicles</li>
+
+</ul>
+
+<h3>Version 4.1.6b (Bill Sosnicki)</h3>
+
+<ul>
+
+  <li> Fixed French 458 GIA counter so it will now Deploy (Alt-Y) properly and 
+
+    clone when needed.</li>
+
+  <li> GIA counters were updated with better images.</li>
+
+  <li>Turned Squad ID letter 90 degrees so double letters ( i.e.: AA ) may be 
+
+    used.</li>
+
+  <li> German 548 &amp; 468 FJ counters now reflect (1)-0-8 when dropping as noted 
+
+    in 99.7 of the COI rules.</li>
+
+  <li> The Game Turn/Phase counter now goes to 30 Game Turns instead of 16.</li>
+
+</ul>
+
+<h3>Version 4.1.6a (Bill Sosnicki)</h3>
+
+<ul>
+
+  <li> Added Russian Commissar counters (9-0, 10-0)</li>
+
+</ul>
+
+<h3>Version 4.1.6 (Bill Sosnicki)</h3>
+
+<ul>
+
+  <li> Added Rooftop to Building Level counter with rules reference</li>
+
+  <li> Add entry/counter for German SPW 250/7; Wgt 5.6, Type ht, Date 41-44, Hit 
+
+    +1, Kill -4/ -5, MP 20, CS 4, MA B81, ROF 2, AAMG 2, Bx 11+, OT. </li>
+
+  <li>Add 2 factor AAMG for SPW 251/16 and SPW 251/2. </li>
+
+  <li>Add 81 mm mortar with 2 ROF for SPW 251/2 and delete &#8220;S&#8217; capacity. 
+
+  </li>
+
+  <li>The 37L armament of SPW 250/10 should be a Bow mount, not turret.</li>
+
+  <li> The 37L armament of SPW 251/10 should be a Bow mount, not turret.</li>
+
+  <li>Beginning with GIA all HMG &amp; MMG for all nations may now be dismantled 
+
+  </li>
+
+</ul>
+
+<h3>Version 4.1.5a (Bill Sosnicki)</h3>
+
+<ul>
+
+  <li> Added red &#8220;target&#8221; points to Infantry Bypass counter </li>
+
+  <li>Target Track now drops to bottom of stack when placed on board</li>
+
+  <li> Ctrl-I : Updated info so as to be more consistent with other info</li>
+
+</ul>
+
+<h3>Version 4.1.5 (Bill Sosnicki)</h3>
+
+<ul>
+
+  <li> Corrected Russian KV-IIA artwork to show it as a SP Gun not as a turreted 
+
+    vehicle</li>
+
+</ul>
+
+<h3>Version 4.1.4d (Bill Sosnicki)</h3>
+
+<ul>
+
+  <li>Removed the old Turn counter leaving the new one installed</li>
+
+</ul>
+
+<h3>Version 4.1.4c (Bill Sosnicki)</h3>
+
+<ul>
+
+  <li>Fixed additional Turn Counter reflecting Player Phases within Player Turn, 
+
+    it really works now</li>
+
+</ul>
+
+<h3><strong>Version 4.1.4b (Bill Sosnicki) 090816</strong></h3>
+
+<ul>
+
+  <li>Fixed several British Vehicles missing TCA traits </li>
+
+  <li>Fixed OBA counters so as to stack normally (right-click FFE, select, down 
+
+    arrow, select other counter)</li>
+
+  <li>Added Hazardous Movement counter</li>
+
+  <li> Fixed Russian 4-5-8 so it will report a broken side</li>
+
+  <li> Fixed French B1-Bis</li>
+
+  <li> Added Player Phase to Turn counter</li>
+
+</ul>
+
+<h3>Version 4.1.4a (Bill Sosnicki) 090816</h3>
+
+<ul>
+
+  <li>&quot;Motion&quot; option now on vehicle right-click</li>
+
+  <li> German 50mm mortar will now conceal.</li>
+
+  <li> Trenches now report a covered arc per 137.1 and 137.3, not exactly CA, 
+
+    but counter will rotate</li>
+
+</ul>
+
+<h3>4.1.4 08/16/09 (Bill Sosnicki) 090816</h3>
+
+<ul>
+
+  <li> Fixed &quot;Main Gun Status&quot; to Place correct &quot;MA Malf/Disable&quot; 
+
+    counter</li>
+
+  <li> Fixed &quot;SA Gun Status&quot; to Place correct &quot;SA Malf/Disable&quot; 
+
+    counter</li>
+
+  <li> Fixed &quot;AAMG Status&quot; to Place correct &quot;AAMG Malf/Disable&quot; 
+
+    counter</li>
+
+  <li> Fixed &quot;BMG Status&quot; to Place correct &quot;BMG Malf/Disable&quot; 
+
+    counter</li>
+
+  <li> Fixed &quot;CMG Status&quot; to Place correct &quot;CMG Malf/Disable&quot; 
+
+    counter</li>
+
+  <li> Fixed &quot;Vehicle Status&quot; to Place correct &quot;BOG/Immob/etc&quot; 
+
+    counter</li>
+
+  <li> Added &quot;On-Target&quot; die roll number(s) to OBA AR counters</li>
+
+</ul>
+
+<h3>Version 4.1.3a (Bill Sosnicki)</h3>
+
+<ul>
+
+  <li>Replaced some vehicle counter artwork with newer, correct, counters</li>
+
+</ul>
+
+<h3>Version 4.0 (Brent Easton, Bill Sosnicki) 090215</h3>
+
+<ul>
+
+  <li>Brent Easton provided the main core of VSQL 4 project, which utilizes a 
+
+    different vassal engine from that of its previous versions. VSQL 4 project 
+
+    required to be repopulated and reprogrammed with all known features which 
+
+    were developed up through version 3.30e. VSQL 4 project also required all 
+
+    new counters to be created which enabled them to be used whether one was playing 
+
+    under COI or GIA environments. This allowed the program to maintain a smaller 
+
+    file size.</li>
+
+</ul>
+
+<h3>Version 3.0 (Brent Easton) 050601</h3>
+
+<ul>
+
+  <li> Fixed reporting of movement of HIP unit. Now reported as '* ? Moves ? -&gt; 
+
+    ?'</li>
+
+  <li> Changed color of German COI colors to match SL colors.</li>
+
+  <li> Reworked Concealment in general to prevent HIP, Delete and Clone by opponent 
+
+    on Concealed units and to make certain extra ? counters are indistinguishable 
+
+    from ordinary counters.</li>
+
+  <li> Re-organised order of traits in all counters. Removed Clone and Delete 
+
+    from BasicPiece to separate traits. Major traits added via prototypes</li>
+
+  <li> Removed all Colored Background traits and set Invisible background color 
+
+    correctly. </li>
+
+  <li>Fixed Concealable to prevent Concealed traits being activated by Control 
+
+    keys, even though there is no menu item.</li>
+
+  <li> Changed bunkers to act like concealment counters. Modified concealment 
+
+    processing so any unit moved out from under a Concealment counter or Bunker 
+
+    by the owner will become unconcealed.</li>
+
+  <li> Moved all 'Has Info' traits above 'Concealable' so opponent cannot see 
+
+    it on a concealed counter.</li>
+
+  <li> American blank counters fixed to conceal as American color, not German.</li>
+
+  <li> Large American and Russian blank counters now conceal with correct large 
+
+    size concealment counters.</li>
+
+  <li> Changed existing PLC counters to conceal with 'PLC' colored concealment 
+
+    counters.</li>
+
+  <li> Created new German, American and Russian Generic PLC's that conceal as 
+
+    correct nationality.</li>
+
+  <li> Fixed angle of Ford counters so they cross from hexside to hexside</li>
+
+  <li> Cleaned up Scenario Info window - Removed SAN stuff, changed note windows 
+
+    to tabs, changed text to monospaced, increased size on opening, added 'prev 
+
+    turn' button, report turn counter change.</li>
+
+  <li> Added Movement Trail to Infantry and Vehicles</li>
+
+  <li> Ran images through an image optimizer to remove comments.</li>
+
+  <li> Changed Track counter to 'Does not Stack' to solve problems with adding 
+
+    them to map while replaying a logfile. Causes Track counter to drop to bottom 
+
+    of stack, so counter will rotate 45 degrees when dropped onto board to ensure 
+
+    visibility.</li>
+
+  <li> Changed Roadblock, Wire, Ford, &quot;V&quot; and Smoke counters to be 'Does 
+
+    Not Stack' </li>
+
+  <li>Invisible counters are 'Non-moveable' and will not stack with visible counters</li>
+
+  <li> Add Smoke options to Remove All menu.</li>
+
+  <li> Included 'lasso' facility to select multiple counters (from vassal 2.0).</li>
+
+  <li> Delay setting for Mouseover viewer moved to General Preferences.</li>
+
+  <li> Added F6 as Hotkey for Internet Dice Roller.</li>
+
+  <li> Added 'DOES NOT MOVE' as ctrl-I Info comment to all Non-moveable markers</li>
+
+  <li> Ctrl-I info display automatically turns off when counter unselected.</li>
+
+  <li> Marking units not moved also turns off movement trail display.</li>
+
+  <li> Removed 'Nationality Colors' tab from preferences.</li>
+
+  <li> PLC counters moved from main module to extension vsql_plc.mdx</li>
+
+  <li> Fixed German AA 88 counters rotation/repair/limber commands</li>
+
+  <li> Added American 6+1 leader.</li>
+
+  <li> Default Smoke counter changed to generic instead of German.</li>
+
+  <li> Changed 'Flip' on 2nd Level counter to 'Increase/Decrease'</li>
+
+  <li> Units underneath a 'Non-moveable' counter (e.g. 2nd Level, Bunker) will 
+
+    not stack and move with counters that are moved on top of the 'Non-moveable' 
+
+    counter.</li>
+
+  <li> Changed menu references to 'COI+' to 'COI'</li>
+
+  <li> Report CX command for Infantry Units.</li>
+
+  <li> Report Hex when concealing units.</li>
+
+  <li> Suppress Reporting when units still in toolbox.</li>
+
+  <li> Online help files updated. Added a separate Preferences page and an Internet 
+
+    Die Roller page.</li>
+
+</ul>
+
+<h3>Version 2.5.8 (Brent Easton) 050214</h3>
+
+<ul>
+
+  <li> Fixed bug in LOS checker for LOS from hill to base of same hill.</li>
+
+  <li> Fixed 2.5.7 corruption bug causing units to disappear when logfiles opened 
+
+    with earlier versions</li>
+
+  <li> Fixed Turret CA bug introduced in 2.5.5</li>
+
+  <li> Fixed Angle of Bridge counters so they cross from hexside to hexside</li>
+
+  <li> Updated SS squad DM to show DM+2 (was +4)</li>
+
+  <li> Fixed American leader DM to show &quot;can route&quot; instead of &quot;DM+4&quot;</li>
+
+  <li> Removed COD and GIA Charts. To be included in Extensions.</li>
+
+  <li> Added prototypes to Infantry, Vehicle, Gun and SW units to support COD 
+
+    and GI extensions and future programming efforts.</li>
+
+</ul>
+
+<h3>Version 2.5.7 (Brent Easton, Jay Yanek) 041025</h3>
+
+<ul>
+
+  <li> Version 2.5.7 is broken and should not be used. Log files cannot be viewed 
+
+    with other versions of VSQL.</li>
+
+</ul>
+
+<h3> Version 2.5.6 10/15/04 (Brent Easton) 041015</h3>
+
+<ul>
+
+  <li> Fixed bug where movement auto-reporting not working</li>
+
+</ul>
+
+<h3>Version 2.5.5 (Brent Easton) 041006</h3>
+
+<ul>
+
+  <li> Added Icon for Map Overview button</li>
+
+  <li> Migrated fix for gray Concealed counter display from VASL</li>
+
+  <li> Added colored layers to tracking counter</li>
+
+  <li> Added Rumanian Crew Counter</li>
+
+  <li> Display correct roll message when using Internet Die Roller</li>
+
+  <li> Fixed errors and minor reorganization of COI charts</li>
+
+  <li> Added explanation of Bunker Control keys to help file</li>
+
+</ul>
+
+<h3>Version 2.5.4 (Brent Easton) 040804</h3>
+
+<ul>
+
+  <li> Included latest VASL code to fix 'flipping' maps bug.</li>
+
+  <li> Updated LOS engine to follow SL rules for blind hexes and grain hexes and 
+
+    to report SL rule numbers.</li>
+
+  <li> Included Internet Dice Roller.</li>
+
+  <li> Added new VSQL preference tab with new preference to turn off grid snapping 
+
+    to hex edges and corners.</li>
+
+  <li> Adjusted Mouse-over stack viewer options to take advantage of new features. 
+
+    Now displays grid reference when showing counters. Always displays grid reference 
+
+    when map zoomed out.</li>
+
+  <li> Replaced dice, charts and overlays buttons with icons.</li>
+
+  <li> Removed OBA button.</li>
+
+  <li> Fixed SW level for German 50mm ATG.</li>
+
+  <li> Fixed errors and minor reorganization of SL Charts.</li>
+
+  <li> Added PBEM procedures to Help Menu</li>
+
+</ul>
+
+<h3><strong>Version 2.5.3 1/05/04 (Brent Easton) 040105</strong></h3>
+
+<ul>
+
+  <li> Updated CASL &amp; VASL code to support version 1.3 vassal. Also fixes 
+
+    missing 'moved' markers.</li>
+
+  <li> Added Mouse-over counter viewer.</li>
+
+</ul>
+
+<h3>Version 2.5.2 (Jay Yanek) 040103</h3>
+
+<ul>
+
+  <li> Remove &quot;location&quot; from parachute counter.</li>
+
+  <li> Russian SL truck now reporting properly.</li>
+
+  <li> Mines are now hindrance counters and should stack properly.</li>
+
+  <li> GE SL 75mm updated</li>
+
+  <li> Several other &quot;minor&quot; counter updates.</li>
+
+  <li> Fixed Russian leaders 8-0 through 10-3. Were not berserking correctly</li>
+
+  <li> Made Roadblock a hindrance counter.</li>
+
+  <li> Change Rumanian concealment counter &quot;colored background&quot; attribute 
+
+    from 'ge' to 'al' to allow it to properly conceal Rumanian units.</li>
+
+</ul>
+
+<h3>Version 2.5 (Jay Yanek &amp; Dennis Jorgenson) 030721</h3>
+
+<ul>
+
+  <li> Added first five 'named' PLCs.</li>
+
+  <li> Changed &quot;Can be invisible&quot; trait on most Info counters to have 
+
+    the background color be white instead of transparent. Helps to see counters 
+
+    better <br>
+
+    on the board.</li>
+
+  <li> Added SL and COI Quick Reference Cards to the Charts menu. Also added misc. 
+
+    charts.</li>
+
+  <li> Removed &quot;moved&quot; attribute from nearly all Info counters.</li>
+
+  <li> Added &quot;CX&quot; option to each infantry unit. Now ctrl-X will place 
+
+    a CX counter on that unit (similar functionality as the DM counter).</li>
+
+  <li> Removed some reporting keys from counters that did not need it ('A' and 
+
+    'S' were common ones).</li>
+
+  <li> Changed menu system by pulling out the &quot;Basic&quot; menu and making 
+
+    it its own top-level. Should make it easier for users to get to repeat counters 
+
+    quickly.</li>
+
+  <li> Added German SS armor leaders.</li>
+
+  <li> Added &quot;hero&quot; counter (under PLC menu).</li>
+
+  <li> Added &quot;berserk&quot; counters to Russian and SS armor leaders/CE.</li>
+
+  <li> Updated turret counters to new graphics.</li>
+
+  <li> Added overlays for grain, marsh, rubble (stone &amp; wood), woods, and 
+
+    water.</li>
+
+  <li> Deleted &quot;does not move&quot; attribute from all pieces (via beta test 
+
+    input). Replaced with &quot;marker/location&quot; for all of these counters. 
+
+    Should help with <br>
+
+    playability.</li>
+
+  <li> Blank counters text labels have been center justified in all directions. 
+
+    Text will now draw in the center of the counter vs. the top.</li>
+
+  <li> Shortened many counter names per beta input. Should reduce the &quot;verbiage&quot; 
+
+    that shows up on the info window during play. Along this line, abbreviated: 
+
+    Partisan with 'p', Inexperienced with 'i'. SS names will remain with the 'ss' 
+
+    suffix.</li>
+
+  <li> Updated several &quot;info&quot; counters with the correct &quot;can be 
+
+    marked moved&quot; attribute. VASL/VSQL uses a custom attribute, not the standard 
+
+    one that comes with VASSAL.</li>
+
+  <li> Enabled the transparent stacking option in &quot;map window\stacking options\color 
+
+    of pieces when not expanded&quot;. Set transparent per instructions. Now when 
+
+    pieces are stacked and not expanded, you can see portions of the lower pieces.</li>
+
+  <li> Updated American, German, Russian FFE counters. Left the Blue/Red OBA counters 
+
+    in the set for now.</li>
+
+  <li> Added new ASLCommandEncoder.class file to the \VASL\build\module section 
+
+    (via Rodney Kinney). This .class will allow us to toggle the Nationality function 
+
+    so it does not appear on the Preferences menu. Currently, the flag in the 
+
+    buildfile is not set. Rodney needs to work out a bug.</li>
+
+  <li> Adjusted all MMC/SMC counters &quot;place marker&quot; attribute to have 
+
+    the DM marker defined properly. Now the DM placed by these counters will function 
+
+    the same as the DM on the Basic menu.</li>
+
+  <li> Added 2.0.3 American AT counters to images file for compatibility.</li>
+
+  <li> Updated Prep/DF/AF counters per user input. Prep/AF are white. DF is gray. 
+
+    Also changed counter layout for Prep to conform to template.</li>
+
+  <li> Removed several redundant counters from the original COI game build. These 
+
+    counters were when the vehicle rotation was previously defined as VCA #1 was 
+
+    SE instead of NE</li>
+
+  <li> Removed multiple obsolete counters not used from buildfile and images directory.</li>
+
+  <li> Does Not Stack: Removed the &quot;DNS&quot; attribute from the following 
+
+    counters. Substituted the Marker/Location attribute: Smoke, Fire (both), Rubble, 
+
+    AR, Starshell, Aircraft (all)</li>
+
+  <li> Added CE/Stun/+1TH/Withdraw to all vehicles. All vehicles can now button/unbutton 
+
+    (ctrl-b), and cycle through the stun list if needed (ctrl-w).</li>
+
+  <li> Compatibility exists backward to version 2.0. Future expansions will be 
+
+    compatible with this module.</li>
+
+  <li> Added COI counterset (provided by Dennis Jorgenson). New counterset does 
+
+    not use the &quot;nationality&quot; functionality any more. This can be ignored 
+
+    on the preferences menu (this menu will be removed in a future version).</li>
+
+  <li> All vehicle/gun wrecks/malfunctions now rotate along all six directions.</li>
+
+  <li> Added &quot;DM +2&quot; counter for SS units (similar functionality to 
+
+    the American &quot;Can Route&quot; counter). DM+2 and &quot;Can Route&quot; 
+
+    are flips of the basic DM counter.</li>
+
+  <li> Added appropriate counters from the VASL 4.10 module which enhance VSQL. 
+
+    (e.g. fanatic, No ammo/canister/etc, fortified building, etc.)</li>
+
+  <li> Added &quot;Control&quot; counters to show side ownership / victory conditions.</li>
+
+  <li> Added &quot;PLC&quot; menu (for future expansion)</li>
+
+  <li> Moved Concealment counters to their own menu for each country.</li>
+
+  <li> Separated SL and COI vehicles and guns into separate menus for each country 
+
+    via tab.</li>
+
+  <li> Added Draggable Overlays from VASL 4.10.</li>
+
+  <li> Updated Charts for all modules, including COD and GI since they were available. 
+
+    COD and GI functionality will be added at a later date.</li>
+
+  <li> Changed the &quot;Remove&quot; menu on the Map window to better reflect 
+
+    gameplay.</li>
+
+  <li> Changed the Defensive Fire counter to a gray background to facilitate easy 
+
+    spotting.</li>
+
+  <li> Added help menus, credits, etc. to the &quot;help&quot; tab.</li>
+
+  <li> All vehicles now will remain as &quot;hindrances&quot; when checking LOS 
+
+    (if that option is chosen on the preferences menu. Now you will be able to 
+
+    see if the LOS thread crosses the vehicle silhouette.</li>
+
+  <li> Counters like the &quot;level&quot; counter added the Marker attribute 
+
+    with the &quot;Location&quot; flag to allow units to stack both above or below 
+
+    the counter. Moving units through this type of counter will no longer drag 
+
+    the counter with the stack. To move these special counters if the counter 
+
+    if it is part of a stack, expand the stack then drag the counter out.</li>
+
+  <li> Reorganized attributes on all counters to make them consistent. </li>
+
+  <li>Reorganized menus to make them fit the new counterset.</li>
+
+  <li> Revamped module to include latest VASSAL improvements.</li>
+
+  <li> Updated .class code to be consistent with the VASL series.</li>
+
+  <li> Added &quot;template&quot; text file to the beta-distribution package. 
+
+    To be used so future authors can understand how various genres of pieces are 
+
+    built. </li>
+
+  <li>NOTE: There are many more minor changes not listed.</li>
+
+</ul>
+
+<h3>Version 2.0.0 through 2.0.3 (Dennis Jorgenson &amp; Jay Yanek)</h3>
+
+<ul>
+
+  <li> Improved counter art.</li>
+
+  <li> Updated .class code to keep up with server changes.</li>
+
+</ul>
+
+<h3><strong>Version 1.9.1 (Rodney Kinney)</strong></h3>
+
+<ul>
+
+  <li> Some unspecified bug fix.</li>
+
+</ul>
+
+<h3>Version 1.9.0 (Jeff Thorpe)</h3>
+
+<ul>
+
+  <li> Map Centering function Implemented. Right-mouse-click on map will now center 
+
+    the map at the click position.</li>
+
+</ul>
+
+<h3>Version 1.8.9 (Jeff Thorpe)</h3>
+
+<ul>
+
+  <li> Location attribute added to many counters, making them visible from within 
+
+    an unexpanded stack. HUGE IMPROVEMENT! (Thanks RK for the suggestion!)</li>
+
+</ul>
+
+<h3>Version 1.8.8 (Jeff Thorpe)</h3>
+
+<ul>
+
+  <li> Fortifications &quot;Does not Stack&quot; trait prevented re-ordering within 
+
+    the stack. Removed.</li>
+
+</ul>
+
+<h3>Version 1.8.7 (Jeff Thorpe)</h3>
+
+<ul>
+
+  <li> American Vehicles had become all M-10s. Back to what they're supposed to 
+
+    be.</li>
+
+  <li> The &quot;Remove All: DM&quot; function had broke. Fixed.</li>
+
+</ul>
+
+<h3>Version 1.8.6 (Jeff Thorpe)</h3>
+
+<ul>
+
+  <li>LOS functionality lost in 185 returns!</li>
+
+</ul>
+
+<h3>Version 1.8.5 (Bill Thomson)</h3>
+
+<ul>
+
+  <li> Russian counter background is now more brown</li>
+
+  <li> All blank counters have labeling enabled</li>
+
+  <li> Nationality blank counter can be concealed</li>
+
+</ul>
+
+<h3>Version 1.8.4 (Jeff Thorpe)</h3>
+
+<ul>
+
+  <li> The firepower counters all had the &quot;does not stack&quot; option selected, 
+
+    along with the &quot;hold shift key to select&quot; box checked. This resulted 
+
+    in not being able to see the counter at all once placed unless all the counters 
+
+    in the hex . The &quot;does not stack&quot; trait, were removed.</li>
+
+</ul>
+
+<h3>Version 1.8.3 (Bill Thomson &amp; Rodney Kinney)</h3>
+
+<ul>
+
+  <li> Replaced the LOS function which got lost in the earlier version</li>
+
+  <li> Changed the control key from 'B' to 'F' for infantry, SW, and guns to be 
+
+    consistent with VASL but retained 'W' to change vehicles to wreck status.</li>
+
+  <li> Control key for Russian conversion t Berserk is Control 'R'.</li>
+
+  <li> Corrected the rotation control for a few strays to be 'X' and 'Z'.</li>
+
+  <li> Rodney fixed the LOS issues </li>
+
+  <li>The &quot;hide pieces&quot; option in the module which got unchecked in 
+
+    1.8.1 was re-checked it</li>
+
+  <li> The various armed and unarmed halftracks were named AHT and UHT.</li>
+
+  <li> Some AFV names designations where capitalized (M4A4 from M4a4)</li>
+
+</ul>
+
+<h3>Version 1.8.2 (Bill Thomson)</h3>
+
+<ul>
+
+  <li> Replaced the LOS function which got lost in the earlier version</li>
+
+  <li> Changed the control key from 'B' to 'F' for infantry and 'W' to 'F' for 
+
+    vehicles and guns to be consistent with VASL</li>
+
+  <li> Corrected the rotation control for a few strays to be 'X' and 'Z'.</li>
+
+  <li> Rodney fixed the LOS issues </li>
+
+  <li>HOWEVER in my taking editing shortcuts, all counters share the same images 
+
+    as the first in its class negating this version.</li>
+
+</ul>
+
+<h3>Version 1.8.1 (Bill Thomson)</h3>
+
+<ul>
+
+  <li> All markers will no longer move by drag and drop with exceptions for .DM, 
+
+    Starshells, CE, Vehicle mg malf, vehicle gun ma,malf,, OBA, If the need arises, 
+
+    markers can be moved using a control+shift.</li>
+
+</ul>
+
+<h3><strong>Version 1.8.0 (Bill Thomson)</strong></h3>
+
+<ul>
+
+  <li> All Counter labels standardized and installed for all unit counters as 
+
+    black 10 point text on white background with vertical alignment: top 0 offset, 
+
+    Horizontal alignment: center 0 off set, vertical text justification: bottom, 
+
+    horizontal test justification: center </li>
+
+  <li>Hero Counters deleted</li>
+
+  <li> Control key for HIP changed from 'I' to 'H'</li>
+
+  <li> Control Mask concealment for all PLC changed to nationality color background</li>
+
+  <li> Vehicle, gun, bunker rotation control key changed from '[X' to 'X' for 
+
+    clockwise and from and 'Z]' to 'Z' for clockwise rotation.</li>
+
+  <li> Invisible capability added to entrenchments, wire, and roadblock. As may 
+
+    be HIP by SSR.</li>
+
+  <li> Blank counters may be HIP</li>
+
+</ul>
+
+<h3>Version 1.7.9 (Bill Thomson)</h3>
+
+<ul>
+
+  <li> Blank counters added to toolbar</li>
+
+  <li> Labels now aligned to top center of counter</li>
+
+  <li> Label background now white background; nationality text colors</li>
+
+</ul>
+
+<h3>Version 1.7.8 (Jeff Thorpe &amp; Bill Thomson)</h3>
+
+<ul>
+
+  <li> A notes windows was added</li>
+
+  <li> The info/unit menus were reorganized;' Infantry' unit menu became 'Firepower'</li>
+
+  <li> Smoke and OBA were extracted from other unit menus and and put into a new 
+
+    menu 'Smoke/OBA'</li>
+
+  <li> Direction layer added to Artillery Requests</li>
+
+</ul>
+
+<h3>Version 1.7.6 and 1.7.7 (Rodney Kinney)</h3>
+
+<ul>
+
+  <li> Minor tweaks for comparability with VASSAL engine upgrade 1.0b24</li>
+
+</ul>
+
+<h3>Version 1.7.5 (Unknown)</h3>
+
+<h3>Version 1.0 (Jay Yanek)</h3>
+
+<ul>
+
+  <li> ASL counterset culled for only those needed in SQL creating the SQL module.</li>
+
+</ul>
+
+<h3>NOTE: VSQL was the 3rd Vassal module; following VASL and Panzerblitz/Panzerleader. 
+
+</h3>
+
+<h3> Comments: </h3>
+
+<p>Please send all additional comments, modification/error correction to Bill 
+
+  Thomson and/or Scott Bramley</p>
+
+<ul>
+
+  <li>bill@wargameacademy.org [scott@wargameacademy.org]</li>
+
+  <li>www.wargameacademy.org</li>
+
+  <li>discord WGA8888</li>
+
+  <li>817-501-2978 -6 GMT; US Central Time<br>
+
+  </li>
+
+</ul>
+
+</body>
+
+</html>
+
