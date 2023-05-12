@@ -2,7 +2,7 @@
 <data version="1">
   <version>${project.version}</version>
   <VassalVersion>${vassal.version}</VassalVersion>
-  <dateSaved>1638740053831</dateSaved>
+  <dateSaved>1683907660148</dateSaved>
   <description>Virtual Squad Leader</description>
   <name>VSQL</name>
 </data>
