@@ -294,14 +294,16 @@ public class VSQLFootprint extends MarkMoved {
     final Graphics2D g2d = (Graphics2D) g;
     final double os_scale = g2d.getDeviceConfiguration().getDefaultTransform().getScaleX();
 
+    final Map map = getMap();
+
     /*
      * If we are asked to be drawn at a different zoom from the current map zoom
      * setting, then don't draw the trail as it will be in the wrong place.
      * (i.e. Mouse-over viewer)
      */
     double mapZoom = zoom;
-    if (this.getMap() != null) {
-      mapZoom = this.getMap().getZoom() * os_scale;
+    if (map != null) {
+      mapZoom = map.getZoom() * os_scale;
     }
 
     if (visible && (zoom == mapZoom)) {
@@ -315,10 +317,10 @@ public class VSQLFootprint extends MarkMoved {
        * made of the Map and a 10 pixel border. Circles are not drawn outside
        * this area.
        */
-      int mapHeight = getMap().mapSize().height;
-      int mapWidth = getMap().mapSize().width;
-      int edgeHeight = Integer.parseInt(getMap().getAttributeValueString(Map.EDGE_HEIGHT));
-      int edgeWidth = Integer.parseInt(getMap().getAttributeValueString(Map.EDGE_WIDTH));
+      int mapHeight = map.mapSize().height;
+      int mapWidth = map.mapSize().width;
+      int edgeHeight = Integer.parseInt(map.getAttributeValueString(Map.EDGE_HEIGHT));
+      int edgeWidth = Integer.parseInt(map.getAttributeValueString(Map.EDGE_WIDTH));
 
       int edgeClipHeight = (edgeHeight < EDGE_CLIP_LIMIT) ? edgeHeight : EDGE_CLIP_LIMIT;
       int edgeClipWidth = (edgeWidth < EDGE_CLIP_LIMIT) ? edgeWidth : EDGE_CLIP_LIMIT;
@@ -332,7 +334,7 @@ public class VSQLFootprint extends MarkMoved {
           (int) (height * zoom));
       Rectangle circleRect = new Rectangle(edgeWidth - EDGE_POINT_LIMIT, edgeHeight - EDGE_POINT_LIMIT, mapWidth + 2
           * EDGE_POINT_LIMIT, mapHeight + 2 * EDGE_POINT_LIMIT);
-      Rectangle visibleRect = getMap().getView().getVisibleRect();
+      Rectangle visibleRect = map.getView().getVisibleRect();
 
       Shape oldClip = g.getClip();
       g.setClip(newClip.intersection(visibleRect));
