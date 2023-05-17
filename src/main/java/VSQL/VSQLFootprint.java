@@ -285,94 +285,82 @@ public class VSQLFootprint extends MarkMoved {
   }
 
   public void draw(Graphics g, int x, int y, Component obs, double zoom) {
-
-    int x1, y1, x2, y2;
-    int lastValue = 0;
-
     piece.draw(g, x, y, obs, zoom);
+
+    final Map map = getMap();
+    if (map == null) {
+      return;
+    }
 
     final Graphics2D g2d = (Graphics2D) g;
     final double os_scale = g2d.getDeviceConfiguration().getDefaultTransform().getScaleX();
-
-    final Map map = getMap();
 
     /*
      * If we are asked to be drawn at a different zoom from the current map zoom
      * setting, then don't draw the trail as it will be in the wrong place.
      * (i.e. Mouse-over viewer)
      */
-    double mapZoom = zoom;
-    if (map != null) {
-      mapZoom = map.getZoom() * os_scale;
+    final double mapZoom = map.getZoom() * os_scale;
+    if (!visible || zoom != mapZoom) {
+      return;
     }
 
-    if (visible && (zoom == mapZoom)) {
-      Font f = new Font("Dialog", Font.PLAIN, (int) (BASE_FONT_SIZE * zoom));
-      boolean selected = Boolean.TRUE.equals(getProperty(Properties.SELECTED));
-      Composite oldComposite = g2d.getComposite();
+    int x1, y1, x2, y2;
+    int lastValue = 0;
 
-      /**
-       * newClip is an overall clipping region made up of the Map itself and a
-       * border of 20 pixels. No drawing at all outside this area. mapRect is
-       * made of the Map and a 10 pixel border. Circles are not drawn outside
-       * this area.
-       */
-      int mapHeight = map.mapSize().height;
-      int mapWidth = map.mapSize().width;
-      int edgeHeight = Integer.parseInt(map.getAttributeValueString(Map.EDGE_HEIGHT));
-      int edgeWidth = Integer.parseInt(map.getAttributeValueString(Map.EDGE_WIDTH));
+    Font f = new Font("Dialog", Font.PLAIN, (int) (BASE_FONT_SIZE * zoom));
+    boolean selected = Boolean.TRUE.equals(getProperty(Properties.SELECTED));
+    Composite oldComposite = g2d.getComposite();
 
-      int edgeClipHeight = (edgeHeight < EDGE_CLIP_LIMIT) ? edgeHeight : EDGE_CLIP_LIMIT;
-      int edgeClipWidth = (edgeWidth < EDGE_CLIP_LIMIT) ? edgeWidth : EDGE_CLIP_LIMIT;
+    /**
+     * newClip is an overall clipping region made up of the Map itself and a
+     * border of 20 pixels. No drawing at all outside this area. mapRect is
+     * made of the Map and a 10 pixel border. Circles are not drawn outside
+     * this area.
+     */
+    int mapHeight = map.mapSize().height;
+    int mapWidth = map.mapSize().width;
+    int edgeHeight = Integer.parseInt(map.getAttributeValueString(Map.EDGE_HEIGHT));
+    int edgeWidth = Integer.parseInt(map.getAttributeValueString(Map.EDGE_WIDTH));
 
-      int clipX = edgeWidth - edgeClipWidth;
-      int clipY = edgeHeight - edgeClipHeight;
-      int width = mapWidth - (2 * edgeWidth) + 2 * edgeClipWidth;
-      int height = mapHeight - (2 * edgeHeight) + 2 * edgeClipHeight;
+    int edgeClipHeight = (edgeHeight < EDGE_CLIP_LIMIT) ? edgeHeight : EDGE_CLIP_LIMIT;
+    int edgeClipWidth = (edgeWidth < EDGE_CLIP_LIMIT) ? edgeWidth : EDGE_CLIP_LIMIT;
 
-      Rectangle newClip = new Rectangle((int) (clipX * zoom), (int) (clipY * zoom), (int) (width * zoom),
-          (int) (height * zoom));
-      Rectangle circleRect = new Rectangle(edgeWidth - EDGE_POINT_LIMIT, edgeHeight - EDGE_POINT_LIMIT, mapWidth + 2
-          * EDGE_POINT_LIMIT, mapHeight + 2 * EDGE_POINT_LIMIT);
-      Rectangle visibleRect = map.getView().getVisibleRect();
+    int clipX = edgeWidth - edgeClipWidth;
+    int clipY = edgeHeight - edgeClipHeight;
+    int width = mapWidth - (2 * edgeWidth) + 2 * edgeClipWidth;
+    int height = mapHeight - (2 * edgeHeight) + 2 * edgeClipHeight;
 
-      Shape oldClip = g.getClip();
-      g.setClip(newClip.intersection(visibleRect));
+    Rectangle newClip = new Rectangle((int) (clipX * zoom), (int) (clipY * zoom), (int) (width * zoom),
+        (int) (height * zoom));
+    Rectangle circleRect = new Rectangle(edgeWidth - EDGE_POINT_LIMIT, edgeHeight - EDGE_POINT_LIMIT, mapWidth + 2
+        * EDGE_POINT_LIMIT, mapHeight + 2 * EDGE_POINT_LIMIT);
 
-      float lineWidth = SELECTED_LINE_WIDTH;
-      if (!selected) {         
-         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5F));
-         lineWidth = UNSELECTED_LINE_WIDTH;
-      }
-      g2d.setStroke(new BasicStroke(lineWidth));
-      g2d.setColor(LINE_COLOR);
-      g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-      Enumeration<Point> e = getPointList();
-      Point lastP = null;
-      Point here = getPosition();
-      while (e.hasMoreElements()) {
-        CAPoint cap = (CAPoint) e.nextElement();
-        Point p = cap.getLocation();
+    final Rectangle visibleRect = map.componentToDrawing(map.getVisibleRect(), os_scale);
 
-        if (lastP != null) {
-          x1 = (int) (lastP.x * zoom);
-          y1 = (int) (lastP.y * zoom);
-          x2 = (int) (p.x * zoom);
-          y2 = (int) (p.y * zoom);     
-          
-          double dist = getDistance(x1, y1, x2, y2);
-          int xDiff = (int) ((CIRCLE_RADIUS * zoom * (x2 - x1)) / dist);
-          int yDiff = (int) ((CIRCLE_RADIUS * zoom * (y2 - y1)) / dist);
-          
-          g.drawLine(x1+xDiff, y1+yDiff, x2-xDiff, y2-yDiff);
-        }
-        lastP = p;
-      }
+    Shape oldClip = g.getClip();
+    g.setClip(newClip.intersection(visibleRect));
+
+    float lineWidth = SELECTED_LINE_WIDTH;
+    if (!selected) {         
+       g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5F));
+       lineWidth = UNSELECTED_LINE_WIDTH;
+    }
+    g2d.setStroke(new BasicStroke(lineWidth));
+    g2d.setColor(LINE_COLOR);
+    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    Enumeration<Point> e = getPointList();
+    Point lastP = null;
+    Point here = getPosition();
+    while (e.hasMoreElements()) {
+      CAPoint cap = (CAPoint) e.nextElement();
+      Point p = cap.getLocation();
+
       if (lastP != null) {
         x1 = (int) (lastP.x * zoom);
         y1 = (int) (lastP.y * zoom);
-        x2 = (int) (here.x * zoom);
-        y2 = (int) (here.y * zoom);
+        x2 = (int) (p.x * zoom);
+        y2 = (int) (p.y * zoom);     
         
         double dist = getDistance(x1, y1, x2, y2);
         int xDiff = (int) ((CIRCLE_RADIUS * zoom * (x2 - x1)) / dist);
@@ -380,65 +368,77 @@ public class VSQLFootprint extends MarkMoved {
         
         g.drawLine(x1+xDiff, y1+yDiff, x2-xDiff, y2-yDiff);
       }
+      lastP = p;
+    }
+    if (lastP != null) {
+      x1 = (int) (lastP.x * zoom);
+      y1 = (int) (lastP.y * zoom);
+      x2 = (int) (here.x * zoom);
+      y2 = (int) (here.y * zoom);
+      
+      double dist = getDistance(x1, y1, x2, y2);
+      int xDiff = (int) ((CIRCLE_RADIUS * zoom * (x2 - x1)) / dist);
+      int yDiff = (int) ((CIRCLE_RADIUS * zoom * (y2 - y1)) / dist);
+      
+      g.drawLine(x1+xDiff, y1+yDiff, x2-xDiff, y2-yDiff);
+    }
 
-      int step = 0;
-      e = getPointList();
-      while (e.hasMoreElements()) {
-        step += 1;
-        CAPoint cap = (CAPoint) e.nextElement();
-        Point p = cap.getLocation();
+    int step = 0;
+    e = getPointList();
+    while (e.hasMoreElements()) {
+      step += 1;
+      CAPoint cap = (CAPoint) e.nextElement();
+      Point p = cap.getLocation();
 
-        if (circleRect.contains(p)) {
-          x1 = (int) (p.x * zoom);
-          y1 = (int) (p.y * zoom);
-          x2 = (int) ((p.x - CIRCLE_RADIUS) * zoom);
-          y2 = (int) ((p.y - CIRCLE_RADIUS) * zoom);
-          int radius = (int) (CIRCLE_RADIUS * 2 * zoom);
-          g.setColor(FILL_COLOR);
-          g.fillOval(x2, y2, radius, radius);
-          g.setColor(CIRCLE_COLOR);
-          g.drawOval(x2, y2, radius, radius);
+      if (circleRect.contains(p)) {
+        x1 = (int) (p.x * zoom);
+        y1 = (int) (p.y * zoom);
+        x2 = (int) ((p.x - CIRCLE_RADIUS) * zoom);
+        y2 = (int) ((p.y - CIRCLE_RADIUS) * zoom);
+        int radius = (int) (CIRCLE_RADIUS * 2 * zoom);
+        g.setColor(FILL_COLOR);
+        g.fillOval(x2, y2, radius, radius);
+        g.setColor(CIRCLE_COLOR);
+        g.drawOval(x2, y2, radius, radius);
+        
+        /**
+         * For a vehicled, draw an arrow showing the CA of the vehicle
+         * as it entered the hex.
+         */
+        if (isVehicle() && lastValue > 0 && selected) {
           
-          /**
-           * For a vehicled, draw an arrow showing the CA of the vehicle
-           * as it entered the hex.
-           */
-          if (isVehicle() && lastValue > 0 && selected) {
-            
-            try {
-              ImageOp im = getCAImage(lastValue);
-              if (zoom == 1.0) {
-                g.drawImage(im.getImage(), x2, y2, obs);
-              }
-              else {
-                ImageOp scaled = Op.scale(im, zoom);
-                g.drawImage(scaled.getImage(), x2, y2, obs);
-              }
+          try {
+            ImageOp im = getCAImage(lastValue);
+            if (zoom == 1.0) {
+              g.drawImage(im.getImage(), x2, y2, obs);
             }
-            catch (Exception ex) {
-
+            else {
+              ImageOp scaled = Op.scale(im, zoom);
+              g.drawImage(scaled.getImage(), x2, y2, obs);
             }
           }
-          
-          /**
-           * For a leader counter, display the number of squads or crews
-           * that moved into the hex stacked with the leader. (+1 for the leader)
-           */
-          else if (leader && lastValue > 0 && selected) {
-           
-            LabelUtils.drawLabel(g, lastValue + 1 + "", x1, y1, f, LabelUtils.CENTER,
-               LabelUtils.CENTER, CIRCLE_COLOR, null, null);
-            
+          catch (Exception ex) {
+
           }
         }
-        lastValue = cap.ca;
+        
+        /**
+         * For a leader counter, display the number of squads or crews
+         * that moved into the hex stacked with the leader. (+1 for the leader)
+         */
+        else if (leader && lastValue > 0 && selected) {
+         
+          LabelUtils.drawLabel(g, lastValue + 1 + "", x1, y1, f, LabelUtils.CENTER,
+             LabelUtils.CENTER, CIRCLE_COLOR, null, null);
+          
+        }
       }
-      if (! selected) {
-         g2d.setComposite(oldComposite);
-      }
-      g.setClip(oldClip);
-
+      lastValue = cap.ca;
     }
+    if (! selected) {
+      g2d.setComposite(oldComposite);
+    }
+    g.setClip(oldClip);
   }
 
   protected double getDistance(int x1, int y1, int x2, int y2) {
