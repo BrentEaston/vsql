@@ -20,24 +20,15 @@ package VASL.build.module.map;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Enumeration;
-import java.util.Vector;
 
 import VASL.counters.ASLHighlighter;
-import VASL.counters.ASLProperties;
-import VASL.counters.Concealable;
-import VASL.counters.Concealment;
 import VASSAL.build.Buildable;
 import VASSAL.build.GameModule;
 import VASSAL.build.module.Map;
 import VASSAL.build.module.map.PieceMover;
 import VASSAL.command.Command;
 import VASSAL.command.NullCommand;
-import VASSAL.counters.Decorator;
-import VASSAL.counters.DragBuffer;
 import VASSAL.counters.GamePiece;
-import VASSAL.counters.PieceIterator;
-import VASSAL.counters.Stack;
 import VASSAL.tools.LaunchButton;
 
 public class ASLPieceMover extends PieceMover {
@@ -101,125 +92,5 @@ public class ASLPieceMover extends PieceMover {
     BooleanConfigurer option = new BooleanConfigurer(MARK_MOVED, "Mark moved units");
     GameModule.getGameModule().getPrefs().addOption(option);
 */
-  }
-
-  /**
-   * In addition to moving pieces normally, we mark units that have moved
-   * and adjust the concealment status of units
-   */
-  public Command movePieces(Map m, java.awt.Point p) {
-    extractMovable();
-
-/*
-    Vector toBeMarked = new Vector();
-    Vector concealment = new Vector();
-    Vector concealable = new Vector();
-    Vector concealStacks = new Vector();
-    for (PieceIterator it = DragBuffer.getBuffer().getIterator();
-         it.hasMoreElements();) {
-      GamePiece piece = it.nextPiece();
-      if (piece instanceof Stack) {
-        for (Enumeration e = ((Stack) piece).getPieces();
-             e.hasMoreElements();) {
-          GamePiece sub = (GamePiece) e.nextElement();
-          toBeMarked.addElement(sub);
-          if (Decorator.getDecorator(sub, Concealment.class) != null) {
-            if (!concealStacks.contains(piece)) {
-              concealStacks.addElement(piece);
-            }
-            if (!concealment.contains(sub)) {
-              concealment.addElement(sub);
-            }
-          }
-        }
-      }
-      else {
-        toBeMarked.addElement(piece);
-        Concealment c = (Concealment) Decorator.getDecorator(piece, Concealment.class);
-        if (c != null) {
-          concealment.addElement(piece);
-          if (piece.getParent() != null) {
-            concealStacks.addElement(piece.getParent());
-          }
-        }
-        if (piece.getMap() != null) {
-          Concealable c2 = (Concealable) Decorator.getDecorator(piece, Concealable.class);
-          if (c2 != null) {
-            concealable.addElement(piece);
-          }
-        }
-      }
-    }
-*/
-    GamePiece movingConcealment = null;
-    Stack formerParent = null;
-    PieceIterator it = DragBuffer.getBuffer().getIterator();
-    if (it.hasMoreElements()) {
-      GamePiece moving = it.nextPiece();
-      if (moving instanceof Stack) {
-        Stack s = (Stack) moving;
-        moving = s.topPiece();
-        if (moving != s.bottomPiece()) {
-          moving = null;
-        }
-      }
-      if (Decorator.getDecorator(moving, Concealment.class) != null
-          && !it.hasMoreElements()) {
-        movingConcealment = moving;
-        formerParent = movingConcealment.getParent();
-      }
-    }
-    Command c = super.movePieces(m, p);
-    if (c == null || c.isNull()) {
-      return c;
-    }
-    if (movingConcealment != null) {
-      if (movingConcealment.getParent() != null) {
-        c.append(Concealable.adjustConcealment(movingConcealment.getParent()));
-      }
-      if (formerParent != null) {
-        c.append(Concealable.adjustConcealment(formerParent));
-      }
-    }
-    return c;
-  }
-
-  /**
-   * Remove all un-movable pieces from the DragBuffer.  Un-movable pieces
-   * are those with the ASLProperties.LOCATION property set.
-   */
-  public void extractMovable() {
-    Vector movable = new Vector();
-    for (PieceIterator it = DragBuffer.getBuffer().getIterator();
-         it.hasMoreElements();) {
-      GamePiece p = it.nextPiece();
-      if (p instanceof Stack) {
-        Vector toMove = new Vector();
-        for (PieceIterator pi = new PieceIterator(((Stack) p).getPiecesIterator());
-             pi.hasMoreElements();) {
-          GamePiece p1 = pi.nextPiece();
-          if (p1.getProperty(ASLProperties.LOCATION) == null) {
-            toMove.addElement(p1);
-          }
-        }
-        if (toMove.size() == ((Stack) p).getPieceCount()
-            || toMove.size() == 0) {
-          movable.addElement(p);
-        }
-        else {
-          for (int i = 0; i < toMove.size(); ++i) {
-            movable.addElement(toMove.elementAt(i));
-          }
-        }
-      }
-      else {
-        movable.addElement(p);
-      }
-    }
-    DragBuffer.getBuffer().clear();
-    for (Enumeration e = movable.elements();
-         e.hasMoreElements();) {
-      DragBuffer.getBuffer().add((GamePiece) e.nextElement());
-    }
   }
 }
