@@ -108,8 +108,8 @@ public class VSQLPieceMover extends ASLPieceMover {
       if (formerParent != null) {
         c.append(Concealable.adjustConcealment(formerParent));
       }
-    } else 
-    {
+    }
+    else {
     	it = DragBuffer.getBuffer().getIterator();
         if (it.hasMoreElements()) {
         	GamePiece moving = it.nextPiece();
