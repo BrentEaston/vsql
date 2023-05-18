@@ -75,7 +75,7 @@ public class VSQLMarkMoved extends Decorator implements EditablePiece {
   }
 
   public void setProperty(Object key, Object val) {
-    if (Properties.MOVED.equals(key)) {
+    if (Properties.MOVED.equals(key) || Properties.MAYBE_MOVED.equals(key)) {
       setMoved(Boolean.TRUE.equals(val));
       super.setProperty(key, val);  // Pass onto Footprint
     }

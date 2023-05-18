@@ -253,7 +253,7 @@ public class VSQLFootprint extends MarkMoved {
    * command is executed
    */
   public void setProperty(Object key, Object val) {
-    if (Properties.MOVED.equals(key)) {
+    if (Properties.MOVED.equals(key) || Properties.MAYBE_MOVED.equals(key)) {
       setMoved(Boolean.TRUE.equals(val));
       piece.setProperty(key, val); // Pass on to MarkMoved
     }
