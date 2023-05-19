@@ -22,6 +22,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 
@@ -39,13 +40,17 @@ import VASSAL.tools.image.LabelUtils;
  * In VASL, we draw the hex location when a unit is selected
  */
 public class ASLHighlighter extends ColoredBorder implements Buildable {
-  Font f = new Font("Dialog", 0, 10);
+  private final Font f = new Font("Dialog", 0, 10);
 
   public void draw(GamePiece p, Graphics g, int x, int y, Component obs, double zoom) {
     super.draw(p, g, x, y, obs, zoom);
     if (p.getMap() != null
         && GlobalOptions.getInstance().autoReportEnabled()
         && p.getMap().locationName(p.getPosition()) != null) {
+      final Graphics2D g2d = (Graphics2D) g;
+      final double os_scale = g2d.getDeviceConfiguration().getDefaultTransform().getScaleX();
+      g2d.setFont(f.deriveFont((float)(f.getSize() * os_scale)));
+
       Rectangle r = p.getShape().getBounds();
       if (p.getParent() != null) {
         Point rel = p.getMap().getStackMetrics().relativePosition(p.getParent(), p);
