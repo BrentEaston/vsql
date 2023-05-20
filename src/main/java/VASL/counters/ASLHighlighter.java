@@ -49,7 +49,8 @@ public class ASLHighlighter extends ColoredBorder implements Buildable {
         && p.getMap().locationName(p.getPosition()) != null) {
       final Graphics2D g2d = (Graphics2D) g;
       final double os_scale = g2d.getDeviceConfiguration().getDefaultTransform().getScaleX();
-      g2d.setFont(f.deriveFont((float)(f.getSize() * os_scale)));
+
+      final Font sf = f.deriveFont((float)(f.getSize() * os_scale));
 
       Rectangle r = p.getShape().getBounds();
       if (p.getParent() != null) {
@@ -60,7 +61,7 @@ public class ASLHighlighter extends ColoredBorder implements Buildable {
       }
       y += (int) (zoom * (r.y + r.height + 6));
       LabelUtils.drawLabel(g, p.getMap().locationName(p.getPosition()),
-                          x, y, f, LabelUtils.CENTER, LabelUtils.TOP,
+                          x, y, sf, LabelUtils.CENTER, LabelUtils.TOP,
                           Color.black, Color.white, Color.black);
     }
   }
